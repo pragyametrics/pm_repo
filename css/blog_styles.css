@@ -892,7 +892,7 @@
 /* Responsive adjustments */
 @media (max-width: 1200px) {
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -1007,7 +1007,7 @@
 
 .hero-title {
     color: #ffffff;
-    font-size: 4rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0;
     line-height: 1.1;
@@ -1097,7 +1097,7 @@
     }
     
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 1.5rem;
         align-items: center;
     }
     
