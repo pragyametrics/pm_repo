@@ -165,7 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /* Update this JavaScript function in your blog_scripts.js file */
 
-    // Render blog tiles based on data - updated function
+/* Update the renderBlogTiles function in your blog_scripts.js */
+
+    // Render blog tiles based on data with glow effect
     function renderBlogTiles(blogs, tilesContainer) {
         tilesContainer.innerHTML = '';
         
@@ -181,6 +183,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get icon SVG based on category
             const iconSvg = getIconForCategory(blog.category);
             
+            // Create wrapper for glow effect
+            const wrapperElement = document.createElement('div');
+            wrapperElement.className = 'glow-wrapper';
+            
+            // Create tile element
             const tileElement = document.createElement('a');
             tileElement.href = blog.html_page + '?id=' + blog.id + '&title=' + encodeURIComponent(blog.title) + '&category=' + encodeURIComponent(blog.category);
             tileElement.className = 'blog-tile';
@@ -205,13 +212,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             
+            // Create glow element
+            const glowElement = document.createElement('div');
+            glowElement.className = 'tile-glow';
+            
             // Add lighting effect for the icon
             addLightingEffect(tileElement);
             
-            tilesContainer.appendChild(tileElement);
+            // Append elements to the DOM
+            wrapperElement.appendChild(tileElement);
+            wrapperElement.appendChild(glowElement);
+            tilesContainer.appendChild(wrapperElement);
         });
     }
-    
+
 
 
 
