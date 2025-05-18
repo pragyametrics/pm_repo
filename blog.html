@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Pragyametrics</title>
-    <!-- ✅ Favicon setup -->
     <link rel="icon" href="images/brain128.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/blog_styles.css">
     <script type="text/javascript">
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -17,15 +17,16 @@
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "rgwjbwq5hz");
     </script>
-       <!-- Custom Clarity User Tracking -->
+    <!-- Custom Clarity User Tracking -->
     <script src="js/clarity-user-tracking.js" defer></script>
     
-    <!-- Your other head elements (CSS, etc.) -->
+    <!-- Main JS -->
     <script src="js/script.js" defer></script>
+    <!-- Blog specific JS -->
+    <script src="js/blog.js" defer></script>
 </head>
 <body>
     <header id="header">
-        
         <div class="logo-container">
             <img src="images/brain.png" alt="Pragyametrics Logo" class="logo">
             <div class="logo-text-container">
@@ -41,7 +42,7 @@
             <a href="services.html">Services</a>
             <a href="methodology.html">Methodology</a>
             <a href="engagement-models.html">Engagement Models</a>
-            <a href="blog.html">Blog</a>
+            <a href="blog.html" class="active">Blog</a>
             <a href="contact.html">Contact Us</a>
         </nav>
         
@@ -66,44 +67,50 @@
     </div>
 
     <main id="main-content">
-        <section class="coming-soon" id="blog">
-            <div class="container">
-                <h2>Our Blog</h2>
-                <div class="about-content">
-                    <p>We're currently developing valuable content to help you navigate the AI landscape in India. Our team is working on insights, case studies, and practical guides tailored for Indian businesses.</p>
+        <section class="blog-section" id="blog">
+            <div class="blog-container">
+                <div class="blog-header">
+                    <h2>Pragyametrics Knowledge Base</h2>
+                    <p>Explore our collection of specialized articles, technical papers, and industry insights on AI implementation for Indian enterprises.</p>
                 </div>
                 
-                <div class="work-in-progress">
-                    <div class="wip-icon">
-                        <i>🚧</i>
+                <!-- Search Section -->
+                <div class="blog-search">
+                    <div class="search-container">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" class="search-input" id="search-input" placeholder="Search knowledge base...">
                     </div>
-                    <h3>Coming Soon</h3>
-                    <p>We're building something valuable for you. Our blog will feature:</p>
-                    <ul>
-                        <li><strong>AI Insights:</strong> Breaking down complex concepts for Indian business context</li>
-                        <li><strong>Implementation Stories:</strong> Real-world case studies from Indian companies</li>
-                        <li><strong>Technology Trends:</strong> Updates on AI innovations relevant to the Indian market</li>
-                        <li><strong>Best Practices:</strong> Guidance on effective AI adoption strategies</li>
-                    </ul>
-                    <p class="eta">Expected launch: Q2 2025</p>
                 </div>
                 
-                <div class="stay-informed">
-                    <h3>Stay Informed</h3>
-                    <p>While our blog is under development, you can still get valuable AI insights:</p>
-                    <div class="info-options">
-                        <div class="info-option">
-                            <div class="option-icon">📨</div>
-                            <h4>Join Our Mailing List</h4>
-                            <p>Be the first to know when our blog launches and receive exclusive AI insights.</p>
-                            <a href="contact.html" class="secondary-button">Subscribe</a>
-                        </div>
-                        <div class="info-option">
-                            <div class="option-icon">💬</div>
-                            <h4>Schedule a Consultation</h4>
-                            <p>Can't wait? Talk directly with our AI specialists about your specific needs.</p>
-                            <a href="contact.html" class="cta-button">Contact Us</a>
-                        </div>
+                <!-- Blog filters - Will be populated from JSON dynamically -->
+                <div class="blog-filters">
+                    <div class="blog-filter active">All</div>
+                    <div class="blog-filter">AI Strategy</div>
+                    <div class="blog-filter">Implementation</div>
+                    <div class="blog-filter">Case Studies</div>
+                    <div class="blog-filter">Technical Papers</div>
+                    <div class="blog-filter">Industry</div>
+                </div>
+                
+                <!-- Blog plates container - Will be populated from JSON dynamically -->
+                <div class="blog-plates">
+                    <!-- Loading indicator -->
+                    <div class="loading-indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loader-icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                        <p>Loading blog content...</p>
+                    </div>
+                </div>
+                
+                <!-- Newsletter Section -->
+                <div class="blog-newsletter">
+                    <div class="blog-newsletter-content">
+                        <h3 class="blog-newsletter-title">Stay Updated with Our Knowledge Base</h3>
+                        <p class="blog-newsletter-description">Subscribe to receive notifications when new technical papers and insights are published.</p>
+                        <form class="blog-newsletter-form">
+                            <input type="email" class="blog-newsletter-input" placeholder="Your email address">
+                            <button type="submit" class="blog-newsletter-button">Subscribe</button>
+                        </form>
+                        <p class="blog-newsletter-privacy">We respect your privacy. Unsubscribe at any time.</p>
                     </div>
                 </div>
             </div>
@@ -112,8 +119,8 @@
         <!-- Call-to-Action Banner -->
         <section class="cta-banner" id="cta">
             <div class="container">
-                <h2>Have a Specific Question About AI?</h2>
-                <p>Reach out to our team for personalized guidance on your AI journey.</p>
+                <h2>Need Specialized AI Guidance?</h2>
+                <p>Reach out to our team for personalized consultation on your AI implementation journey.</p>
                 <a href="contact.html" class="cta-button">Get in Touch</a>
             </div>
         </section>
