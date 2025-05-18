@@ -411,7 +411,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 35px; /* Increased gap to account for protruding badges */
-    margin-top: 40px; /* Increased top margin */
+    margin-top: 10px; /* Increased top margin */
 }
 
 
