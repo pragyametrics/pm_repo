@@ -332,11 +332,14 @@
     margin-top: 30px;
 }
 
+
+/* Blog tile corrections - update these in your blog_styles.css file */
+
 /* Blog tile styling */
 .blog-tile {
-    background-color: var(--card-bg);
+    background-color: #111111;
     border-radius: 15px;
-    padding: 30px 25px;
+    padding: 40px 25px 30px; /* Increased top padding to make room for badges */
     position: relative;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -344,10 +347,84 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     display: block;
     text-decoration: none;
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to visible to allow badges to overflow */
     opacity: 0;
     transform: translateY(40px);
+    margin-top: 15px; /* Added margin to account for protruding badges */
 }
+
+/* Category label */
+.tile-category {
+    position: absolute;
+    top: -15px; /* Moved up slightly */
+    right: 20px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ID badge */
+.tile-id {
+    position: absolute;
+    left: 25px;
+    top: -15px; /* Moved up slightly */
+    background: linear-gradient(45deg, #4254ff, #5a66ff);
+    color: white;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Category icon styling */
+.category-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(66, 84, 255, 0.15), rgba(80, 220, 100, 0.05));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px; /* Centered horizontally and increased bottom margin */
+    position: relative;
+    z-index: 1;
+}
+
+/* Blog title */
+.blog-tile h3 {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 15px 0 15px; /* Adjusted margin */
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+/* Blog grid adjusted spacing */
+.blog-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 35px; /* Increased gap to account for protruding badges */
+    margin-top: 40px; /* Increased top margin */
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .blog-tile.visible {
     opacity: 1;
