@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Pragyametrics</title>
-    <!-- ✅ Favicon setup -->
+    <title>Knowledge Base - Pragyametrics</title>
     <link rel="icon" href="images/brain128.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -12,15 +11,408 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/blog_styles.css">
     <script type="text/javascript">
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "rgwjbwq5hz");
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "rgwjbwq5hz");
     </script>
-    <!-- Custom Clarity User Tracking -->
     <script src="js/clarity-user-tracking.js" defer></script>
     <script src="js/script.js" defer></script>
+    <script src="js/blog_scripts.js" defer></script>
+    
+    <style>
+        /* Additional modern styling for blog page */
+        .blog-header {
+            background: linear-gradient(to right, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7)), 
+                        url('images/brain.png') no-repeat center/contain;
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brain-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: particleFloat 8s infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        .particle:nth-child(odd) {
+            background-color: rgba(66, 84, 255, 0.6);
+        }
+        
+        .particle:nth-child(even) {
+            background-color: rgba(87, 204, 153, 0.6);
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--move-x, 50px), var(--move-y, 50px));
+                opacity: 0;
+            }
+        }
+        
+        .search-container {
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-container:focus-within {
+            border-color: #4254ff;
+            box-shadow: 0 4px 20px rgba(66, 84, 255, 0.2);
+        }
+        
+        .search-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-icon {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .blog-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .blog-filter {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .blog-filter:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .blog-filter.active {
+            background-color: #4254ff;
+            color: white;
+            box-shadow: 0 4px 12px rgba(66, 84, 255, 0.3);
+        }
+        
+        .blog-plates {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .blog-plate {
+            position: relative;
+            background-color: #111111;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: block;
+        }
+        
+        .blog-plate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                circle at top right,
+                rgba(66, 84, 255, 0.1),
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .blog-plate:hover {
+            transform: translateY(-5px);
+            border-color: rgba(66, 84, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .blog-plate:hover::before {
+            opacity: 1;
+        }
+        
+        .plate-id {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #4254ff;
+            color: white;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 15px;
+            z-index: 2;
+        }
+        
+        .plate-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 15px;
+            z-index: 2;
+            color: white;
+        }
+        
+        /* Categories with different colors */
+        .blog-plate[data-category="AI Strategy"] .plate-category {
+            background-color: #4254ff;
+        }
+        
+        .blog-plate[data-category="Implementation"] .plate-category {
+            background-color: #3e7cf7;
+        }
+        
+        .blog-plate[data-category="Case Studies"] .plate-category {
+            background-color: #6350c5;
+        }
+        
+        .blog-plate[data-category="Technical Papers"] .plate-category {
+            background-color: #557dee;
+        }
+        
+        .blog-plate[data-category="Industry"] .plate-category {
+            background-color: #294db8;
+        }
+        
+        .plate-content {
+            position: relative;
+            z-index: 2;
+            margin-top: 30px;
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #4254ff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plate-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: white;
+            line-height: 1.4;
+        }
+        
+        .plate-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .plate-date {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        .plate-date svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+        }
+        
+        /* Newsletter section */
+        .blog-newsletter {
+            margin-top: 80px;
+            padding: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4254ff 0%, #557dee 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvcGF0dGVybj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIiAvPjwvc3ZnPg==');
+            opacity: 0.3;
+        }
+        
+        .blog-newsletter h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .blog-newsletter p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .blog-newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .blog-newsletter-input {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .blog-newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .blog-newsletter-button {
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            background-color: white;
+            color: #4254ff;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-newsletter-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background-color: #4254ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .blog-header {
+                padding: 80px 0 40px;
+            }
+            
+            .blog-filters {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .blog-plates {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-newsletter {
+                padding: 30px 20px;
+            }
+            
+            .blog-newsletter-form {
+                flex-direction: column;
+            }
+            
+            .blog-newsletter-button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <header id="header">
@@ -64,113 +456,45 @@
     </div>
 
     <main id="main-content">
-        <section class="blog-section">
+        <!-- Blog Header with Animation -->
+        <section class="blog-header">
+            <div class="brain-particles" id="brain-particles"></div>
             <div class="container">
-                <h2>Pragyametrics Knowledge Base</h2>
-                <p class="blog-subtitle">
+                <h2 class="animate-fadein">Pragyametrics Knowledge Base</h2>
+                <p class="blog-subtitle animate-slidein">
                     Explore our collection of specialized articles, technical papers, and industry insights on AI implementation for Indian enterprises.
                 </p>
                 
                 <!-- Search box -->
-                <div class="search-wrapper">
+                <div class="search-wrapper animate-slidein" style="animation-delay: 0.2s;">
                     <div class="search-container">
                         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <input type="text" class="search-input" id="search-input" placeholder="Search knowledge base...">
                     </div>
                 </div>
-                
+            </div>
+        </section>
+        
+        <section class="blog-section">
+            <div class="container">
                 <!-- Filter tabs -->
-                <div class="filter-tabs" id="filter-tabs">
-                    <div class="filter-tab active">All</div>
-                    <div class="filter-tab">AI Strategy</div>
-                    <div class="filter-tab">Implementation</div>
-                    <div class="filter-tab">Case Studies</div>
-                    <div class="filter-tab">Technical Papers</div>
-                    <div class="filter-tab">Industry</div>
+                <div class="blog-filters">
+                    <!-- Will be populated by JS -->
                 </div>
                 
-                <!-- Blog tiles -->
-                <div class="blog-grid" id="blog-grid">
-                    <!-- Blog tile 1 -->
-                    <a href="blogs/work_in_progress.html?id=P001&title=Accelerating%20AI%20Adoption%20in%20India:%20Implementation%20Barriers&category=AI%20Strategy" class="blog-tile">
-                        <div class="tile-label ai-strategy">AI Strategy</div>
-                        <div class="tile-id">P001</div>
-                        <h3>Accelerating AI Adoption in India: Implementation Barriers</h3>
-                        <p>Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them.</p>
-                        <div class="tile-date">February 10, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 2 -->
-                    <a href="blogs/work_in_progress.html?id=P002&title=Building%20RAG%20Systems%20for%20Indian%20Healthcare:%20PM-JAY%20Case%20Study&category=Implementation" class="blog-tile">
-                        <div class="tile-label implementation">Implementation</div>
-                        <div class="tile-id">P002</div>
-                        <h3>Building RAG Systems for Indian Healthcare: PM-JAY Case Study</h3>
-                        <p>Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system.</p>
-                        <div class="tile-date">April 28, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 3 -->
-                    <a href="blogs/work_in_progress.html?id=P003&title=Calculating%20AI%20ROI%20for%20Indian%20Enterprises:%20Beyond%20Conventional%20Metrics&category=AI%20Strategy" class="blog-tile">
-                        <div class="tile-label ai-strategy">AI Strategy</div>
-                        <div class="tile-id">P003</div>
-                        <h3>Calculating AI ROI for Indian Enterprises: Beyond Conventional Metrics</h3>
-                        <p>Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.</p>
-                        <div class="tile-date">April 15, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 4 -->
-                    <a href="blogs/work_in_progress.html?id=P004&title=Multilingual%20AI:%20Bridging%20Language%20Barriers%20in%20India's%20Digital%20Transformation&category=Technical%20Papers" class="blog-tile">
-                        <div class="tile-label technical-papers">Technical Papers</div>
-                        <div class="tile-id">P004</div>
-                        <h3>Multilingual AI: Bridging Language Barriers in India's Digital Transformation</h3>
-                        <p>Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape.</p>
-                        <div class="tile-date">April 8, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 5 -->
-                    <a href="blogs/work_in_progress.html?id=P005&title=AI-Powered%20Predictive%20Maintenance:%20Transforming%20Indian%20Manufacturing&category=Industry" class="blog-tile">
-                        <div class="tile-label industry">Industry</div>
-                        <div class="tile-id">P005</div>
-                        <h3>AI-Powered Predictive Maintenance: Transforming Indian Manufacturing</h3>
-                        <p>Case studies and implementation strategies for predictive maintenance in India's manufacturing sector.</p>
-                        <div class="tile-date">March 25, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 6 -->
-                    <a href="blogs/work_in_progress.html?id=P006&title=Designing%20Agentic%20AI%20Workflows%20for%20Business%20Process%20Automation&category=Technical%20Papers" class="blog-tile">
-                        <div class="tile-label technical-papers">Technical Papers</div>
-                        <div class="tile-id">P006</div>
-                        <h3>Designing Agentic AI Workflows for Business Process Automation</h3>
-                        <p>Technical architecture and implementation guidelines for creating autonomous AI workflows.</p>
-                        <div class="tile-date">March 12, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 7 -->
-                    <a href="blogs/work_in_progress.html?id=P007&title=LLM%20Evaluation%20Metrics%20for%20Enterprise%20Applications&category=Technical%20Papers" class="blog-tile">
-                        <div class="tile-label technical-papers">Technical Papers</div>
-                        <div class="tile-id">P007</div>
-                        <h3>LLM Evaluation Metrics for Enterprise Applications</h3>
-                        <p>Comprehensive framework for evaluating large language models in enterprise contexts.</p>
-                        <div class="tile-date">March 5, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 8 -->
-                    <a href="blogs/work_in_progress.html?id=P008&title=Generative%20AI%20Applications%20in%20Indian%20Financial%20Services&category=Industry" class="blog-tile">
-                        <div class="tile-label industry">Industry</div>
-                        <div class="tile-id">P008</div>
-                        <h3>Generative AI Applications in Indian Financial Services</h3>
-                        <p>Overview of use cases and implementation strategies for generative AI in India's financial sector.</p>
-                        <div class="tile-date">February 22, 2025</div>
-                    </a>
-                    
-                    <!-- Blog tile 9 -->
-                    <a href="blogs/work_in_progress.html?id=P009&title=Bias%20Mitigation%20in%20AI%20Systems%20for%20the%20Indian%20Context&category=Case%20Studies" class="blog-tile">
-                        <div class="tile-label case-studies">Case Studies</div>
-                        <div class="tile-id">P009</div>
-                        <h3>Bias Mitigation in AI Systems for the Indian Context</h3>
-                        <p>Practical approaches to identifying and mitigating biases in AI systems deployed in India.</p>
-                        <div class="tile-date">February 15, 2025</div>
-                    </a>
+                <!-- Blog plates/tiles -->
+                <div class="blog-plates">
+                    <!-- Will be populated by JS -->
+                </div>
+                
+                <!-- Newsletter Signup -->
+                <div class="blog-newsletter">
+                    <h3>Stay Updated with AI Insights</h3>
+                    <p>Subscribe to our newsletter to receive the latest articles, case studies, and industry updates directly in your inbox.</p>
+                    <form class="blog-newsletter-form">
+                        <input type="email" class="blog-newsletter-input" placeholder="Your email address" required>
+                        <button type="submit" class="blog-newsletter-button">Subscribe</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -184,6 +508,11 @@
             </div>
         </section>
     </main>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scroll-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </div>
 
     <!-- Footer -->
     <footer id="footer">
@@ -204,47 +533,51 @@
     </footer>
 
     <script>
+        // Create floating particles for the brain header
         document.addEventListener('DOMContentLoaded', function() {
-            // Filter functionality
-            const filterTabs = document.querySelectorAll('.filter-tab');
-            const blogTiles = document.querySelectorAll('.blog-tile');
-            const searchInput = document.getElementById('search-input');
+            const particlesContainer = document.getElementById('brain-particles');
+            const particleCount = 20;
             
-            // Filter function
-            function filterBlogs() {
-                const activeFilter = document.querySelector('.filter-tab.active').textContent;
-                const searchTerm = searchInput.value.toLowerCase().trim();
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
                 
-                blogTiles.forEach(tile => {
-                    const category = tile.querySelector('.tile-label').textContent;
-                    const title = tile.querySelector('h3').textContent.toLowerCase();
-                    const desc = tile.querySelector('p').textContent.toLowerCase();
-                    
-                    const matchesCategory = activeFilter === 'All' || category === activeFilter;
-                    const matchesSearch = searchTerm === '' || 
-                                        title.includes(searchTerm) || 
-                                        desc.includes(searchTerm);
-                    
-                    tile.style.display = matchesCategory && matchesSearch ? 'block' : 'none';
-                });
+                // Random positioning
+                const leftPos = Math.random() * 100;
+                const topPos = Math.random() * 100;
+                particle.style.left = `${leftPos}%`;
+                particle.style.top = `${topPos}%`;
+                
+                // Random movement direction
+                const moveX = (Math.random() - 0.5) * 100;
+                const moveY = (Math.random() - 0.5) * 100;
+                particle.style.setProperty('--move-x', `${moveX}px`);
+                particle.style.setProperty('--move-y', `${moveY}px`);
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
             }
             
-            // Event listeners for filters
-            filterTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    filterTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    filterBlogs();
-                });
+            // Scroll to top functionality
+            const scrollTopButton = document.getElementById('scroll-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopButton.classList.add('visible');
+                } else {
+                    scrollTopButton.classList.remove('visible');
+                }
             });
             
-            // Event listener for search
-            if (searchInput) {
-                searchInput.addEventListener('input', filterBlogs);
-            }
-            
-            // Initialize
-            filterBlogs();
+            scrollTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
