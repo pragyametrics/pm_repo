@@ -91,80 +91,86 @@
                 
                 <!-- Blog tiles -->
                 <div class="blog-grid" id="blog-grid">
-                    <!-- Row 1 -->
-                    <div class="blog-tile">
+                    <!-- Blog tile 1 -->
+                    <a href="blogs/work_in_progress.html?id=P001&title=Accelerating%20AI%20Adoption%20in%20India:%20Implementation%20Barriers&category=AI%20Strategy" class="blog-tile">
                         <div class="tile-label ai-strategy">AI Strategy</div>
                         <div class="tile-id">P001</div>
                         <h3>Accelerating AI Adoption in India: Implementation Barriers</h3>
                         <p>Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them.</p>
                         <div class="tile-date">February 10, 2025</div>
-                    </div>
+                    </a>
                     
-                    <div class="blog-tile">
+                    <!-- Blog tile 2 -->
+                    <a href="blogs/work_in_progress.html?id=P002&title=Building%20RAG%20Systems%20for%20Indian%20Healthcare:%20PM-JAY%20Case%20Study&category=Implementation" class="blog-tile">
                         <div class="tile-label implementation">Implementation</div>
                         <div class="tile-id">P002</div>
                         <h3>Building RAG Systems for Indian Healthcare: PM-JAY Case Study</h3>
                         <p>Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system.</p>
                         <div class="tile-date">April 28, 2025</div>
-                    </div>
+                    </a>
                     
-                    <div class="blog-tile">
+                    <!-- Blog tile 3 -->
+                    <a href="blogs/work_in_progress.html?id=P003&title=Calculating%20AI%20ROI%20for%20Indian%20Enterprises:%20Beyond%20Conventional%20Metrics&category=AI%20Strategy" class="blog-tile">
                         <div class="tile-label ai-strategy">AI Strategy</div>
                         <div class="tile-id">P003</div>
                         <h3>Calculating AI ROI for Indian Enterprises: Beyond Conventional Metrics</h3>
                         <p>Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.</p>
                         <div class="tile-date">April 15, 2025</div>
-                    </div>
+                    </a>
                     
-                    <!-- Row 2 -->
-                    <div class="blog-tile">
+                    <!-- Blog tile 4 -->
+                    <a href="blogs/work_in_progress.html?id=P004&title=Multilingual%20AI:%20Bridging%20Language%20Barriers%20in%20India's%20Digital%20Transformation&category=Technical%20Papers" class="blog-tile">
                         <div class="tile-label technical-papers">Technical Papers</div>
                         <div class="tile-id">P004</div>
                         <h3>Multilingual AI: Bridging Language Barriers in India's Digital Transformation</h3>
                         <p>Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape.</p>
                         <div class="tile-date">April 8, 2025</div>
-                    </div>
+                    </a>
                     
-                    <div class="blog-tile">
+                    <!-- Blog tile 5 -->
+                    <a href="blogs/work_in_progress.html?id=P005&title=AI-Powered%20Predictive%20Maintenance:%20Transforming%20Indian%20Manufacturing&category=Industry" class="blog-tile">
                         <div class="tile-label industry">Industry</div>
                         <div class="tile-id">P005</div>
                         <h3>AI-Powered Predictive Maintenance: Transforming Indian Manufacturing</h3>
                         <p>Case studies and implementation strategies for predictive maintenance in India's manufacturing sector.</p>
                         <div class="tile-date">March 25, 2025</div>
-                    </div>
+                    </a>
                     
-                    <div class="blog-tile">
+                    <!-- Blog tile 6 -->
+                    <a href="blogs/work_in_progress.html?id=P006&title=Designing%20Agentic%20AI%20Workflows%20for%20Business%20Process%20Automation&category=Technical%20Papers" class="blog-tile">
                         <div class="tile-label technical-papers">Technical Papers</div>
                         <div class="tile-id">P006</div>
                         <h3>Designing Agentic AI Workflows for Business Process Automation</h3>
                         <p>Technical architecture and implementation guidelines for creating autonomous AI workflows.</p>
                         <div class="tile-date">March 12, 2025</div>
-                    </div>
+                    </a>
                     
-                    <!-- Row 3 -->
-                    <div class="blog-tile">
+                    <!-- Blog tile 7 -->
+                    <a href="blogs/work_in_progress.html?id=P007&title=LLM%20Evaluation%20Metrics%20for%20Enterprise%20Applications&category=Technical%20Papers" class="blog-tile">
                         <div class="tile-label technical-papers">Technical Papers</div>
                         <div class="tile-id">P007</div>
                         <h3>LLM Evaluation Metrics for Enterprise Applications</h3>
                         <p>Comprehensive framework for evaluating large language models in enterprise contexts.</p>
                         <div class="tile-date">March 5, 2025</div>
-                    </div>
+                    </a>
                     
-                    <div class="blog-tile">
+                    <!-- Blog tile 8 -->
+                    <a href="blogs/work_in_progress.html?id=P008&title=Generative%20AI%20Applications%20in%20Indian%20Financial%20Services&category=Industry" class="blog-tile">
                         <div class="tile-label industry">Industry</div>
                         <div class="tile-id">P008</div>
                         <h3>Generative AI Applications in Indian Financial Services</h3>
                         <p>Overview of use cases and implementation strategies for generative AI in India's financial sector.</p>
                         <div class="tile-date">February 22, 2025</div>
-                    </div>
+                    </a>
                     
-                    <div class="blog-tile">
+                    <!-- Blog tile 9 -->
+                    <a href="blogs/work_in_progress.html?id=P009&title=Bias%20Mitigation%20in%20AI%20Systems%20for%20the%20Indian%20Context&category=Case%20Studies" class="blog-tile">
                         <div class="tile-label case-studies">Case Studies</div>
                         <div class="tile-id">P009</div>
                         <h3>Bias Mitigation in AI Systems for the Indian Context</h3>
                         <p>Practical approaches to identifying and mitigating biases in AI systems deployed in India.</p>
                         <div class="tile-date">February 15, 2025</div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -213,13 +219,11 @@
                     const category = tile.querySelector('.tile-label').textContent;
                     const title = tile.querySelector('h3').textContent.toLowerCase();
                     const desc = tile.querySelector('p').textContent.toLowerCase();
-                    const id = tile.querySelector('.tile-id').textContent.toLowerCase();
                     
                     const matchesCategory = activeFilter === 'All' || category === activeFilter;
                     const matchesSearch = searchTerm === '' || 
                                         title.includes(searchTerm) || 
-                                        desc.includes(searchTerm) ||
-                                        id.includes(searchTerm);
+                                        desc.includes(searchTerm);
                     
                     tile.style.display = matchesCategory && matchesSearch ? 'block' : 'none';
                 });
@@ -241,17 +245,6 @@
             
             // Initialize
             filterBlogs();
-            
-            // Add click event to blog tiles to navigate to work_in_progress.html
-            blogTiles.forEach(tile => {
-                tile.addEventListener('click', function() {
-                    const id = this.querySelector('.tile-id').textContent;
-                    const title = this.querySelector('h3').textContent;
-                    const category = this.querySelector('.tile-label').textContent;
-                    
-                    window.location.href = `blogs/work_in_progress.html?id=${id}&title=${encodeURIComponent(title)}&category=${encodeURIComponent(category)}`;
-                });
-            });
         });
     </script>
 </body>
