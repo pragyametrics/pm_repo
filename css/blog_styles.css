@@ -1245,3 +1245,216 @@
 .blog-tile:hover .category-icon {
     box-shadow: 0 0 20px rgba(66, 84, 255, 0.5);
 }
+
+* Add these styles to your blog_styles.css file */
+
+/* Enhanced Glow Effects for Blog Tiles */
+
+/* Glow wrapper around each tile */
+.glow-wrapper {
+    position: relative;
+    border-radius: 15px;
+    overflow: visible;
+    margin-bottom: 15px;
+}
+
+/* The actual glow effect */
+.tile-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: radial-gradient(
+        circle at center,
+        rgba(66, 84, 255, 0.3) 0%,
+        rgba(80, 220, 100, 0.1) 30%,
+        rgba(0, 0, 0, 0) 70%
+    );
+    opacity: 0;
+    z-index: -1;
+    transform: scale(1.05);
+    filter: blur(8px);
+    animation: tileGlowPulse 4s ease-in-out infinite alternate;
+}
+
+/* Alternative glow for odd-numbered tiles */
+.glow-wrapper:nth-child(odd) .tile-glow {
+    background: radial-gradient(
+        circle at center,
+        rgba(80, 220, 100, 0.3) 0%,
+        rgba(66, 84, 255, 0.1) 30%,
+        rgba(0, 0, 0, 0) 70%
+    );
+    animation-delay: 2s;
+}
+
+/* Glow pulse animation */
+@keyframes tileGlowPulse {
+    0% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.15);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+}
+
+/* Enhanced hover effect */
+.blog-tile:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+    border-color: rgba(66, 84, 255, 0.3);
+}
+
+.blog-tile:hover + .tile-glow {
+    opacity: 1;
+    animation: none;
+    transform: scale(1.2);
+    background: radial-gradient(
+        circle at center,
+        rgba(66, 84, 255, 0.5) 0%,
+        rgba(80, 220, 100, 0.2) 40%,
+        rgba(0, 0, 0, 0) 70%
+    );
+}
+
+/* Category icon enhanced glow */
+.category-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(66, 84, 255, 0.15), rgba(80, 220, 100, 0.05));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 15px rgba(66, 84, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.blog-tile:hover .category-icon {
+    box-shadow: 0 0 20px rgba(66, 84, 255, 0.5);
+    transform: scale(1.1);
+}
+
+/* Brain animation effects */
+.brain-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: radial-gradient(
+        circle at center,
+        rgba(66, 84, 255, 0.4) 0%,
+        rgba(80, 220, 100, 0.2) 30%,
+        rgba(0, 0, 0, 0) 70%
+    );
+    filter: blur(15px);
+    opacity: 0.4;
+    z-index: -1;
+    animation: brainGlowPulse 5s ease-in-out infinite alternate;
+}
+
+.brain-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    filter: blur(1px);
+    opacity: 0;
+    z-index: 0;
+    animation: particleFlow 4s linear infinite;
+}
+
+@keyframes brainGlowPulse {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+}
+
+@keyframes particleFlow {
+    0% {
+        opacity: 0;
+        transform: scale(0) translateX(-10px) translateY(-10px);
+    }
+    20% {
+        opacity: 0.8;
+        transform: scale(1) translateX(0) translateY(0);
+    }
+    80% {
+        opacity: 0.8;
+        transform: scale(1) translateX(10px) translateY(10px);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) translateX(20px) translateY(20px);
+    }
+}
+
+/* Neural network background for main content */
+.bg-neuron-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+.neuron-connection {
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(66, 84, 255, 0.7), rgba(80, 220, 100, 0.7));
+    transform-origin: top left;
+    animation: connectionPulse 4s infinite alternate;
+}
+
+.neuron-node {
+    position: absolute;
+    background: radial-gradient(circle, rgba(66, 84, 255, 0.8), rgba(80, 220, 100, 0.8));
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(66, 84, 255, 0.5);
+    animation: nodePulse 4s infinite alternate;
+}
+
+@keyframes connectionPulse {
+    0% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+@keyframes nodePulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+}
