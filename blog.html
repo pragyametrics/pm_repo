@@ -1,155 +1,600 @@
-<script>
-        // Script for blog filter functionality
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Pragyametrics</title>
+    <!-- ✅ Favicon setup -->
+    <link rel="icon" href="images/brain128.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/header.css">
+    <script type="text/javascript">
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "rgwjbwq5hz");
+    </script>
+    <!-- Custom Clarity User Tracking -->
+    <script src="js/clarity-user-tracking.js" defer></script>
+    
+    <!-- Your other head elements (CSS, etc.) -->
+    <script src="js/script.js" defer></script>
+
+    <style>
+        /* Simple blog styles */
+        .blog-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(245,247,250,1) 0%, rgba(230,235,245,1) 100%);
+            min-height: calc(100vh - 300px);
+        }
+        
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .blog-header h2 {
+            font-size: 2.5rem;
+            color: #1a1a4e;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .blog-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #5a5a8a;
+            line-height: 1.6;
+        }
+        
+        .blog-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .blog-filter {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            color: #444466;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-filter.active {
+            background: #4254ff;
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(66, 84, 255, 0.2);
+        }
+        
+        .blog-search {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            padding-left: 45px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7b7b9d;
+        }
+        
+        /* Blog plates */
+        .blog-plates {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .blog-plate {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid rgba(200, 210, 230, 0.5);
+            text-decoration: none;
+        }
+        
+        .blog-plate:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plate-id {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #4254ff;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plate-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(26, 26, 78, 0.8);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plate-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 180px;
+        }
+        
+        .category-icon {
+            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(66, 84, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .category-icon svg {
+            width: 30px;
+            height: 30px;
+            color: #4254ff;
+        }
+        
+        .plate-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d2d5f;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .plate-description {
+            color: #5a5a8a;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .plate-date {
+            font-size: 0.85rem;
+            color: #7b7b9d;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .plate-date svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+            opacity: 0.7;
+        }
+        
+        /* Newsletter */
+        .blog-newsletter {
+            background: #4254ff;
+            padding: 60px 30px;
+            border-radius: 15px;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(66, 84, 255, 0.2);
+        }
+        
+        .blog-newsletter-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        
+        .blog-newsletter-title {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .blog-newsletter-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .blog-newsletter-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .blog-newsletter-input {
+            width: 100%;
+            max-width: 400px;
+            height: 54px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 27px 0 0 27px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .blog-newsletter-button {
+            background: #1a1a4e;
+            color: white;
+            border: none;
+            border-radius: 0 27px 27px 0;
+            padding: 0 25px;
+            height: 54px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-newsletter-privacy {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive */
+        @media (max-width: 991px) {
+            .blog-plates {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-plates {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
+            
+            .blog-newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .blog-newsletter-input {
+                width: 100%;
+                border-radius: 27px;
+                margin-bottom: 15px;
+            }
+            
+            .blog-newsletter-button {
+                width: 100%;
+                max-width: 400px;
+                border-radius: 27px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="logo-container">
+            <img src="images/brain.png" alt="Pragyametrics Logo" class="logo">
+            <div class="logo-text-container">
+                <span class="logo-text">Pragya<span class="highlight">metrics</span></span>
+                <span class="tagline" id="tagline">Where Knowledge Meets Intelligence</span>
+                <div class="connection-line" id="connection-line"></div>
+                <div class="particles-container" id="particles-container"></div>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="index.html#about">About</a>
+            <a href="services.html">Services</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="engagement-models.html">Engagement Models</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav>
+            <a href="index.html#about">About</a>
+            <a href="services.html">Services</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="engagement-models.html">Engagement Models</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </div>
+
+    <main id="main-content">
+        <section class="blog-section" id="blog">
+            <div class="blog-container">
+                <div class="blog-header">
+                    <h2>Pragyametrics Knowledge Base</h2>
+                    <p>Explore our collection of specialized articles, technical papers, and industry insights on AI implementation for Indian enterprises.</p>
+                </div>
+                
+                <!-- Search Section -->
+                <div class="blog-search">
+                    <div class="search-container">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" class="search-input" id="search-input" placeholder="Search knowledge base...">
+                    </div>
+                </div>
+                
+                <!-- Blog filters -->
+                <div class="blog-filters">
+                    <div class="blog-filter active">All</div>
+                    <div class="blog-filter">AI Strategy</div>
+                    <div class="blog-filter">Implementation</div>
+                    <div class="blog-filter">Case Studies</div>
+                    <div class="blog-filter">Technical Papers</div>
+                    <div class="blog-filter">Industry</div>
+                </div>
+                
+                <!-- Blog plates container -->
+                <div class="blog-plates">
+                    <!-- Blog Plate 1 -->
+                    <a href="#" class="blog-plate">
+                        <div class="plate-id">P001</div>
+                        <div class="plate-category">AI Strategy</div>
+                        <div class="plate-content">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                            </div>
+                            <h3 class="plate-title">Accelerating AI Adoption in India: Implementation Barriers</h3>
+                            <p class="plate-description">Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them.</p>
+                            <div class="plate-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                February 10, 2025
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Blog Plate 2 -->
+                    <a href="#" class="blog-plate">
+                        <div class="plate-id">P002</div>
+                        <div class="plate-category">Implementation</div>
+                        <div class="plate-content">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            </div>
+                            <h3 class="plate-title">Building RAG Systems for Indian Healthcare: PM-JAY Case Study</h3>
+                            <p class="plate-description">Implementation details and challenges in developing retrieval-augmented generation for healthcare.</p>
+                            <div class="plate-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                April 28, 2025
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Blog Plate 3 -->
+                    <a href="#" class="blog-plate">
+                        <div class="plate-id">P003</div>
+                        <div class="plate-category">AI Strategy</div>
+                        <div class="plate-content">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            </div>
+                            <h3 class="plate-title">Calculating AI ROI for Indian Enterprises</h3>
+                            <p class="plate-description">Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.</p>
+                            <div class="plate-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                April 15, 2025
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Blog Plate 4 -->
+                    <a href="#" class="blog-plate">
+                        <div class="plate-id">P004</div>
+                        <div class="plate-category">Technical Papers</div>
+                        <div class="plate-content">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <h3 class="plate-title">Multilingual AI: Bridging Language Barriers</h3>
+                            <p class="plate-description">Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape.</p>
+                            <div class="plate-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                April 8, 2025
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Blog Plate 5 -->
+                    <a href="#" class="blog-plate">
+                        <div class="plate-id">P005</div>
+                        <div class="plate-category">Industry</div>
+                        <div class="plate-content">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                            </div>
+                            <h3 class="plate-title">AI-Powered Predictive Maintenance</h3>
+                            <p class="plate-description">Case studies and implementation strategies for predictive maintenance in India's manufacturing sector.</p>
+                            <div class="plate-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                March 25, 2025
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Blog Plate 6 -->
+                    <a href="#" class="blog-plate">
+                        <div class="plate-id">P006</div>
+                        <div class="plate-category">Technical Papers</div>
+                        <div class="plate-content">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                            </div>
+                            <h3 class="plate-title">Designing Agentic AI Workflows</h3>
+                            <p class="plate-description">Technical architecture and implementation guidelines for creating autonomous AI workflows.</p>
+                            <div class="plate-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                March 12, 2025
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Newsletter Section -->
+                <div class="blog-newsletter">
+                    <div class="blog-newsletter-content">
+                        <h3 class="blog-newsletter-title">Stay Updated with Our Knowledge Base</h3>
+                        <p class="blog-newsletter-description">Subscribe to receive notifications when new technical papers and insights are published.</p>
+                        <form class="blog-newsletter-form">
+                            <input type="email" class="blog-newsletter-input" placeholder="Your email address">
+                            <button type="submit" class="blog-newsletter-button">Subscribe</button>
+                        </form>
+                        <p class="blog-newsletter-privacy">We respect your privacy. Unsubscribe at any time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call-to-Action Banner -->
+        <section class="cta-banner" id="cta">
+            <div class="container">
+                <h2>Need Specialized AI Guidance?</h2>
+                <p>Reach out to our team for personalized consultation on your AI implementation journey.</p>
+                <a href="contact.html" class="cta-button">Get in Touch</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h3>Pragyametrics</h3>
+                    <p>8B, Phase-1, Manjri Greens,<br>Hadapsar, Pune, Maharashtra<br>India - 412307</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@pragyametrics.com</p>
+                    <p>📞 +91 77090 50817</p>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple filter functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Elements
             const blogFilters = document.querySelectorAll('.blog-filter');
             const blogPlates = document.querySelectorAll('.blog-plate');
             const searchInput = document.getElementById('search-input');
             
-            // Apply lighting effects to all blog plates
-            blogPlates.forEach(plate => {
-                const iconElement = plate.querySelector('.category-icon');
-                
-                // Initialize hover effects
-                plate.addEventListener('mouseenter', function() {
-                    const glowElement = this.querySelector('.icon-glow');
-                    if (glowElement) {
-                        glowElement.style.opacity = '1';
-                        glowElement.style.transform = 'scale(1)';
-                        glowElement.style.animation = 'pulse 2s infinite';
-                    }
-                });
-                
-                plate.addEventListener('mouseleave', function() {
-                    const glowElement = this.querySelector('.icon-glow');
-                    if (glowElement) {
-                        glowElement.style.opacity = '0';
-                        glowElement.style.transform = 'scale(0.3)';
-                        glowElement.style.animation = 'none';
-                    }
-                });
-            });
-            
-            // Filter blog plates by category and search term
+            // Filter functionality
             function filterPlates() {
                 const activeFilter = document.querySelector('.blog-filter.active').textContent;
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                
-                let visibleCount = 0;
+                const searchTerm = searchInput?.value?.toLowerCase().trim() || '';
                 
                 blogPlates.forEach(plate => {
-                    const category = plate.getAttribute('data-category');
+                    const category = plate.querySelector('.plate-category').textContent;
                     const title = plate.querySelector('.plate-title').textContent.toLowerCase();
-                    const plateId = plate.getAttribute('data-id').toLowerCase();
-                    const description = plate.querySelector('.plate-description') ? 
-                                      plate.querySelector('.plate-description').textContent.toLowerCase() : '';
+                    const id = plate.querySelector('.plate-id').textContent.toLowerCase();
                     
                     const matchesCategory = activeFilter === 'All' || category === activeFilter;
                     const matchesSearch = searchTerm === '' || 
                                         title.includes(searchTerm) || 
-                                        plateId.includes(searchTerm) ||
-                                        description.includes(searchTerm);
+                                        id.includes(searchTerm);
                     
-                    if (matchesCategory && matchesSearch) {
-                        plate.style.display = '';
-                        visibleCount++;
-                    } else {
-                        plate.style.display = 'none';
-                    }
+                    plate.style.display = matchesCategory && matchesSearch ? '' : 'none';
                 });
-                
-                // Display message if no results
-                const noResultsElement = document.querySelector('.no-results-message');
-                if (visibleCount === 0) {
-                    if (!noResultsElement) {
-                        const noResultsMessage = document.createElement('div');
-                        noResultsMessage.className = 'no-results-message';
-                        noResultsMessage.innerHTML = `
-                            <div style="text-align: center; padding: 40px 20px; width: 100%; grid-column: 1 / -1;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7b7b9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 15px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                <p style="font-size: 1.2rem; color: #444466; margin-bottom: 10px;">No matching articles found</p>
-                                <p style="color: #7b7b9d;">Try adjusting your search or filter criteria</p>
-                            </div>
-                        `;
-                        document.querySelector('.blog-plates').appendChild(noResultsMessage);
-                    }
-                } else if (noResultsElement) {
-                    noResultsElement.remove();
-                }
             }
             
             // Event listeners for filters
             blogFilters.forEach(filter => {
                 filter.addEventListener('click', () => {
-                    // Update active filter
                     blogFilters.forEach(f => f.classList.remove('active'));
                     filter.classList.add('active');
-                    
-                    // Apply filters
                     filterPlates();
                 });
             });
             
             // Event listener for search
-            searchInput.addEventListener('input', filterPlates);
+            if (searchInput) {
+                searchInput.addEventListener('input', filterPlates);
+            }
             
-            // Handle newsletter form submission
+            // Handle newsletter form
             const newsletterForm = document.querySelector('.blog-newsletter-form');
             if (newsletterForm) {
                 newsletterForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    
-                    const emailInput = this.querySelector('.blog-newsletter-input');
-                    const email = emailInput.value.trim();
-                    
-                    // Check if email is valid
-                    if (email && isValidEmail(email)) {
-                        // Show success message
-                        this.innerHTML = `
-                            <div style="text-align: center; padding: 10px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                <p style="font-size: 1.1rem; color: white; margin-bottom: 5px;">Thank you for subscribing!</p>
-                                <p style="color: rgba(255, 255, 255, 0.8);">You'll receive notifications about our latest insights.</p>
-                            </div>
-                        `;
-                    } else {
-                        // Show error message
-                        emailInput.style.borderColor = '#ff4757';
-                        
-                        const errorMessage = document.createElement('div');
-                        errorMessage.className = 'newsletter-error';
-                        errorMessage.textContent = 'Please enter a valid email address';
-                        errorMessage.style.cssText = `
-                            color: white;
-                            font-size: 0.8rem;
-                            margin-top: 5px;
-                            text-align: left;
-                            padding-left: 20px;
-                        `;
-                        
-                        // Remove any existing error message
-                        const existingError = newsletterForm.querySelector('.newsletter-error');
-                        if (existingError) {
-                            existingError.remove();
-                        }
-                        
-                        // Add error message
-                        emailInput.parentNode.insertBefore(errorMessage, emailInput.nextSibling);
-                        
-                        // Focus input
-                        emailInput.focus();
-                    }
+                    alert('Thank you for subscribing!');
                 });
             }
-            
-            // Helper function to validate email
-            function isValidEmail(email) {
-                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return re.test(email);
-            }
-            
-            // Initialize
-            filterPlates();
         });
     </script>
 </body>
