@@ -24,6 +24,16 @@
         body {
             background-color: #0a0a0a;
             color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         /* WIP section styling */
@@ -48,11 +58,16 @@
             height: 120px;
             margin-bottom: 30px;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .wip-icon img {
+        .wip-icon svg {
             width: 100%;
             height: 100%;
+            color: #4254ff;
+            z-index: 1;
         }
         
         .wip-icon::after {
@@ -70,7 +85,7 @@
                 rgba(0, 0, 0, 0) 70%
             );
             animation: glow-pulse 2.5s infinite alternate;
-            z-index: -1;
+            z-index: 0;
         }
         
         @keyframes glow-pulse {
@@ -213,6 +228,41 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
         
+        /* Footer styles */
+        #footer {
+            background-color: #080808;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .company-info h3,
+        .contact-info h4 {
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        
+        .company-info p,
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
         /* Responsive styles */
         @media (max-width: 768px) {
             .wip-title {
@@ -227,6 +277,10 @@
             .wip-meta {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
             }
         }
     </style>
@@ -255,3 +309,121 @@
         <!-- Mobile Menu Toggle -->
         <div class="mobile-menu-toggle" id="mobile-menu-toggle">
             <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav>
+            <a href="../index.html#about">About</a>
+            <a href="../services.html">Services</a>
+            <a href="../methodology.html">Methodology</a>
+            <a href="../engagement-models.html">Engagement Models</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../contact.html">Contact Us</a>
+        </nav>
+    </div>
+
+    <main id="main-content">
+        <section class="wip-section">
+            <div class="wip-container">
+                <div class="wip-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h1 class="wip-title">Article in Development</h1>
+                <p class="wip-message">
+                    Our team is currently working on this in-depth resource. We're ensuring it provides comprehensive, 
+                    actionable insights for Indian enterprises implementing AI solutions.
+                </p>
+                
+                <div class="wip-info">
+                    <h2 class="wip-info-title" id="article-title">Article Title</h2>
+                    <div class="wip-meta">
+                        <div class="wip-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <span id="article-date">Publication Date: Coming Soon</span>
+                        </div>
+                        <div class="wip-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <span id="article-category">Category: Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="wip-progress">
+                        <div class="wip-progress-bar"></div>
+                    </div>
+                    <p>Content Development: <span id="progress-percentage">75%</span> Complete</p>
+                </div>
+                
+                <div class="wip-actions">
+                    <a href="../blog.html" class="wip-button wip-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Back to Blog
+                    </a>
+                    <a href="../contact.html" class="wip-button wip-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        Talk to Us
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h3>Pragyametrics</h3>
+                    <p>8B, Phase-1, Manjri Greens,<br>Hadapsar, Pune, Maharashtra<br>India - 412307</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@pragyametrics.com</p>
+                    <p>📞 +91 77090 50817</p>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get query parameters from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Update article information if parameters are available
+            const articleTitle = urlParams.get('title');
+            const articleCategory = urlParams.get('category');
+            const articleId = urlParams.get('id');
+            
+            console.log("URL Parameters:", {
+                title: articleTitle,
+                category: articleCategory,
+                id: articleId
+            });
+            
+            // Set the information in the page if parameters exist
+            if (articleTitle) {
+                document.getElementById('article-title').textContent = decodeURIComponent(articleTitle);
+                document.title = decodeURIComponent(articleTitle) + ' - Pragyametrics';
+            }
+            
+            if (articleCategory) {
+                document.getElementById('article-category').textContent = 'Category: ' + decodeURIComponent(articleCategory);
+            }
+            
+            // Randomize progress for demo purposes (in real implementation, you would use actual progress data)
+            const progressOptions = [25, 50, 75];
+            const randomIndex = Math.floor(Math.random() * progressOptions.length);
+            const progressValue = progressOptions[randomIndex];
+            
+            document.getElementById('progress-percentage').textContent = progressValue + '%';
+            document.querySelector('.wip-progress-bar').style.width = progressValue + '%';
+        });
+    </script>
+</body>
+</html>
