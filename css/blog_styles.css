@@ -991,8 +991,8 @@
     flex: 1;
     padding-right: 20px;
     min-width: 300px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .hero-right {
@@ -1132,7 +1132,7 @@
     }
     
     .blog-hero {
-        min-height: 70vh;
+        min-height: 40vh;
     }
 }
 
