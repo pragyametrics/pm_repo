@@ -957,7 +957,7 @@
 /* Hero Banner with split layout */
 .blog-hero {
     position: relative;
-    min-height: 60vh;
+    min-height: 50vh;
     width: 100%;
     background-color: #0a0a0a;
     overflow: hidden;
