@@ -17,17 +17,22 @@
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "rgwjbwq5hz");
     </script>
-       <!-- Custom Clarity User Tracking -->
+    <!-- Custom Clarity User Tracking -->
     <script src="js/clarity-user-tracking.js" defer></script>
     
     <!-- Your other head elements (CSS, etc.) -->
     <script src="js/script.js" defer></script>
     
     <style>
-        /* Blog tiles styling - updated with the correct color theme */
+        /* Blog page styling with dark theme */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+        
         .blog-section {
             padding: 60px 0;
-            background: #f5f7fa;
+            background: #0a0a0a;
         }
         
         .blog-container {
@@ -43,7 +48,7 @@
         
         .blog-header h2 {
             font-size: 2.5rem;
-            color: #1a1a4e;
+            color: #ffffff;
             margin-bottom: 15px;
             font-weight: 600;
         }
@@ -52,26 +57,82 @@
             font-size: 1.1rem;
             max-width: 700px;
             margin: 0 auto;
-            color: #5a5a8a;
+            color: #a0a0a0;
             line-height: 1.6;
         }
         
+        /* Search box styling */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 20px 12px 40px;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        /* Filter tabs */
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .filter-tab {
+            padding: 8px 16px;
+            background: #ffffff;
+            color: #333;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tab.active {
+            background: #4254ff;
+            color: white;
+        }
+        
+        .filter-tab:hover:not(.active) {
+            background: rgba(66, 84, 255, 0.1);
+            color: #4254ff;
+        }
+        
+        /* Blog grid */
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
-            margin: 40px 0;
+            margin-top: 40px;
         }
         
         .blog-tile {
-            background: white;
+            background: #1a1a1a;
             border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             text-decoration: none;
             position: relative;
-            border: 1px solid rgba(200, 210, 230, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -79,20 +140,64 @@
         
         .blog-tile:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            border-color: rgba(66, 84, 255, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(66, 84, 255, 0.3);
         }
         
-        .tile-category {
+        /* Lighting effect for tiles */
+        .blog-tile::before {
+            content: '';
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(26, 26, 78, 0.8);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(66, 84, 255, 0) 0%, 
+                rgba(66, 84, 255, 0.03) 50%, 
+                rgba(66, 84, 255, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .blog-tile:hover::before {
+            opacity: 1;
+        }
+        
+        .blog-tile::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle, 
+                rgba(66, 84, 255, 0.15) 0%, 
+                rgba(80, 220, 100, 0.05) 30%, 
+                rgba(0, 0, 0, 0) 70%
+            );
+            opacity: 0;
+            transform: scale(0.5);
+            transform-origin: top left;
+            transition: all 0.5s ease;
+        }
+        
+        .blog-tile:hover::after {
+            opacity: 1;
+            transform: scale(1);
+            animation: glowPulse 3s infinite alternate;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
         }
         
         .tile-id {
@@ -107,6 +212,18 @@
             z-index: 2;
         }
         
+        .tile-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #1a1a4e;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            z-index: 2;
+        }
+        
         .tile-content {
             padding: 25px;
             text-align: center;
@@ -114,18 +231,22 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding-top: 45px;
+            position: relative;
+            z-index: 1;
         }
         
         .tile-title {
             font-size: 1.2rem;
-            color: #1a1a4e;
+            color: #ffffff;
             margin-bottom: 10px;
-            margin-top: 15px;
+            font-weight: 500;
+            line-height: 1.4;
         }
         
         .tile-description {
             font-size: 0.9rem;
-            color: #5a5a8a;
+            color: #a0a0a0;
             line-height: 1.5;
         }
         
@@ -135,131 +256,25 @@
             color: #7b7b9d;
         }
         
-        /* Filter tabs */
-        .filter-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        
-        .filter-tab {
-            padding: 8px 16px;
-            background: white;
-            border-radius: 20px;
-            border: 1px solid #ddd;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-tab.active {
-            background: #4254ff;
-            color: white;
-            border-color: #4254ff;
-        }
-        
-        /* Search bar */
-        .search-container {
-            max-width: 500px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-        
-        .search-box {
-            width: 100%;
-            padding: 12px 20px;
-            padding-left: 40px;
-            border-radius: 30px;
-            border: 1px solid #ddd;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-        }
-        
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #888;
-        }
-        
-        /* Newsletter section */
-        .newsletter-section {
-            background: #4254ff;
-            padding: 40px 30px;
-            border-radius: 15px;
-            text-align: center;
-            color: white;
-            margin-top: 50px;
-        }
-        
-        .newsletter-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        
-        .newsletter-description {
-            max-width: 600px;
-            margin: 0 auto 25px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .newsletter-form {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto 15px;
-        }
-        
-        .newsletter-input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 30px 0 0 30px;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .newsletter-button {
-            background: #1a1a4e;
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 0 30px 30px 0;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-        }
-        
-        .privacy-text {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        /* Loading state */
+        /* Loading indicator */
         .loading {
             text-align: center;
             padding: 40px;
-            color: #5a5a8a;
+            color: #a0a0a0;
         }
         
-        /* Responsive adjustments */
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #a0a0a0;
+            grid-column: 1 / -1;
+        }
+        
+        /* Responsive styles */
         @media (max-width: 768px) {
             .blog-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .newsletter-form {
-                flex-direction: column;
-            }
-            
-            .newsletter-input {
-                border-radius: 30px;
-                margin-bottom: 10px;
-            }
-            
-            .newsletter-button {
-                border-radius: 30px;
-                padding: 10px;
             }
         }
     </style>
@@ -315,8 +330,10 @@
                 
                 <!-- Search box -->
                 <div class="search-container">
+                    <span class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </span>
                     <input type="text" class="search-box" id="search-input" placeholder="Search knowledge base...">
-                    <span class="search-icon">🔍</span>
                 </div>
                 
                 <!-- Filter tabs -->
@@ -329,20 +346,68 @@
                     <div class="filter-tab" data-category="Industry">Industry</div>
                 </div>
                 
-                <!-- Blog grid - will be populated from JSON -->
+                <!-- Blog grid - will be populated from JSON or shown with hardcoded values as fallback -->
                 <div class="blog-grid" id="blog-grid">
-                    <div class="loading">Loading blog content...</div>
-                </div>
-                
-                <!-- Newsletter section -->
-                <div class="newsletter-section">
-                    <h3 class="newsletter-title">Subscribe to receive notifications</h3>
-                    <p class="newsletter-description">Get updates when new technical papers and insights are published.</p>
-                    <form class="newsletter-form">
-                        <input type="email" class="newsletter-input" placeholder="Your email address" required>
-                        <button type="submit" class="newsletter-button">Subscribe</button>
-                    </form>
-                    <p class="privacy-text">We respect your privacy. Unsubscribe at any time.</p>
+                    <!-- Hardcoded blog tiles as fallback -->
+                    <a href="blogs/work_in_progress.html?id=P001&title=Accelerating%20AI%20Adoption%20in%20India:%20Implementation%20Barriers&category=AI%20Strategy" class="blog-tile" data-category="AI Strategy">
+                        <div class="tile-id">P001</div>
+                        <div class="tile-category">AI Strategy</div>
+                        <div class="tile-content">
+                            <h3 class="tile-title">Accelerating AI Adoption in India</h3>
+                            <p class="tile-description">Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them.</p>
+                            <div class="tile-date">February 10, 2025</div>
+                        </div>
+                    </a>
+                    
+                    <a href="blogs/work_in_progress.html?id=P003&title=Calculating%20AI%20ROI%20for%20Indian%20Enterprises:%20Beyond%20Conventional%20Metrics&category=AI%20Strategy" class="blog-tile" data-category="AI Strategy">
+                        <div class="tile-id">P003</div>
+                        <div class="tile-category">AI Strategy</div>
+                        <div class="tile-content">
+                            <h3 class="tile-title">Calculating AI ROI for Enterprises</h3>
+                            <p class="tile-description">Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.</p>
+                            <div class="tile-date">April 15, 2025</div>
+                        </div>
+                    </a>
+                    
+                    <a href="blogs/work_in_progress.html?id=P002&title=Building%20RAG%20Systems%20for%20Indian%20Healthcare:%20PM-JAY%20Case%20Study&category=Implementation" class="blog-tile" data-category="Implementation">
+                        <div class="tile-id">P002</div>
+                        <div class="tile-category">Implementation</div>
+                        <div class="tile-content">
+                            <h3 class="tile-title">Building RAG Systems for Healthcare</h3>
+                            <p class="tile-description">Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system.</p>
+                            <div class="tile-date">April 28, 2025</div>
+                        </div>
+                    </a>
+                    
+                    <a href="blogs/work_in_progress.html?id=P004&title=Multilingual%20AI:%20Bridging%20Language%20Barriers%20in%20India's%20Digital%20Transformation&category=Technical%20Papers" class="blog-tile" data-category="Technical Papers">
+                        <div class="tile-id">P004</div>
+                        <div class="tile-category">Technical Papers</div>
+                        <div class="tile-content">
+                            <h3 class="tile-title">Multilingual AI: Bridging Language Barriers</h3>
+                            <p class="tile-description">Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape.</p>
+                            <div class="tile-date">April 8, 2025</div>
+                        </div>
+                    </a>
+                    
+                    <a href="blogs/work_in_progress.html?id=P005&title=AI-Powered%20Predictive%20Maintenance:%20Transforming%20Indian%20Manufacturing&category=Industry" class="blog-tile" data-category="Industry">
+                        <div class="tile-id">P005</div>
+                        <div class="tile-category">Industry</div>
+                        <div class="tile-content">
+                            <h3 class="tile-title">AI-Powered Predictive Maintenance</h3>
+                            <p class="tile-description">Case studies and implementation strategies for predictive maintenance in India's manufacturing sector.</p>
+                            <div class="tile-date">March 25, 2025</div>
+                        </div>
+                    </a>
+                    
+                    <a href="blogs/work_in_progress.html?id=P009&title=Bias%20Mitigation%20in%20AI%20Systems%20for%20the%20Indian%20Context&category=Case%20Studies" class="blog-tile" data-category="Case Studies">
+                        <div class="tile-id">P009</div>
+                        <div class="tile-category">Case Studies</div>
+                        <div class="tile-content">
+                            <h3 class="tile-title">Bias Mitigation in AI Systems for the Indian Context</h3>
+                            <p class="tile-description">Practical approaches to identifying and mitigating biases in AI systems deployed in India.</p>
+                            <div class="tile-date">February 15, 2025</div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -377,7 +442,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Load blog posts from JSON file
+            // Try to load blog posts from JSON file
             fetch('blogs/blogs_list.json')
                 .then(response => {
                     if (!response.ok) {
@@ -386,117 +451,58 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Initialize blog content
-                    initBlog(data);
+                    // Initialize with JSON data
+                    if (data.blogs && data.blogs.length > 0) {
+                        initBlogWithData(data);
+                    }
                 })
                 .catch(error => {
-                    console.error('Error loading blog data:', error);
-                    // Display fallback content if JSON loading fails
-                    displayFallbackContent();
+                    console.log('Using hardcoded blog tiles due to:', error);
+                    // We already have hardcoded fallback tiles, so just set up filters
+                    setupFilters();
                 });
             
-            // Initialize blog with data
-            function initBlog(data) {
+            // Initialize blog with JSON data
+            function initBlogWithData(data) {
                 const blogGrid = document.getElementById('blog-grid');
                 
-                // Clear loading indicator
+                // Clear any existing content
                 blogGrid.innerHTML = '';
                 
-                // Render blog tiles
-                if (data.blogs && data.blogs.length > 0) {
-                    data.blogs.forEach(blog => {
-                        // Format date
-                        const dateObj = new Date(blog.created_date);
-                        const formattedDate = dateObj.toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                        });
-                        
-                        // Create blog tile element
-                        const tileElement = document.createElement('a');
-                        tileElement.href = blog.html_page || '#';
-                        tileElement.className = 'blog-tile';
-                        tileElement.setAttribute('data-category', blog.category);
-                        tileElement.setAttribute('data-id', blog.id);
-                        
-                        tileElement.innerHTML = `
-                            <div class="tile-id">${blog.id}</div>
-                            <div class="tile-category">${blog.category}</div>
-                            <div class="tile-content">
-                                <h3 class="tile-title">${blog.title}</h3>
-                                <p class="tile-description">${blog.description || ''}</p>
-                                <div class="tile-date">${formattedDate}</div>
-                            </div>
-                        `;
-                        
-                        blogGrid.appendChild(tileElement);
+                // Render blog tiles from JSON
+                data.blogs.forEach(blog => {
+                    // Format date
+                    const dateObj = new Date(blog.created_date);
+                    const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
                     });
                     
-                    // Initialize filter and search functionality
-                    setupFilters();
-                } else {
-                    blogGrid.innerHTML = '<div class="no-blogs">No blog posts found.</div>';
-                }
-            }
-            
-            // Fallback content if JSON loading fails
-            function displayFallbackContent() {
-                const blogGrid = document.getElementById('blog-grid');
-                
-                // Clear loading indicator
-                blogGrid.innerHTML = '';
-                
-                // Add some default blog tiles
-                const fallbackBlogs = [
-                    {
-                        id: 'P001',
-                        category: 'AI Strategy',
-                        title: 'Accelerating AI Adoption in India',
-                        description: 'Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them.',
-                        date: 'February 10, 2025'
-                    },
-                    {
-                        id: 'P002',
-                        category: 'Implementation',
-                        title: 'Building RAG Systems for Healthcare',
-                        description: 'Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system.',
-                        date: 'April 28, 2025'
-                    },
-                    {
-                        id: 'P003',
-                        category: 'AI Strategy',
-                        title: 'Calculating AI ROI for Enterprises',
-                        description: 'Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.',
-                        date: 'April 15, 2025'
-                    }
-                ];
-                
-                fallbackBlogs.forEach(blog => {
+                    // Create tile element
                     const tileElement = document.createElement('a');
-                    tileElement.href = '#';
+                    tileElement.href = blog.html_page + '?id=' + blog.id + '&title=' + encodeURIComponent(blog.title) + '&category=' + encodeURIComponent(blog.category);
                     tileElement.className = 'blog-tile';
                     tileElement.setAttribute('data-category', blog.category);
-                    tileElement.setAttribute('data-id', blog.id);
                     
                     tileElement.innerHTML = `
                         <div class="tile-id">${blog.id}</div>
                         <div class="tile-category">${blog.category}</div>
                         <div class="tile-content">
                             <h3 class="tile-title">${blog.title}</h3>
-                            <p class="tile-description">${blog.description}</p>
-                            <div class="tile-date">${blog.date}</div>
+                            <p class="tile-description">${blog.description || ''}</p>
+                            <div class="tile-date">${formattedDate}</div>
                         </div>
                     `;
                     
                     blogGrid.appendChild(tileElement);
                 });
                 
-                // Initialize filter and search functionality
+                // Set up filters
                 setupFilters();
             }
             
-            // Set up category filters and search functionality
+            // Set up category filters and search
             function setupFilters() {
                 const filterTabs = document.querySelectorAll('.filter-tab');
                 const blogTiles = document.querySelectorAll('.blog-tile');
@@ -507,11 +513,13 @@
                     const activeCategory = document.querySelector('.filter-tab.active').getAttribute('data-category');
                     const searchTerm = searchInput.value.toLowerCase().trim();
                     
+                    let visibleCount = 0;
+                    
                     blogTiles.forEach(tile => {
                         const category = tile.getAttribute('data-category');
                         const title = tile.querySelector('.tile-title').textContent.toLowerCase();
                         const description = tile.querySelector('.tile-description').textContent.toLowerCase();
-                        const id = tile.getAttribute('data-id').toLowerCase();
+                        const id = tile.querySelector('.tile-id').textContent.toLowerCase();
                         
                         const matchesCategory = activeCategory === 'All' || category === activeCategory;
                         const matchesSearch = searchTerm === '' || 
@@ -519,11 +527,33 @@
                                             description.includes(searchTerm) ||
                                             id.includes(searchTerm);
                         
-                        tile.style.display = matchesCategory && matchesSearch ? '' : 'none';
+                        if (matchesCategory && matchesSearch) {
+                            tile.style.display = '';
+                            visibleCount++;
+                        } else {
+                            tile.style.display = 'none';
+                        }
                     });
+                    
+                    // Show no results message if needed
+                    const noResultsElement = document.querySelector('.no-results');
+                    if (visibleCount === 0) {
+                        if (!noResultsElement) {
+                            const message = document.createElement('div');
+                            message.className = 'no-results';
+                            message.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <p>No matching articles found.</p>
+                                <p>Try adjusting your search or filter criteria.</p>
+                            `;
+                            document.getElementById('blog-grid').appendChild(message);
+                        }
+                    } else if (noResultsElement) {
+                        noResultsElement.remove();
+                    }
                 }
                 
-                // Event listeners for filters
+                // Add event listeners to filter tabs
                 filterTabs.forEach(tab => {
                     tab.addEventListener('click', () => {
                         filterTabs.forEach(t => t.classList.remove('active'));
@@ -532,20 +562,13 @@
                     });
                 });
                 
-                // Event listener for search
+                // Add event listener to search input
                 if (searchInput) {
                     searchInput.addEventListener('input', filterBlogs);
                 }
-            }
-            
-            // Newsletter form submission
-            const newsletterForm = document.querySelector('.newsletter-form');
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Thank you for subscribing to our newsletter!');
-                    this.reset();
-                });
+                
+                // Initial filtering
+                filterBlogs();
             }
         });
     </script>
