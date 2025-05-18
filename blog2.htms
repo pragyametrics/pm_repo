@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Pragyametrics</title>
+    <!-- ✅ Favicon setup -->
+    <link rel="icon" href="images/brain128.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/header.css">
+    <script type="text/javascript">
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "rgwjbwq5hz");
+    </script>
+       <!-- Custom Clarity User Tracking -->
+    <script src="js/clarity-user-tracking.js" defer></script>
+    
+    <!-- Your other head elements (CSS, etc.) -->
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <header id="header">
+        
+        <div class="logo-container">
+            <img src="images/brain.png" alt="Pragyametrics Logo" class="logo">
+            <div class="logo-text-container">
+                <span class="logo-text">Pragya<span class="highlight">metrics</span></span>
+                <span class="tagline" id="tagline">Where Knowledge Meets Intelligence</span>
+                <div class="connection-line" id="connection-line"></div>
+                <div class="particles-container" id="particles-container"></div>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="index.html#about">About</a>
+            <a href="services.html">Services</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="engagement-models.html">Engagement Models</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav>
+            <a href="index.html#about">About</a>
+            <a href="services.html">Services</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="engagement-models.html">Engagement Models</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </div>
+
+    <main id="main-content">
+        <section class="coming-soon" id="blog">
+            <div class="container">
+                <h2>Our Blog</h2>
+                <div class="about-content">
+                    <p>We're currently developing valuable content to help you navigate the AI landscape in India. Our team is working on insights, case studies, and practical guides tailored for Indian businesses.</p>
+                </div>
+                
+                <div class="work-in-progress">
+                    <div class="wip-icon">
+                        <i>🚧</i>
+                    </div>
+                    <h3>Coming Soon</h3>
+                    <p>We're building something valuable for you. Our blog will feature:</p>
+                    <ul>
+                        <li><strong>AI Insights:</strong> Breaking down complex concepts for Indian business context</li>
+                        <li><strong>Implementation Stories:</strong> Real-world case studies from Indian companies</li>
+                        <li><strong>Technology Trends:</strong> Updates on AI innovations relevant to the Indian market</li>
+                        <li><strong>Best Practices:</strong> Guidance on effective AI adoption strategies</li>
+                    </ul>
+                    <p class="eta">Expected launch: Q2 2025</p>
+                </div>
+                
+                <div class="stay-informed">
+                    <h3>Stay Informed</h3>
+                    <p>While our blog is under development, you can still get valuable AI insights:</p>
+                    <div class="info-options">
+                        <div class="info-option">
+                            <div class="option-icon">📨</div>
+                            <h4>Join Our Mailing List</h4>
+                            <p>Be the first to know when our blog launches and receive exclusive AI insights.</p>
+                            <a href="contact.html" class="secondary-button">Subscribe</a>
+                        </div>
+                        <div class="info-option">
+                            <div class="option-icon">💬</div>
+                            <h4>Schedule a Consultation</h4>
+                            <p>Can't wait? Talk directly with our AI specialists about your specific needs.</p>
+                            <a href="contact.html" class="cta-button">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call-to-Action Banner -->
+        <section class="cta-banner" id="cta">
+            <div class="container">
+                <h2>Have a Specific Question About AI?</h2>
+                <p>Reach out to our team for personalized guidance on your AI journey.</p>
+                <a href="contact.html" class="cta-button">Get in Touch</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h3>Pragyametrics</h3>
+                    <p>8B, Phase-1, Manjri Greens,<br>Hadapsar, Pune, Maharashtra<br>India - 412307</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@pragyametrics.com</p>
+                    <p>📞 +91 77090 50817</p>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
