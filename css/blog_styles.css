@@ -14,7 +14,7 @@
 
 /* Main blog section */
 .blog-section {
-    padding: 60px 0;
+    padding: 30px 0;
     background-color: var(--dark-bg);
     color: var(--text-light);
     position: relative;
@@ -1007,7 +1007,7 @@
 
 .hero-title {
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 0;
     line-height: 1.1;
