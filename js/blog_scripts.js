@@ -1,4 +1,4 @@
-/* blog_scripts.js */
+/* blog_scripts.js - Enhanced with animations */
 
 document.addEventListener('DOMContentLoaded', function() {
     // Load blogs data from JSON file
@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             // Initialize the blog functionality
             initBlog(data);
+            
+            // Initialize animations
+            initAnimations();
         })
         .catch(error => {
             console.error('Error loading blogs data:', error);
@@ -48,6 +51,81 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initialize filtering
         filterTiles(data.blogs);
+        
+        // Initialize staggered animation
+        initTilesAnimation();
+    }
+
+    // Initialize animations for page elements
+    function initAnimations() {
+        // Smooth scroll for navigation and scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            const blogSection = document.querySelector('.blog-section');
+            blogSection.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Create particles for brain animation in hero
+        createBrainParticles();
+        
+        // Initialize scroll animations
+        initScrollAnimations();
+    }
+    
+    // Create floating particles for the brain background
+    function createBrainParticles() {
+        const brainBg = document.querySelector('.brain-bg');
+        if (!brainBg) return;
+        
+        for (let i = 0; i < 15; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'data-flow';
+            
+            // Random positioning
+            const top = Math.random() * 100;
+            const left = Math.random() * 100;
+            
+            particle.style.top = `${top}%`;
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            brainBg.appendChild(particle);
+        }
+    }
+    
+    // Initialize scroll-based animations
+    function initScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe sections
+        document.querySelectorAll('.blog-section, .cta-banner').forEach(section => {
+            observer.observe(section);
+        });
+    }
+    
+    // Initialize staggered animation for blog tiles
+    function initTilesAnimation() {
+        const blogTileObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add delay based on position
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, 100 * (index % 9)); // Stagger effect based on position
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        
+        // Observe all blog tiles
+        document.querySelectorAll('.blog-tile').forEach(tile => {
+            blogTileObserver.observe(tile);
+        });
     }
 
     // Populate filter categories
@@ -59,6 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
             filterElement.className = 'blog-filter';
             if (category === 'All') filterElement.classList.add('active');
             filterElement.textContent = category;
+            
+            // Add animation delay for staggered appearance
+            filterElement.style.animation = 'fadeIn 0.5s ease forwards';
+            filterElement.style.animationDelay = `${categories.indexOf(category) * 0.1}s`;
+            filterElement.style.opacity = '0';
+            
             filtersContainer.appendChild(filterElement);
         });
     }
@@ -73,8 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 filters.forEach(f => f.classList.remove('active'));
                 filter.classList.add('active');
                 
-                // Apply filters
-                filterTiles(blogs);
+                // Apply filter with animation
+                filterTiles(blogs, true);
             });
         });
     }
@@ -83,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderBlogTiles(blogs, tilesContainer) {
         tilesContainer.innerHTML = '';
         
-        blogs.forEach(blog => {
+        blogs.forEach((blog, index) => {
             // Format date
             const dateObj = new Date(blog.created_date);
             const formattedDate = dateObj.toLocaleDateString('en-US', { 
@@ -100,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tileElement.className = 'blog-tile';
             tileElement.setAttribute('data-category', blog.category);
             tileElement.setAttribute('data-id', blog.id);
+            tileElement.style.transitionDelay = `${index * 0.05}s`;
             
             // Create category class name (remove spaces and make hyphenated)
             const categoryClassName = blog.category.replace(/\s+/g, '-');
@@ -125,13 +210,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Filter blog tiles by category and search term
-    function filterTiles(blogs) {
+    // Filter blog tiles by category and search term with animation
+    function filterTiles(blogs, animate = false) {
         const activeFilter = document.querySelector('.blog-filter.active').textContent;
         const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
         const blogTiles = document.querySelectorAll('.blog-tile');
         
         let visibleCount = 0;
+        let visibleTiles = [];
         
         blogTiles.forEach(tile => {
             const category = tile.getAttribute('data-category');
@@ -147,12 +233,43 @@ document.addEventListener('DOMContentLoaded', function() {
                                 description.includes(searchTerm);
             
             const isVisible = matchesCategory && matchesSearch;
-            tile.style.display = isVisible ? 'block' : 'none';
             
-            if (isVisible) {
-                visibleCount++;
+            if (animate) {
+                // Apply animation for filtering
+                if (isVisible) {
+                    // Reset and then fade in
+                    tile.style.opacity = '0';
+                    tile.style.transform = 'translateY(20px)';
+                    
+                    visibleTiles.push(tile);
+                    visibleCount++;
+                } else {
+                    // Fade out
+                    tile.style.opacity = '0';
+                    tile.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        tile.style.display = 'none';
+                    }, 300);
+                }
+            } else {
+                // Simple display toggle
+                tile.style.display = isVisible ? 'block' : 'none';
+                if (isVisible) visibleCount++;
             }
         });
+        
+        // Apply staggered animation to visible tiles
+        if (animate && visibleTiles.length > 0) {
+            visibleTiles.forEach((tile, index) => {
+                setTimeout(() => {
+                    tile.style.display = 'block';
+                    setTimeout(() => {
+                        tile.style.opacity = '1';
+                        tile.style.transform = 'translateY(0)';
+                    }, 20); // Small delay to ensure display change is applied first
+                }, index * 50); // Staggered delay
+            });
+        }
         
         // Show no results message if needed
         const tilesContainer = document.getElementById('blog-tiles');
@@ -167,10 +284,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p style="font-size: 1.2rem; color: #444466; margin-bottom: 10px;">No matching articles found</p>
                     <p style="color: #7b7b9d;">Try adjusting your search or filter criteria</p>
                 `;
-                tilesContainer.appendChild(noResultsMessage);
+                
+                if (animate) {
+                    noResultsMessage.style.opacity = '0';
+                    tilesContainer.appendChild(noResultsMessage);
+                    setTimeout(() => {
+                        noResultsMessage.style.opacity = '1';
+                    }, 300);
+                } else {
+                    tilesContainer.appendChild(noResultsMessage);
+                }
             }
         } else if (noResultsElement) {
-            noResultsElement.remove();
+            if (animate) {
+                noResultsElement.style.opacity = '0';
+                setTimeout(() => {
+                    noResultsElement.remove();
+                }, 300);
+            } else {
+                noResultsElement.remove();
+            }
         }
     }
 
@@ -291,37 +424,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add CSS keyframes for particle animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.3;
+    // Handle newsletter form submission
+    const newsletterForm = document.querySelector('.blog-newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = this.querySelector('.blog-newsletter-input');
+            const email = emailInput.value.trim();
+            
+            if (email && isValidEmail(email)) {
+                // Success state
+                this.innerHTML = `
+                    <div style="text-align: center; padding: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <p style="font-size: 1.1rem; color: white; margin-bottom: 5px;">Thank you for subscribing!</p>
+                        <p style="color: rgba(255, 255, 255, 0.8);">You'll receive notifications about our latest insights.</p>
+                    </div>
+                `;
+            } else {
+                // Show validation error
+                emailInput.style.borderColor = '#ff4757';
+                
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'newsletter-error';
+                errorMessage.textContent = 'Please enter a valid email address';
+                errorMessage.style.cssText = `
+                    color: white;
+                    font-size: 0.8rem;
+                    margin-top: 5px;
+                    text-align: left;
+                    padding-left: 20px;
+                `;
+                
+                // Remove any existing error message
+                const existingError = newsletterForm.querySelector('.newsletter-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                emailInput.parentNode.insertBefore(errorMessage, emailInput.nextSibling);
+                
+                // Focus the input field
+                emailInput.focus();
             }
-            50% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            100% {
-                transform: scale(0.8);
-                opacity: 0.3;
-            }
-        }
-        
-        @keyframes particleMove {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.5);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.3;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+        });
+    }
+    
+    // Helper function to validate email
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
 });
