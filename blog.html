@@ -1,147 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Pragyametrics</title>
-    <link rel="icon" href="images/brain128.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/blog_styles.css">
-    <script type="text/javascript">
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "rgwjbwq5hz");
+<script>
+        // Script for blog filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const blogFilters = document.querySelectorAll('.blog-filter');
+            const blogPlates = document.querySelectorAll('.blog-plate');
+            const searchInput = document.getElementById('search-input');
+            
+            // Apply lighting effects to all blog plates
+            blogPlates.forEach(plate => {
+                const iconElement = plate.querySelector('.category-icon');
+                
+                // Initialize hover effects
+                plate.addEventListener('mouseenter', function() {
+                    const glowElement = this.querySelector('.icon-glow');
+                    if (glowElement) {
+                        glowElement.style.opacity = '1';
+                        glowElement.style.transform = 'scale(1)';
+                        glowElement.style.animation = 'pulse 2s infinite';
+                    }
+                });
+                
+                plate.addEventListener('mouseleave', function() {
+                    const glowElement = this.querySelector('.icon-glow');
+                    if (glowElement) {
+                        glowElement.style.opacity = '0';
+                        glowElement.style.transform = 'scale(0.3)';
+                        glowElement.style.animation = 'none';
+                    }
+                });
+            });
+            
+            // Filter blog plates by category and search term
+            function filterPlates() {
+                const activeFilter = document.querySelector('.blog-filter.active').textContent;
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                let visibleCount = 0;
+                
+                blogPlates.forEach(plate => {
+                    const category = plate.getAttribute('data-category');
+                    const title = plate.querySelector('.plate-title').textContent.toLowerCase();
+                    const plateId = plate.getAttribute('data-id').toLowerCase();
+                    const description = plate.querySelector('.plate-description') ? 
+                                      plate.querySelector('.plate-description').textContent.toLowerCase() : '';
+                    
+                    const matchesCategory = activeFilter === 'All' || category === activeFilter;
+                    const matchesSearch = searchTerm === '' || 
+                                        title.includes(searchTerm) || 
+                                        plateId.includes(searchTerm) ||
+                                        description.includes(searchTerm);
+                    
+                    if (matchesCategory && matchesSearch) {
+                        plate.style.display = '';
+                        visibleCount++;
+                    } else {
+                        plate.style.display = 'none';
+                    }
+                });
+                
+                // Display message if no results
+                const noResultsElement = document.querySelector('.no-results-message');
+                if (visibleCount === 0) {
+                    if (!noResultsElement) {
+                        const noResultsMessage = document.createElement('div');
+                        noResultsMessage.className = 'no-results-message';
+                        noResultsMessage.innerHTML = `
+                            <div style="text-align: center; padding: 40px 20px; width: 100%; grid-column: 1 / -1;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7b7b9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 15px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <p style="font-size: 1.2rem; color: #444466; margin-bottom: 10px;">No matching articles found</p>
+                                <p style="color: #7b7b9d;">Try adjusting your search or filter criteria</p>
+                            </div>
+                        `;
+                        document.querySelector('.blog-plates').appendChild(noResultsMessage);
+                    }
+                } else if (noResultsElement) {
+                    noResultsElement.remove();
+                }
+            }
+            
+            // Event listeners for filters
+            blogFilters.forEach(filter => {
+                filter.addEventListener('click', () => {
+                    // Update active filter
+                    blogFilters.forEach(f => f.classList.remove('active'));
+                    filter.classList.add('active');
+                    
+                    // Apply filters
+                    filterPlates();
+                });
+            });
+            
+            // Event listener for search
+            searchInput.addEventListener('input', filterPlates);
+            
+            // Handle newsletter form submission
+            const newsletterForm = document.querySelector('.blog-newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = this.querySelector('.blog-newsletter-input');
+                    const email = emailInput.value.trim();
+                    
+                    // Check if email is valid
+                    if (email && isValidEmail(email)) {
+                        // Show success message
+                        this.innerHTML = `
+                            <div style="text-align: center; padding: 10px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <p style="font-size: 1.1rem; color: white; margin-bottom: 5px;">Thank you for subscribing!</p>
+                                <p style="color: rgba(255, 255, 255, 0.8);">You'll receive notifications about our latest insights.</p>
+                            </div>
+                        `;
+                    } else {
+                        // Show error message
+                        emailInput.style.borderColor = '#ff4757';
+                        
+                        const errorMessage = document.createElement('div');
+                        errorMessage.className = 'newsletter-error';
+                        errorMessage.textContent = 'Please enter a valid email address';
+                        errorMessage.style.cssText = `
+                            color: white;
+                            font-size: 0.8rem;
+                            margin-top: 5px;
+                            text-align: left;
+                            padding-left: 20px;
+                        `;
+                        
+                        // Remove any existing error message
+                        const existingError = newsletterForm.querySelector('.newsletter-error');
+                        if (existingError) {
+                            existingError.remove();
+                        }
+                        
+                        // Add error message
+                        emailInput.parentNode.insertBefore(errorMessage, emailInput.nextSibling);
+                        
+                        // Focus input
+                        emailInput.focus();
+                    }
+                });
+            }
+            
+            // Helper function to validate email
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Initialize
+            filterPlates();
+        });
     </script>
-    <!-- Custom Clarity User Tracking -->
-    <script src="js/clarity-user-tracking.js" defer></script>
-    
-    <!-- Main JS -->
-    <script src="js/script.js" defer></script>
-    <!-- Blog specific JS -->
-    <script src="js/blog.js" defer></script>
-</head>
-<body>
-    <header id="header">
-        <div class="logo-container">
-            <img src="images/brain.png" alt="Pragyametrics Logo" class="logo">
-            <div class="logo-text-container">
-                <span class="logo-text">Pragya<span class="highlight">metrics</span></span>
-                <span class="tagline" id="tagline">Where Knowledge Meets Intelligence</span>
-                <div class="connection-line" id="connection-line"></div>
-                <div class="particles-container" id="particles-container"></div>
-            </div>
-        </div>
-        
-        <nav>
-            <a href="index.html#about">About</a>
-            <a href="services.html">Services</a>
-            <a href="methodology.html">Methodology</a>
-            <a href="engagement-models.html">Engagement Models</a>
-            <a href="blog.html" class="active">Blog</a>
-            <a href="contact.html">Contact Us</a>
-        </nav>
-        
-        <!-- Mobile Menu Toggle -->
-        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobile-menu">
-        <nav>
-            <a href="index.html#about">About</a>
-            <a href="services.html">Services</a>
-            <a href="methodology.html">Methodology</a>
-            <a href="engagement-models.html">Engagement Models</a>
-            <a href="blog.html">Blog</a>
-            <a href="contact.html">Contact Us</a>
-        </nav>
-    </div>
-
-    <main id="main-content">
-        <section class="blog-section" id="blog">
-            <div class="blog-container">
-                <div class="blog-header">
-                    <h2>Pragyametrics Knowledge Base</h2>
-                    <p>Explore our collection of specialized articles, technical papers, and industry insights on AI implementation for Indian enterprises.</p>
-                </div>
-                
-                <!-- Search Section -->
-                <div class="blog-search">
-                    <div class="search-container">
-                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" class="search-input" id="search-input" placeholder="Search knowledge base...">
-                    </div>
-                </div>
-                
-                <!-- Blog filters - Will be populated from JSON dynamically -->
-                <div class="blog-filters">
-                    <div class="blog-filter active">All</div>
-                    <div class="blog-filter">AI Strategy</div>
-                    <div class="blog-filter">Implementation</div>
-                    <div class="blog-filter">Case Studies</div>
-                    <div class="blog-filter">Technical Papers</div>
-                    <div class="blog-filter">Industry</div>
-                </div>
-                
-                <!-- Blog plates container - Will be populated from JSON dynamically -->
-                <div class="blog-plates">
-                    <!-- Loading indicator -->
-                    <div class="loading-indicator">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loader-icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-                        <p>Loading blog content...</p>
-                    </div>
-                </div>
-                
-                <!-- Newsletter Section -->
-                <div class="blog-newsletter">
-                    <div class="blog-newsletter-content">
-                        <h3 class="blog-newsletter-title">Stay Updated with Our Knowledge Base</h3>
-                        <p class="blog-newsletter-description">Subscribe to receive notifications when new technical papers and insights are published.</p>
-                        <form class="blog-newsletter-form">
-                            <input type="email" class="blog-newsletter-input" placeholder="Your email address">
-                            <button type="submit" class="blog-newsletter-button">Subscribe</button>
-                        </form>
-                        <p class="blog-newsletter-privacy">We respect your privacy. Unsubscribe at any time.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call-to-Action Banner -->
-        <section class="cta-banner" id="cta">
-            <div class="container">
-                <h2>Need Specialized AI Guidance?</h2>
-                <p>Reach out to our team for personalized consultation on your AI implementation journey.</p>
-                <a href="contact.html" class="cta-button">Get in Touch</a>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer id="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="company-info">
-                    <h3>Pragyametrics</h3>
-                    <p>8B, Phase-1, Manjri Greens,<br>Hadapsar, Pune, Maharashtra<br>India - 412307</p>
-                </div>
-                <div class="contact-info">
-                    <h4>Contact Us</h4>
-                    <p>📧 info@pragyametrics.com</p>
-                    <p>📞 +91 77090 50817</p>
-                </div>
-            </div>
-            <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
-        </div>
-    </footer>
 </body>
 </html>
