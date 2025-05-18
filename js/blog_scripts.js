@@ -163,7 +163,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Render blog tiles based on data
+    /* Update this JavaScript function in your blog_scripts.js file */
+
+    // Render blog tiles based on data - updated function
     function renderBlogTiles(blogs, tilesContainer) {
         tilesContainer.innerHTML = '';
         
@@ -209,6 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
             tilesContainer.appendChild(tileElement);
         });
     }
+    
+
+
 
     // Filter blog tiles by category and search term with animation
     function filterTiles(blogs, animate = false) {
