@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Pragyametrics</title>
+    <title>Knowledge Base - Pragyametrics</title>
     <!-- ✅ Favicon setup -->
     <link rel="icon" href="images/brain128.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
 <body>
     <header id="header">
         <div class="logo-container">
-            <img src="images/brain.png" alt="Pragyametrics Logo" class="logo">
+            <img src="images/brain.png" alt="Pragyametrics Logo" class="logo animate-glow">
             <div class="logo-text-container">
                 <span class="logo-text">Pragya<span class="highlight">metrics</span></span>
                 <span class="tagline" id="tagline">Where Knowledge Meets Intelligence</span>
@@ -65,22 +65,37 @@
         </nav>
     </div>
 
+    <!-- Hero Banner -->
+    <section class="blog-hero">
+        <div class="hero-overlay"></div>
+        <div class="brain-bg">
+            <!-- Animated background particles -->
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+            <div class="particle particle-5"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title animate-fadein">Pragyametrics Knowledge Base</h1>
+            <p class="hero-subtitle animate-slidein">Explore our collection of specialized articles, technical papers, and industry insights on AI implementation for Indian enterprises.</p>
+            
+            <!-- Search box -->
+            <div class="search-wrapper animate-slidein" style="animation-delay: 0.3s;">
+                <div class="search-container">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" class="search-input" id="search-input" placeholder="Search knowledge base...">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator"></div>
+    </section>
+
     <main id="main-content">
         <section class="blog-section">
             <div class="container">
-                <h2>Pragyametrics Knowledge Base</h2>
-                <p class="blog-subtitle">
-                    Explore our collection of specialized articles, technical papers, and industry insights on AI implementation for Indian enterprises.
-                </p>
-                
-                <!-- Search box -->
-                <div class="search-wrapper">
-                    <div class="search-container">
-                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" class="search-input" id="search-input" placeholder="Search knowledge base...">
-                    </div>
-                </div>
-                
                 <!-- Filter tabs - will be populated dynamically -->
                 <div class="blog-filters" id="blog-filters">
                     <!-- Filters will be inserted here by JavaScript -->
@@ -96,9 +111,9 @@
         <!-- Call-to-Action Banner -->
         <section class="cta-banner" id="cta">
             <div class="container">
-                <h2>Need Specialized AI Guidance?</h2>
-                <p>Reach out to our team for personalized consultation on your AI implementation journey.</p>
-                <a href="contact.html" class="cta-button">Get in Touch</a>
+                <h2 class="animate-fadein">Need Specialized AI Guidance?</h2>
+                <p class="animate-slidein">Reach out to our team for personalized consultation on your AI implementation journey.</p>
+                <a href="contact.html" class="cta-button animate-slidein" style="animation-delay: 0.3s;">Get in Touch</a>
             </div>
         </section>
     </main>
@@ -116,9 +131,51 @@
                     <p>📧 info@pragyametrics.com</p>
                     <p>📞 +91 77090 50817</p>
                 </div>
+                <div class="newsletter-section">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form class="blog-newsletter-form">
+                        <input type="email" class="blog-newsletter-input" placeholder="Your email address">
+                        <button type="submit" class="blog-newsletter-button">Subscribe</button>
+                    </form>
+                </div>
             </div>
             <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Intersection Observer for animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            
+            // Observe all sections that need animation
+            document.querySelectorAll('.blog-section, .cta-banner').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Add animation delay to blog tiles when they appear
+            setTimeout(() => {
+                const blogTileObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.setProperty('--item-index', index % 3);
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+                
+                document.querySelectorAll('.blog-tile').forEach(tile => {
+                    blogTileObserver.observe(tile);
+                });
+            }, 500);
+        });
+    </script>
 </body>
 </html>
