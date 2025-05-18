@@ -1,4 +1,4 @@
-/* blog_styles.css */
+/* blog_styles.css - Updated with proper colors to match index.html */
 
 /* Blog section styling */
 .blog-section {
@@ -73,8 +73,8 @@
 }
 
 .search-input:focus {
-    border-color: #4a6cf7;
-    box-shadow: 0 5px 20px rgba(74, 108, 247, 0.15);
+    border-color: #3a6cf4;
+    box-shadow: 0 5px 20px rgba(58, 108, 244, 0.15);
     outline: none;
 }
 
@@ -86,7 +86,7 @@
     color: #7b7b9d;
 }
 
-/* Blog filters styling */
+/* Blog filters styling - updated to match index.html colors */
 .blog-filters {
     display: flex;
     justify-content: center;
@@ -108,15 +108,15 @@
 }
 
 .blog-filter.active {
-    background: linear-gradient(90deg, #3a6cf4, #8a4cf6);
+    background: #4254ff; /* Updated to match index.html brand color */
     color: white;
     border-color: transparent;
-    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.2);
+    box-shadow: 0 5px 15px rgba(66, 84, 255, 0.2);
 }
 
 .blog-filter:hover:not(.active) {
-    background: rgba(74, 108, 247, 0.1);
-    color: #4a6cf7;
+    background: rgba(66, 84, 255, 0.1);
+    color: #4254ff;
 }
 
 /* Blog plates grid styling */
@@ -145,14 +145,14 @@
 .blog-plate:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    border-color: rgba(122, 140, 255, 0.4);
+    border-color: rgba(66, 84, 255, 0.4);
 }
 
 .plate-id {
     position: absolute;
     top: 15px;
     left: 15px;
-    background: linear-gradient(90deg, #3a6cf4, #8a4cf6);
+    background: #4254ff; /* Updated to match index.html brand color */
     color: white;
     padding: 6px 12px;
     border-radius: 20px;
@@ -200,20 +200,20 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(58, 108, 244, 0.1);
+    background: rgba(66, 84, 255, 0.1); /* Updated to match index.html brand color */
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
 .blog-plate:hover .category-icon {
-    background: rgba(58, 108, 244, 0.2);
+    background: rgba(66, 84, 255, 0.2); /* Updated to match index.html brand color */
 }
 
 .category-icon svg {
     width: 30px;
     height: 30px;
-    color: #3a6cf4;
+    color: #4254ff; /* Updated to match index.html brand color */
     position: relative;
     z-index: 2;
 }
@@ -226,7 +226,7 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(138, 76, 246, 0.3) 0%, rgba(58, 108, 244, 0) 70%);
+    background: radial-gradient(circle, rgba(66, 84, 255, 0.3) 0%, rgba(58, 108, 244, 0) 70%); /* Updated to match index.html brand color */
     opacity: 0;
     transform: scale(0.3);
     z-index: 1;
@@ -264,7 +264,7 @@
 }
 
 .blog-plate:hover .plate-title {
-    color: #4a6cf7;
+    color: #4254ff; /* Updated to match index.html brand color */
 }
 
 .plate-description {
@@ -297,7 +297,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(90deg, #3a6cf4, #8a4cf6);
+    background: #4254ff; /* Updated to match index.html brand color */
     color: white;
     padding: 10px;
     text-align: center;
@@ -311,15 +311,15 @@
     transform: translateY(0);
 }
 
-/* Newsletter section styling */
+/* Newsletter section styling - updated to match index.html colors */
 .blog-newsletter {
-    background: linear-gradient(135deg, #3a6cf4 0%, #8a4cf6 100%);
+    background: #4254ff; /* Updated to match index.html brand color */
     padding: 60px 30px;
     border-radius: 15px;
     margin-top: 50px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 15px 30px rgba(58, 108, 244, 0.2);
+    box-shadow: 0 15px 30px rgba(66, 84, 255, 0.2);
 }
 
 .blog-newsletter-content {
@@ -383,6 +383,50 @@
 .blog-newsletter-privacy {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.7);
+}
+
+/* Loading indicator */
+.loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+    width: 100%;
+    text-align: center;
+    color: #5a5a8a;
+}
+
+.loading-indicator svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 15px;
+    animation: spin 1.5s linear infinite;
+    color: #4254ff; /* Updated to match index.html brand color */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error state */
+.error-message {
+    text-align: center;
+    padding: 40px 20px;
+    width: 100%;
+    color: #5a5a8a;
+}
+
+.error-message svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 15px;
+    color: #ff4757;
 }
 
 /* Responsive adjustments */
