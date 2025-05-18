@@ -5,7 +5,7 @@
       "title": "Accelerating AI Adoption in India: Implementation Barriers",
       "category": "AI Strategy",
       "created_date": "2025-02-10",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them."
     },
     {
@@ -13,7 +13,7 @@
       "title": "Building RAG Systems for Indian Healthcare: PM-JAY Case Study",
       "category": "Implementation",
       "created_date": "2025-04-28",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system."
     },
     {
@@ -21,7 +21,7 @@
       "title": "Calculating AI ROI for Indian Enterprises: Beyond Conventional Metrics",
       "category": "AI Strategy",
       "created_date": "2025-04-15",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Innovative approaches to measuring the return on investment for AI initiatives in the Indian context."
     },
     {
@@ -29,7 +29,7 @@
       "title": "Multilingual AI: Bridging Language Barriers in India's Digital Transformation",
       "category": "Technical Papers",
       "created_date": "2025-04-08",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape."
     },
     {
@@ -37,7 +37,7 @@
       "title": "AI-Powered Predictive Maintenance: Transforming Indian Manufacturing",
       "category": "Industry",
       "created_date": "2025-03-25",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Case studies and implementation strategies for predictive maintenance in India's manufacturing sector."
     },
     {
@@ -45,7 +45,7 @@
       "title": "Designing Agentic AI Workflows for Business Process Automation",
       "category": "Technical Papers",
       "created_date": "2025-03-12",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Technical architecture and implementation guidelines for creating autonomous AI workflows."
     },
     {
@@ -53,7 +53,7 @@
       "title": "LLM Evaluation Metrics for Enterprise Applications",
       "category": "Technical Papers",
       "created_date": "2025-03-05",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Comprehensive framework for evaluating large language models in enterprise contexts."
     },
     {
@@ -61,7 +61,7 @@
       "title": "Generative AI Applications in Indian Financial Services",
       "category": "Industry",
       "created_date": "2025-02-22",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Overview of use cases and implementation strategies for generative AI in India's financial sector."
     },
     {
@@ -69,7 +69,7 @@
       "title": "Bias Mitigation in AI Systems for the Indian Context",
       "category": "Case Studies",
       "created_date": "2025-02-15",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Practical approaches to identifying and mitigating biases in AI systems deployed in India."
     },
     {
@@ -77,7 +77,7 @@
       "title": "AI Governance Framework for Indian Enterprises",
       "category": "AI Strategy",
       "created_date": "2025-01-28",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Comprehensive governance structure for managing AI initiatives in compliance with evolving regulations."
     },
     {
@@ -85,7 +85,7 @@
       "title": "AI Readiness Assessment Methodology for Mid-Market Companies",
       "category": "Implementation",
       "created_date": "2025-01-15",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Step-by-step approach to evaluating organizational readiness for AI adoption in mid-sized enterprises."
     },
     {
@@ -93,7 +93,7 @@
       "title": "Navigating the Regulatory Landscape for AI in India",
       "category": "AI Strategy",
       "created_date": "2025-01-05",
-      "html_page": "work_in_progress.html",
+      "html_page": "blogs/work_in_progress.html",
       "description": "Analysis of current and upcoming regulations affecting AI development and deployment in India."
     }
   ],
