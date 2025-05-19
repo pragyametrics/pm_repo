@@ -1,12 +1,12 @@
 {
   "blogs": [
-    {
-      "id": "P001",
-      "title": "Accelerating AI Adoption in India: Implementation Barriers",
-      "category": "AI Strategy",
-      "created_date": "2025-02-10",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them."
+      {
+    "id": "P001",
+    "title": "Agentic AI in Metro Design: Imagine Your Engineers Having Smart Digital Assistants",
+    "category": "AI Solutions",
+    "created_date": "2025-05-15",
+    "html_page": "blogs/metro_design_agentic_ai.html",
+    "description": "How agentic AI systems are revolutionizing metro infrastructure design in India, reducing design time by 40% while enhancing quality."
     },
     {
       "id": "P002",
@@ -89,12 +89,12 @@
       "description": "Step-by-step approach to evaluating organizational readiness for AI adoption in mid-sized enterprises."
     },
     {
-      "id": "P012",
-      "title": "Navigating the Regulatory Landscape for AI in India",
+      "id": "P001",
+      "title": "Accelerating AI Adoption in India: Implementation Barriers",
       "category": "AI Strategy",
-      "created_date": "2025-01-05",
+      "created_date": "2025-02-10",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Analysis of current and upcoming regulations affecting AI development and deployment in India."
+      "description": "Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them."
     }
   ],
   "categories": [
