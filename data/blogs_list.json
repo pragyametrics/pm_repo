@@ -6,7 +6,8 @@
     "category": "AI Solutions",
     "created_date": "2025-05-15",
     "html_page": "blogs/metro_design_agentic_ai.html",
-    "description": "How agentic AI systems are revolutionizing metro infrastructure design in India, reducing design time by 40% while enhancing quality."
+    "description": "How agentic AI systems are revolutionizing metro infrastructure design in India, reducing design time by 40% while enhancing quality.",
+    "relevant_blogs": ["P006", "P003", "P005"]
     },
     {
       "id": "P002",
@@ -14,7 +15,8 @@
       "category": "Implementation",
       "created_date": "2025-04-28",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system."
+      "description": "Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system.",
+      "relevant_blogs": ["P004", "P007", "P009"]
     },
     {
       "id": "P003",
@@ -22,7 +24,8 @@
       "category": "AI Strategy",
       "created_date": "2025-04-15",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Innovative approaches to measuring the return on investment for AI initiatives in the Indian context."
+      "description": "Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.",
+      "relevant_blogs": ["P010", "P011", "P001"]
     },
     {
       "id": "P004",
@@ -30,7 +33,8 @@
       "category": "Technical Papers",
       "created_date": "2025-04-08",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape."
+      "description": "Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape.",
+      "relevant_blogs": ["P002", "P009", "P011"]
     },
     {
       "id": "P005",
@@ -38,7 +42,8 @@
       "category": "Industry",
       "created_date": "2025-03-25",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Case studies and implementation strategies for predictive maintenance in India's manufacturing sector."
+      "description": "Case studies and implementation strategies for predictive maintenance in India's manufacturing sector.",
+      "relevant_blogs": ["P001", "P006", "P008"]
     },
     {
       "id": "P006",
@@ -46,7 +51,8 @@
       "category": "Technical Papers",
       "created_date": "2025-03-12",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Technical architecture and implementation guidelines for creating autonomous AI workflows."
+      "description": "Technical architecture and implementation guidelines for creating autonomous AI workflows.",
+      "relevant_blogs": ["P001", "P005", "P007"]
     },
     {
       "id": "P007",
@@ -54,7 +60,8 @@
       "category": "Technical Papers",
       "created_date": "2025-03-05",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Comprehensive framework for evaluating large language models in enterprise contexts."
+      "description": "Comprehensive framework for evaluating large language models in enterprise contexts.",
+      "relevant_blogs": ["P002", "P006", "P010"]
     },
     {
       "id": "P008",
@@ -62,7 +69,8 @@
       "category": "Industry",
       "created_date": "2025-02-22",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Overview of use cases and implementation strategies for generative AI in India's financial sector."
+      "description": "Overview of use cases and implementation strategies for generative AI in India's financial sector.",
+      "relevant_blogs": ["P003", "P005", "P010"]
     },
     {
       "id": "P009",
@@ -70,7 +78,8 @@
       "category": "Case Studies",
       "created_date": "2025-02-15",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Practical approaches to identifying and mitigating biases in AI systems deployed in India."
+      "description": "Practical approaches to identifying and mitigating biases in AI systems deployed in India.",
+      "relevant_blogs": ["P004", "P002", "P010"]
     },
     {
       "id": "P010",
@@ -78,7 +87,8 @@
       "category": "AI Strategy",
       "created_date": "2025-01-28",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Comprehensive governance structure for managing AI initiatives in compliance with evolving regulations."
+      "description": "Comprehensive governance structure for managing AI initiatives in compliance with evolving regulations.",
+      "relevant_blogs": ["P003", "P009", "P011"]
     },
     {
       "id": "P011",
@@ -86,7 +96,8 @@
       "category": "Implementation",
       "created_date": "2025-01-15",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Step-by-step approach to evaluating organizational readiness for AI adoption in mid-sized enterprises."
+      "description": "Step-by-step approach to evaluating organizational readiness for AI adoption in mid-sized enterprises.",
+      "relevant_blogs": ["P003", "P010", "P001"]
     },
     {
       "id": "P001",
@@ -94,7 +105,8 @@
       "category": "AI Strategy",
       "created_date": "2025-02-10",
       "html_page": "blogs/work_in_progress.html",
-      "description": "Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them."
+      "description": "Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them.",
+      "relevant_blogs": ["P003", "P011", "P010"]
     }
   ],
   "categories": [
