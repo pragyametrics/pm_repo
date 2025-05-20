@@ -1459,7 +1459,6 @@
     }
 }
 
-
 /* Blog post styling */
 .blog-section {
     padding: 80px 0;
@@ -1646,46 +1645,56 @@
     margin-bottom: 15px;
 }
 
+/* Blog CTA section */
 .blog-cta {
-    background: linear-gradient(135deg, rgba(66, 84, 255, 0.15), rgba(80, 220, 100, 0.15));
-    border-radius: 12px;
+    margin-top: 60px;
     padding: 40px;
-    margin: 50px 0;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: linear-gradient(135deg, #4A90E2, #6244C5);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/pattern-dots.png');
+    opacity: 0.1;
 }
 
 .blog-cta-title {
     font-size: 1.8rem;
-    color: #ffffff;
-    margin-bottom: 20px;
-    font-weight: 600;
+    margin-bottom: 15px;
+    position: relative;
 }
 
 .blog-cta-text {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 30px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 25px;
+    position: relative;
+    line-height: 1.6;
 }
 
 .blog-cta-button {
     display: inline-block;
-    padding: 15px 30px;
-    background: linear-gradient(90deg, #4254ff, #50dc64);
-    color: white;
+    background: white;
+    color: #4A90E2;
+    padding: 12px 30px;
     border-radius: 30px;
-    font-size: 1rem;
-    font-weight: 500;
     text-decoration: none;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
 }
 
 .blog-cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(66, 84, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .blog-author {
@@ -1782,69 +1791,72 @@
     font-weight: 600;
 }
 
+/* Loading animation for related articles */
+.loading-message {
+    text-align: center;
+    color: #666;
+    padding: 30px;
+    font-style: italic;
+}
+
+/* Text-based related articles styling */
+.blog-related-text-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+    width: 100%;
+}
+
+.blog-related-text-item {
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    background: #fff;
+    transition: all 0.3s ease;
+    border-left: 4px solid #4A90E2;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.blog-related-text-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.blog-related-text-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.blog-related-text-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    font-weight: 600;
+    transition: color 0.3s;
+    width: 100%;
+}
+
+.blog-related-text-link:hover {
+    color: #4A90E2;
+}
+
+.blog-id {
+    display: inline-block;
+    font-weight: 700;
+    color: #4A90E2;
+    margin-right: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Legacy styles kept for backwards compatibility */
 .blog-related-posts {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
-}
-
-.blog-related-post {
-    background-color: #111111;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.blog-related-post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-.blog-related-image {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.blog-related-content {
-    padding: 20px;
-}
-
-.blog-related-post-title {
-    font-size: 1.2rem;
-    color: #ffffff;
-    margin-bottom: 10px;
-    font-weight: 500;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.blog-related-excerpt {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.blog-related-link {
-    font-size: 0.9rem;
-    color: #4254ff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-
-.blog-related-link svg {
-    width: 14px;
-    height: 14px;
-    margin-left: 5px;
 }
 
 /* Responsive styles */
@@ -1883,82 +1895,11 @@
         font-size: 1.5rem;
     }
     
-    .blog-related-posts {
-        grid-template-columns: 1fr;
+    .blog-related-text-item {
+        padding: 12px 15px;
     }
-}
-
-/* Add these styles to your CSS file (blog_styles.css) */
-/* Updated CSS that matches the site's theme better */
-
-.blog-related-text-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0 0;
-    width: 100%; /* Full width to match container */
-}
-
-.blog-related-text-item {
-    margin-bottom: 15px;
-    padding: 15px 20px;
-    border-radius: 12px; /* Match site's rounded corners */
-    background: #fff; /* White background like other elements */
-    transition: all 0.3s ease;
-    border-left: 4px solid #4A90E2;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Match site's shadows */
-    opacity: 0;
-    transform: translateY(10px);
-    width: 100%; /* Full width */
-    box-sizing: border-box; /* Include padding in width */
-}
-
-.blog-related-text-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.blog-related-text-item:hover {
-    transform: translateY(-10px); /* Match the upward movement of other elements */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Match site's hover shadows */
-}
-
-.blog-related-text-link {
-    display: block;
-    text-decoration: none;
-    color: #333; /* Match site's text color */
-    font-size: 1.3rem; /* Match site's font sizes */
-    line-height: 1.4;
-    font-weight: 600; /* Slightly bolder like other headings */
-    transition: color 0.3s;
-    width: 100%;
-}
-
-.blog-related-text-link:hover {
-    color: #4A90E2; /* Site's accent color */
-}
-
-.blog-id {
-    display: inline-block;
-    font-weight: 700;
-    color: #4A90E2; /* Site's accent color */
-    margin-right: 8px;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* Match the CTA button styles for consistency */
-.blog-cta-button {
-    display: inline-block;
-    background: white;
-    color: #4A90E2;
-    padding: 12px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
-}
-
-.blog-cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    
+    .blog-related-text-link {
+        font-size: 1.1rem;
+    }
 }
