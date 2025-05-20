@@ -142,7 +142,6 @@ async function loadRelatedBlogs(blogId) {
     }
 }
 
-// Function to render related blogs as text links
 function renderRelatedBlogs(blogs) {
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
     
@@ -155,9 +154,21 @@ function renderRelatedBlogs(blogs) {
         const listItem = document.createElement('li');
         listItem.className = 'blog-related-text-item';
         
-        // Create link
+        // Create link with FIXED URL format
         const link = document.createElement('a');
-        link.href = blog.html_page || `../blogs/${blog.id.toLowerCase()}.html`;
+        
+        // FIX: Check if html_page contains '../blogs/' already to avoid double path
+        if (blog.html_page && blog.html_page.includes('/blogs/')) {
+            // Use as is if path already includes /blogs/
+            link.href = blog.html_page;
+        } else if (blog.html_page) {
+            // Use provided html_page but ensure it doesn't duplicate /blogs/
+            link.href = blog.html_page;
+        } else {
+            // Fallback to constructed URL
+            link.href = `../blogs/${blog.id.toLowerCase()}.html`;
+        }
+        
         link.className = 'blog-related-text-link';
         
         // Format with ID and Title
@@ -180,8 +191,18 @@ function renderRelatedBlogs(blogs) {
         }, 100 + index * 150);
     });
     
-    // Add list to container
+    // Clear container and add list
+    relatedBlogsContainer.innerHTML = '';
     relatedBlogsContainer.appendChild(listElement);
+}
+
+// To debug URLs, you can add this function and call it
+function debugUrls() {
+    const links = document.querySelectorAll('.blog-related-text-link');
+    console.log('Found ' + links.length + ' related blog links');
+    links.forEach((link, i) => {
+        console.log(`Link ${i+1}: ${link.href}`);
+    });
 }
 
 // Function to show fallback related blogs
@@ -271,3 +292,24 @@ function getFallbackBlogsData() {
         ]
     };
 }
+
+
+// Add this to the end of your ind_blog_script.js file to debug URLs
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Give the links time to load
+    setTimeout(() => {
+        const links = document.querySelectorAll('.blog-related-text-link');
+        console.log('Found ' + links.length + ' related blog links');
+        links.forEach((link, i) => {
+            console.log(`Link ${i+1}: ${link.href}`);
+            
+            // Fix double blog issue if found
+            if (link.href.includes('/blogs/blogs/')) {
+                console.log('Fixing double blogs path: ' + link.href);
+                link.href = link.href.replace('/blogs/blogs/', '/blogs/');
+                console.log('Fixed to: ' + link.href);
+            }
+        });
+    }, 1000);
+});
