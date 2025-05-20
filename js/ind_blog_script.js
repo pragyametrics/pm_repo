@@ -10,13 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Blog page detected, loading related blogs');
         hasAttemptedLoading = true;
         
-        // Store fallback content before hiding
-        const fallbackContent = Array.from(relatedBlogsContainer.querySelectorAll('.fallback-content'));
-        
-        // Hide fallback content immediately to prevent flicker
-        fallbackContent.forEach(element => {
-            element.style.display = 'none';
-        });
+        // Clear the container completely - remove all fallback content
+        relatedBlogsContainer.innerHTML = '';
         
         // Add a loading message that will be replaced
         const loadingDiv = document.createElement('div');
@@ -30,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentBlogId) {
             // Load related blogs with a slight delay to ensure UI updates first
             setTimeout(() => {
-                loadRelatedBlogs(currentBlogId, fallbackContent);
+                loadRelatedBlogs(currentBlogId);
             }, 100);
         } else {
             console.error('No blog ID detected');
-            restoreFallbackContent(relatedBlogsContainer, fallbackContent);
+            hideRelatedSection(relatedBlogsContainer);
         }
     }
     
@@ -43,21 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setupShareLinks();
 });
 
-// Restore fallback content if dynamic loading fails
-function restoreFallbackContent(container, fallbackElements) {
-    console.log('Restoring fallback content');
+// Hide the entire related section if no related blogs
+function hideRelatedSection(container) {
+    console.log('No related blogs found, hiding section');
     
-    // Remove any loading messages
-    const loadingMessages = container.querySelectorAll('.loading-message');
-    loadingMessages.forEach(el => el.remove());
-    
-    // Show the fallback content
-    if (fallbackElements && fallbackElements.length > 0) {
-        fallbackElements.forEach(element => {
-            element.style.display = 'block';
-        });
+    // Find the parent blog-related container
+    const parentSection = container.closest('.blog-related');
+    if (parentSection) {
+        // Hide the entire related blogs section
+        parentSection.style.display = 'none';
     } else {
-        container.innerHTML = '<p>Unable to load related articles.</p>';
+        // If parent section not found, just hide the container
+        container.style.display = 'none';
     }
 }
 
@@ -78,7 +70,7 @@ function getCurrentBlogIdFromUrl() {
 }
 
 // Function to fetch related blogs from JSON file
-async function loadRelatedBlogs(blogId, fallbackElements) {
+async function loadRelatedBlogs(blogId) {
     try {
         console.log('Loading related blogs for ID:', blogId);
         const relatedBlogsContainer = document.getElementById('related-blogs-container');
@@ -140,7 +132,7 @@ async function loadRelatedBlogs(blogId, fallbackElements) {
         
         console.log('Found related blogs:', relatedBlogs);
         
-        // If no related blogs were found, show fallback content
+        // If no related blogs were found, hide the section
         if (relatedBlogs.length === 0) {
             throw new Error('No matching related blogs found');
         }
@@ -205,7 +197,7 @@ async function loadRelatedBlogs(blogId, fallbackElements) {
         
     } catch (error) {
         console.error('Error loading related blogs:', error);
-        restoreFallbackContent(document.getElementById('related-blogs-container'), fallbackElements);
+        hideRelatedSection(document.getElementById('related-blogs-container'));
     }
 }
 
