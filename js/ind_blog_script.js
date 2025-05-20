@@ -1,27 +1,33 @@
-/ js/ind_blog_script.js
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on a blog page by looking for the related-blogs-container
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
     if (relatedBlogsContainer) {
-        // Clear initial content while keeping as fallback
-        const fallbackContent = [];
-        const fallbackElements = relatedBlogsContainer.querySelectorAll('.fallback-content');
+        console.log('Blog page detected, loading related blogs');
         
-        // Store fallback content before clearing
+        // Hide fallback content immediately to prevent flicker
+        const fallbackElements = relatedBlogsContainer.querySelectorAll('.fallback-content');
         fallbackElements.forEach(element => {
-            fallbackContent.push(element.outerHTML);
             element.style.display = 'none';
         });
+        
+        // Show a loading message
+        const loadingMessage = document.createElement('div');
+        loadingMessage.className = 'loading-message';
+        loadingMessage.textContent = 'Loading related articles...';
+        relatedBlogsContainer.appendChild(loadingMessage);
         
         // Get the current blog ID from the body attribute or URL
         const currentBlogId = document.body.getAttribute('data-blog-id') || getCurrentBlogIdFromUrl();
         
         if (currentBlogId) {
-            loadRelatedBlogs(currentBlogId, fallbackContent);
+            // Load related blogs with a slight delay to ensure UI updates first
+            setTimeout(() => {
+                loadRelatedBlogs(currentBlogId);
+            }, 100);
         } else {
             console.error('No blog ID detected');
-            showFallbackContent(relatedBlogsContainer, fallbackContent);
+            showFallbackContent(relatedBlogsContainer);
         }
     }
     
@@ -30,11 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
     setupShareLinks();
 });
 
-// Restore fallback content if dynamic loading fails
-function showFallbackContent(container, fallbackContent) {
-    if (fallbackContent && fallbackContent.length > 0) {
-        // Show the fallback content
-        const fallbackElements = container.querySelectorAll('.fallback-content');
+// Show fallback content if dynamic loading fails
+function showFallbackContent(container) {
+    // Remove any loading message
+    const loadingMessages = container.querySelectorAll('.loading-message');
+    loadingMessages.forEach(el => el.remove());
+    
+    // Show the fallback content
+    const fallbackElements = container.querySelectorAll('.fallback-content');
+    if (fallbackElements.length > 0) {
+        console.log('Showing fallback content');
         fallbackElements.forEach(element => {
             element.style.display = 'block';
         });
@@ -60,10 +71,14 @@ function getCurrentBlogIdFromUrl() {
 }
 
 // Function to fetch related blogs from JSON file
-async function loadRelatedBlogs(blogId, fallbackContent) {
+async function loadRelatedBlogs(blogId) {
     try {
         console.log('Loading related blogs for ID:', blogId);
         const relatedBlogsContainer = document.getElementById('related-blogs-container');
+        
+        // Remove any loading message
+        const loadingMessages = relatedBlogsContainer.querySelectorAll('.loading-message');
+        loadingMessages.forEach(el => el.remove());
         
         // Fetch the blogs data from JSON file with multiple path attempts
         const possiblePaths = [
@@ -103,7 +118,7 @@ async function loadRelatedBlogs(blogId, fallbackContent) {
             throw new Error(`Blog with ID ${blogId} not found`);
         }
         
-        if (!currentBlog.relevant_blogs || !Array.isArray(currentBlog.relevant_blogs)) {
+        if (!currentBlog.relevant_blogs || !Array.isArray(currentBlog.relevant_blogs) || currentBlog.relevant_blogs.length === 0) {
             throw new Error(`No relevant blogs defined for blog ${blogId}`);
         }
         
@@ -122,17 +137,13 @@ async function loadRelatedBlogs(blogId, fallbackContent) {
         
         console.log('Found related blogs:', relatedBlogs);
         
-        // Clear fallback content
-        const fallbackElements = relatedBlogsContainer.querySelectorAll('.fallback-content');
-        fallbackElements.forEach(element => {
-            element.style.display = 'none';
-        });
-        
         // If no related blogs were found, show fallback content
         if (relatedBlogs.length === 0) {
-            showFallbackContent(relatedBlogsContainer, fallbackContent);
-            return;
+            throw new Error('No matching related blogs found');
         }
+        
+        // Clear the container before adding new content
+        relatedBlogsContainer.innerHTML = '';
         
         // Add dynamic content - create new elements instead of innerHTML for better performance
         relatedBlogs.forEach(blog => {
@@ -191,7 +202,7 @@ async function loadRelatedBlogs(blogId, fallbackContent) {
         
     } catch (error) {
         console.error('Error loading related blogs:', error);
-        showFallbackContent(relatedBlogsContainer, fallbackContent);
+        showFallbackContent(document.getElementById('related-blogs-container'));
     }
 }
 
