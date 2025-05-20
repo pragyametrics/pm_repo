@@ -1,17 +1,86 @@
-// Enhanced ind_blog_script.js with text-based related blog links
+// Enhanced ind_blog_script.js with optimized code for text-based related articles
 // This script ensures related articles are displayed properly
 
 // Flag to track if we've already tried loading blogs
 let hasAttemptedLoading = false;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on a blog page by looking for the related-blogs-container
+    // Initialize animation observers for page content
+    initContentObservers();
+    
+    // Handle related blogs loading
+    loadRelatedBlogs();
+    
+    // Fix URL paths after a delay
+    setTimeout(fixRelatedBlogUrls, 1000);
+});
+
+// Initialize observers for animations
+function initContentObservers() {
+    // Create observer for main content elements
+    const contentObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+    
+    // Observe main content sections
+    document.querySelectorAll('h2, .blog-image, .highlight-box, .blog-chat-example, .blog-cta').forEach(element => {
+        contentObserver.observe(element);
+    });
+    
+    // Create observer for related blog container
+    const relatedBlogsContainer = document.getElementById('related-blogs-container');
+    if (relatedBlogsContainer) {
+        // Create a mutation observer to watch for when items are added
+        const relatedBlogsMutationObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.addedNodes.length > 0) {
+                    // Find all newly added related blog items
+                    const relatedItems = relatedBlogsContainer.querySelectorAll('.blog-related-text-item:not(.observer-ready)');
+                    
+                    if (relatedItems.length > 0) {
+                        // Create intersection observer for related items
+                        const relatedItemsObserver = new IntersectionObserver((entries) => {
+                            entries.forEach((entry, index) => {
+                                if (entry.isIntersecting) {
+                                    // Add visible class with staggered delay
+                                    setTimeout(() => {
+                                        entry.target.classList.add('visible');
+                                    }, index * 150);
+                                    
+                                    // Unobserve after animation
+                                    relatedItemsObserver.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+                        
+                        // Observe each item and mark as ready
+                        relatedItems.forEach(item => {
+                            relatedItemsObserver.observe(item);
+                            item.classList.add('observer-ready');
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Start observing the container for added nodes
+        relatedBlogsMutationObserver.observe(relatedBlogsContainer, { childList: true });
+    }
+}
+
+// Main function to load related blogs
+function loadRelatedBlogs() {
+    // Check if we're on a blog page
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
     if (relatedBlogsContainer && !hasAttemptedLoading) {
         console.log('Blog page detected, loading related blogs');
         hasAttemptedLoading = true;
         
-        // Clear the container completely - remove all fallback content
+        // Clear the container
         relatedBlogsContainer.innerHTML = '';
         
         // Add a loading message
@@ -20,32 +89,29 @@ document.addEventListener('DOMContentLoaded', function() {
         loadingDiv.textContent = 'Loading related articles...';
         relatedBlogsContainer.appendChild(loadingDiv);
         
-        // Get the current blog ID from the body attribute or URL
+        // Get the current blog ID
         const currentBlogId = document.body.getAttribute('data-blog-id') || getCurrentBlogIdFromUrl();
         
         if (currentBlogId) {
             console.log('Found blog ID:', currentBlogId);
             
-            // Load related blogs with a slight delay to ensure UI updates first
+            // Load related blogs with a slight delay
             setTimeout(() => {
-                loadRelatedBlogs(currentBlogId);
-            }, 300); // Short delay for better user experience
+                fetchRelatedBlogs(currentBlogId);
+            }, 300);
         } else {
             console.error('No blog ID detected');
             showFallbackRelatedBlogs(relatedBlogsContainer);
         }
-    } else {
-        console.log('Not a blog page or already loaded');
     }
-});
+}
 
 // Extract blog ID from URL if needed
 function getCurrentBlogIdFromUrl() {
-    // This is a fallback method to get the blog ID from the URL
     const path = window.location.pathname;
     const filename = path.split('/').pop().replace('.html', '');
     
-    // Map filename to blog ID - you may need to customize this based on your URL structure
+    // Map filename to blog ID
     const filenameToId = {
         'metro_design_agentic_ai': 'P001',
         'building_rag_systems': 'P002',
@@ -58,17 +124,17 @@ function getCurrentBlogIdFromUrl() {
     return filenameToId[filename] || null;
 }
 
-// Function to fetch related blogs from JSON file
-async function loadRelatedBlogs(blogId) {
+// Function to fetch related blogs
+async function fetchRelatedBlogs(blogId) {
     try {
         console.log('Loading related blogs for ID:', blogId);
         const relatedBlogsContainer = document.getElementById('related-blogs-container');
         
-        // Try to get fallback data directly since fetching might fail
+        // Get fallback data as default
         const fallbackData = getFallbackBlogsData();
-        let data = fallbackData;  // Use fallback data by default
+        let data = fallbackData;
         
-        // Try fetching the JSON file from various possible paths
+        // Try fetching the JSON file from possible paths
         const possiblePaths = [
             '../data/blogs_list.json',
             './data/blogs_list.json',
@@ -92,28 +158,19 @@ async function loadRelatedBlogs(blogId) {
         }
         
         if (!foundJson) {
-            console.warn('Could not find blogs_list.json, using fallback data');
+            console.warn('Using fallback data');
         }
         
-        // Find the current blog to get its related blogs
+        // Find the current blog's related blogs
         const currentBlog = data.blogs.find(blog => blog.id === blogId);
-        
         let relatedBlogs = [];
         
-        if (!currentBlog) {
-            console.warn(`Blog with ID ${blogId} not found, using fallback related blogs`);
-            // Use fallback related blogs (all blogs except current one, limit to 3)
-            relatedBlogs = data.blogs.filter(blog => blog.id !== blogId).slice(0, 3);
-        } else if (!currentBlog.relevant_blogs || !Array.isArray(currentBlog.relevant_blogs) || currentBlog.relevant_blogs.length === 0) {
-            console.warn(`No relevant blogs defined for blog ${blogId}, using fallback`);
-            // Use fallback related blogs (all blogs except current one, limit to 3)
+        if (!currentBlog || !currentBlog.relevant_blogs || !Array.isArray(currentBlog.relevant_blogs) || currentBlog.relevant_blogs.length === 0) {
+            // Use fallback related blogs
             relatedBlogs = data.blogs.filter(blog => blog.id !== blogId).slice(0, 3);
         } else {
-            const relatedBlogIds = currentBlog.relevant_blogs;
-            console.log('Related blog IDs:', relatedBlogIds);
-            
             // Get the related blog objects based on their IDs
-            relatedBlogIds.forEach(id => {
+            currentBlog.relevant_blogs.forEach(id => {
                 const blog = data.blogs.find(blog => blog.id === id);
                 if (blog) {
                     relatedBlogs.push(blog);
@@ -121,16 +178,14 @@ async function loadRelatedBlogs(blogId) {
             });
         }
         
-        console.log('Found related blogs:', relatedBlogs);
-        
-        // If no related blogs were found at all, show fallback
+        // If no related blogs were found, show fallback
         if (relatedBlogs.length === 0) {
             console.warn('No matching related blogs found, showing fallback');
             showFallbackRelatedBlogs(relatedBlogsContainer);
             return;
         }
         
-        // Remove loading message and any old content
+        // Remove loading message
         relatedBlogsContainer.innerHTML = '';
         
         // Render the related blogs
@@ -142,6 +197,7 @@ async function loadRelatedBlogs(blogId) {
     }
 }
 
+// Function to render related blogs as text links
 function renderRelatedBlogs(blogs) {
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
     
@@ -154,18 +210,15 @@ function renderRelatedBlogs(blogs) {
         const listItem = document.createElement('li');
         listItem.className = 'blog-related-text-item';
         
-        // Create link with FIXED URL format
+        // Create link with proper URL handling
         const link = document.createElement('a');
         
-        // FIX: Check if html_page contains '../blogs/' already to avoid double path
+        // Fix URL path to avoid duplication of /blogs/
         if (blog.html_page && blog.html_page.includes('/blogs/')) {
-            // Use as is if path already includes /blogs/
             link.href = blog.html_page;
         } else if (blog.html_page) {
-            // Use provided html_page but ensure it doesn't duplicate /blogs/
             link.href = blog.html_page;
         } else {
-            // Fallback to constructed URL
             link.href = `../blogs/${blog.id.toLowerCase()}.html`;
         }
         
@@ -174,7 +227,7 @@ function renderRelatedBlogs(blogs) {
         // Format with ID and Title
         link.innerHTML = `<span class="blog-id">${blog.id}</span> - ${blog.title}`;
         
-        // Add description as title attribute for tooltip
+        // Add description as tooltip
         if (blog.description) {
             link.setAttribute('title', blog.description);
         }
@@ -184,25 +237,10 @@ function renderRelatedBlogs(blogs) {
         
         // Add to list
         listElement.appendChild(listItem);
-        
-        // Add animation with delay
-        setTimeout(() => {
-            listItem.classList.add('visible');
-        }, 100 + index * 150);
     });
     
-    // Clear container and add list
-    relatedBlogsContainer.innerHTML = '';
+    // Add list to container
     relatedBlogsContainer.appendChild(listElement);
-}
-
-// To debug URLs, you can add this function and call it
-function debugUrls() {
-    const links = document.querySelectorAll('.blog-related-text-link');
-    console.log('Found ' + links.length + ' related blog links');
-    links.forEach((link, i) => {
-        console.log(`Link ${i+1}: ${link.href}`);
-    });
 }
 
 // Function to show fallback related blogs
@@ -235,6 +273,18 @@ function showFallbackRelatedBlogs(container) {
     renderRelatedBlogs(fallbackBlogs);
 }
 
+// Fix URL paths to prevent /blogs/blogs/ issue
+function fixRelatedBlogUrls() {
+    const links = document.querySelectorAll('.blog-related-text-link');
+    links.forEach((link) => {
+        // Fix double blogs path issue if found
+        if (link.href.includes('/blogs/blogs/')) {
+            console.log('Fixing double blogs path: ' + link.href);
+            link.href = link.href.replace('/blogs/blogs/', '/blogs/');
+        }
+    });
+}
+
 // Fallback data for blogs
 function getFallbackBlogsData() {
     return {
@@ -245,7 +295,7 @@ function getFallbackBlogsData() {
                 "title": "Agentic AI in Metro Design: Imagine Your Engineers Having Smart Digital Assistants",
                 "description": "How agentic AI systems are revolutionizing metro infrastructure design in India, reducing design time by 40% while enhancing quality.",
                 "category": "AI Solutions",
-                "html_page": "blogs/metro_design_agentic_ai.html",
+                "html_page": "../blogs/metro_design_agentic_ai.html",
                 "created_date": "2025-05-15",
                 "relevant_blogs": ["P006", "P003", "P005"]
             },
@@ -254,7 +304,7 @@ function getFallbackBlogsData() {
                 "title": "Building RAG Systems for Indian Healthcare: PM-JAY Case Study",
                 "description": "Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system.",
                 "category": "Implementation",
-                "html_page": "blogs/building_rag_systems.html",
+                "html_page": "../blogs/building_rag_systems.html",
                 "created_date": "2025-04-28"
             },
             {
@@ -262,7 +312,7 @@ function getFallbackBlogsData() {
                 "title": "Calculating AI ROI for Indian Enterprises: Beyond Conventional Metrics",
                 "description": "Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.",
                 "category": "AI Strategy",
-                "html_page": "blogs/calculating_ai_roi.html",
+                "html_page": "../blogs/calculating_ai_roi.html",
                 "created_date": "2025-04-15"
             },
             {
@@ -270,7 +320,7 @@ function getFallbackBlogsData() {
                 "title": "Multilingual AI: Bridging Language Barriers in India's Digital Transformation",
                 "description": "Technical approaches to developing AI systems that work effectively across India's diverse linguistic landscape.",
                 "category": "Technical Papers",
-                "html_page": "blogs/multilingual_ai.html",
+                "html_page": "../blogs/multilingual_ai.html",
                 "created_date": "2025-04-08"
             },
             {
@@ -278,7 +328,7 @@ function getFallbackBlogsData() {
                 "title": "AI-Powered Predictive Maintenance: Transforming Indian Manufacturing",
                 "description": "Case studies and implementation strategies for predictive maintenance in India's manufacturing sector.",
                 "category": "Industry",
-                "html_page": "blogs/predictive_maintenance.html",
+                "html_page": "../blogs/predictive_maintenance.html",
                 "created_date": "2025-03-25"
             },
             {
@@ -286,30 +336,9 @@ function getFallbackBlogsData() {
                 "title": "Designing Agentic AI Workflows for Business Process Automation",
                 "description": "Technical architecture and implementation guidelines for creating autonomous AI workflows.",
                 "category": "Technical Papers",
-                "html_page": "blogs/agentic_workflows.html",
+                "html_page": "../blogs/agentic_workflows.html",
                 "created_date": "2025-03-12"
             }
         ]
     };
 }
-
-
-// Add this to the end of your ind_blog_script.js file to debug URLs
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Give the links time to load
-    setTimeout(() => {
-        const links = document.querySelectorAll('.blog-related-text-link');
-        console.log('Found ' + links.length + ' related blog links');
-        links.forEach((link, i) => {
-            console.log(`Link ${i+1}: ${link.href}`);
-            
-            // Fix double blog issue if found
-            if (link.href.includes('/blogs/blogs/')) {
-                console.log('Fixing double blogs path: ' + link.href);
-                link.href = link.href.replace('/blogs/blogs/', '/blogs/');
-                console.log('Fixed to: ' + link.href);
-            }
-        });
-    }, 1000);
-});
