@@ -1,5 +1,5 @@
-/ Enhanced ind_blog_script.js with text-based related articles
-// This script ensures related articles are displayed as text links
+// Enhanced ind_blog_script.js with text-based related blog links
+// This script ensures related articles are displayed properly
 
 // Flag to track if we've already tried loading blogs
 let hasAttemptedLoading = false;
@@ -45,7 +45,7 @@ function getCurrentBlogIdFromUrl() {
     const path = window.location.pathname;
     const filename = path.split('/').pop().replace('.html', '');
     
-    // Map filename to blog ID
+    // Map filename to blog ID - you may need to customize this based on your URL structure
     const filenameToId = {
         'metro_design_agentic_ai': 'P001',
         'building_rag_systems': 'P002',
@@ -133,8 +133,8 @@ async function loadRelatedBlogs(blogId) {
         // Remove loading message and any old content
         relatedBlogsContainer.innerHTML = '';
         
-        // Render the related blogs in text format
-        renderTextRelatedBlogs(relatedBlogs);
+        // Render the related blogs
+        renderRelatedBlogs(relatedBlogs);
         
     } catch (error) {
         console.error('Error loading related blogs:', error);
@@ -143,7 +143,7 @@ async function loadRelatedBlogs(blogId) {
 }
 
 // Function to render related blogs as text links
-function renderTextRelatedBlogs(blogs) {
+function renderRelatedBlogs(blogs) {
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
     
     // Create a list element
@@ -154,7 +154,6 @@ function renderTextRelatedBlogs(blogs) {
         // Create list item
         const listItem = document.createElement('li');
         listItem.className = 'blog-related-text-item';
-        listItem.setAttribute('data-index', index);
         
         // Create link
         const link = document.createElement('a');
@@ -162,7 +161,7 @@ function renderTextRelatedBlogs(blogs) {
         link.className = 'blog-related-text-link';
         
         // Format with ID and Title
-        link.innerHTML = `<span class="blog-related-text-id">${blog.id}</span> - ${blog.title}`;
+        link.innerHTML = `<span class="blog-id">${blog.id}</span> - ${blog.title}`;
         
         // Add description as title attribute for tooltip
         if (blog.description) {
@@ -185,7 +184,7 @@ function renderTextRelatedBlogs(blogs) {
     relatedBlogsContainer.appendChild(listElement);
 }
 
-// Function to show fallback related blogs as text
+// Function to show fallback related blogs
 function showFallbackRelatedBlogs(container) {
     container.innerHTML = '';
     
@@ -211,8 +210,8 @@ function showFallbackRelatedBlogs(container) {
         }
     ];
     
-    // Render the fallback blogs as text
-    renderTextRelatedBlogs(fallbackBlogs);
+    // Render the fallback blogs
+    renderRelatedBlogs(fallbackBlogs);
 }
 
 // Fallback data for blogs
