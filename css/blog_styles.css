@@ -1889,23 +1889,27 @@
 }
 
 /* Add these styles to your CSS file (blog_styles.css) */
+/* Updated CSS that matches the site's theme better */
 
-/* Text-based related blog links */
 .blog-related-text-list {
     list-style: none;
     padding: 0;
     margin: 20px 0 0 0;
+    width: 100%; /* Full width to match container */
 }
 
 .blog-related-text-item {
     margin-bottom: 15px;
-    padding: 12px 18px;
-    border-radius: 8px;
-    background: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 12px; /* Match site's rounded corners */
+    background: #fff; /* White background like other elements */
     transition: all 0.3s ease;
     border-left: 4px solid #4A90E2;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Match site's shadows */
     opacity: 0;
     transform: translateY(10px);
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 .blog-related-text-item.visible {
@@ -1914,29 +1918,47 @@
 }
 
 .blog-related-text-item:hover {
-    background: #edf5ff;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    transform: translateX(5px);
+    transform: translateY(-10px); /* Match the upward movement of other elements */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Match site's hover shadows */
 }
 
 .blog-related-text-link {
     display: block;
     text-decoration: none;
-    color: #333;
-    font-size: 1.1rem;
+    color: #333; /* Match site's text color */
+    font-size: 1.3rem; /* Match site's font sizes */
     line-height: 1.4;
-    font-weight: 500;
+    font-weight: 600; /* Slightly bolder like other headings */
     transition: color 0.3s;
+    width: 100%;
 }
 
 .blog-related-text-link:hover {
-    color: #4A90E2;
+    color: #4A90E2; /* Site's accent color */
 }
 
 .blog-id {
     display: inline-block;
-    font-weight: 600;
-    color: #4A90E2;
-    margin-right: 5px;
+    font-weight: 700;
+    color: #4A90E2; /* Site's accent color */
+    margin-right: 8px;
     font-family: 'Poppins', sans-serif;
+}
+
+/* Match the CTA button styles for consistency */
+.blog-cta-button {
+    display: inline-block;
+    background: white;
+    color: #4A90E2;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.blog-cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
