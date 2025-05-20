@@ -1,17 +1,27 @@
-// js/ind_blog_script.js
+/ js/ind_blog_script.js
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on a blog page by looking for the related-blogs-container
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
     if (relatedBlogsContainer) {
+        // Clear initial content while keeping as fallback
+        const fallbackContent = [];
+        const fallbackElements = relatedBlogsContainer.querySelectorAll('.fallback-content');
+        
+        // Store fallback content before clearing
+        fallbackElements.forEach(element => {
+            fallbackContent.push(element.outerHTML);
+            element.style.display = 'none';
+        });
+        
         // Get the current blog ID from the body attribute or URL
         const currentBlogId = document.body.getAttribute('data-blog-id') || getCurrentBlogIdFromUrl();
         
         if (currentBlogId) {
-            loadRelatedBlogs(currentBlogId);
+            loadRelatedBlogs(currentBlogId, fallbackContent);
         } else {
             console.error('No blog ID detected');
-            relatedBlogsContainer.innerHTML = '<p>Unable to load related articles.</p>';
+            showFallbackContent(relatedBlogsContainer, fallbackContent);
         }
     }
     
@@ -19,6 +29,19 @@ document.addEventListener('DOMContentLoaded', function() {
     setupBlogAnimations();
     setupShareLinks();
 });
+
+// Restore fallback content if dynamic loading fails
+function showFallbackContent(container, fallbackContent) {
+    if (fallbackContent && fallbackContent.length > 0) {
+        // Show the fallback content
+        const fallbackElements = container.querySelectorAll('.fallback-content');
+        fallbackElements.forEach(element => {
+            element.style.display = 'block';
+        });
+    } else {
+        container.innerHTML = '<p>Unable to load related articles.</p>';
+    }
+}
 
 // Extract blog ID from URL if needed
 function getCurrentBlogIdFromUrl() {
@@ -37,19 +60,41 @@ function getCurrentBlogIdFromUrl() {
 }
 
 // Function to fetch related blogs from JSON file
-async function loadRelatedBlogs(blogId) {
+async function loadRelatedBlogs(blogId, fallbackContent) {
     try {
         console.log('Loading related blogs for ID:', blogId);
         const relatedBlogsContainer = document.getElementById('related-blogs-container');
         
-        // Fetch the blogs data from JSON file
-        const response = await fetch('../data/blogs_list.json');
-        if (!response.ok) {
-            throw new Error(`Failed to load blog data: ${response.status}`);
+        // Fetch the blogs data from JSON file with multiple path attempts
+        const possiblePaths = [
+            '../data/blogs_list.json',
+            './data/blogs_list.json',
+            '/data/blogs_list.json'
+        ];
+        
+        let response = null;
+        let jsonPath = '';
+        
+        // Try all possible paths until one works
+        for (const path of possiblePaths) {
+            try {
+                const tempResponse = await fetch(path);
+                if (tempResponse.ok) {
+                    response = tempResponse;
+                    jsonPath = path;
+                    break;
+                }
+            } catch (error) {
+                console.log(`Path ${path} failed: ${error.message}`);
+            }
         }
         
+        if (!response) {
+            throw new Error('Could not find blogs_list.json in any of the expected locations');
+        }
+        
+        console.log(`Successfully loaded JSON from ${jsonPath}`);
         const data = await response.json();
-        console.log('Loaded blog data:', data);
         
         // Find the current blog to get its related blogs
         const currentBlog = data.blogs.find(blog => blog.id === blogId);
@@ -77,44 +122,76 @@ async function loadRelatedBlogs(blogId) {
         
         console.log('Found related blogs:', relatedBlogs);
         
-        // Clear loading message
-        relatedBlogsContainer.innerHTML = '';
+        // Clear fallback content
+        const fallbackElements = relatedBlogsContainer.querySelectorAll('.fallback-content');
+        fallbackElements.forEach(element => {
+            element.style.display = 'none';
+        });
         
-        // If no related blogs were found, show a message
+        // If no related blogs were found, show fallback content
         if (relatedBlogs.length === 0) {
-            relatedBlogsContainer.innerHTML = '<p>No related articles found.</p>';
+            showFallbackContent(relatedBlogsContainer, fallbackContent);
             return;
         }
         
-        // Render each related blog
+        // Add dynamic content - create new elements instead of innerHTML for better performance
         relatedBlogs.forEach(blog => {
-            // Create placeholder images based on blog category or a default image
-            let imageUrl;
+            // Create elements
+            const blogPost = document.createElement('div');
+            blogPost.className = 'blog-related-post';
+            
+            // Create image with fallback
+            const img = document.createElement('img');
+            img.className = 'blog-related-image';
+            img.alt = blog.title;
+            
+            // Try to create an appropriate image path based on blog category or ID
             if (blog.category) {
-                imageUrl = `../images/${blog.category.toLowerCase().replace(/\s+/g, '_')}.jpg`;
+                img.src = `images/${blog.category.toLowerCase().replace(/\s+/g, '_')}.jpg`;
             } else {
-                imageUrl = '../images/placeholder.jpg';
+                img.src = `images/${blog.id.toLowerCase()}_thumb.jpg`;
             }
             
-            // Create HTML for the related blog
-            const blogHtml = `
-                <div class="blog-related-post">
-                    <img src="${imageUrl}" alt="${blog.title}" class="blog-related-image" onerror="this.src='../images/placeholder.jpg'">
-                    <div class="blog-related-content">
-                        <h4 class="blog-related-post-title">${blog.title}</h4>
-                        <p class="blog-related-excerpt">${blog.description}</p>
-                        <a href="${blog.html_page}" class="blog-related-link">Read More <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                    </div>
-                </div>
-            `;
+            // Add error handler for image
+            img.onerror = function() {
+                this.src = 'images/placeholder.jpg';
+            };
             
-            relatedBlogsContainer.innerHTML += blogHtml;
+            // Create content container
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'blog-related-content';
+            
+            // Add title
+            const title = document.createElement('h4');
+            title.className = 'blog-related-post-title';
+            title.textContent = blog.title;
+            
+            // Add excerpt
+            const excerpt = document.createElement('p');
+            excerpt.className = 'blog-related-excerpt';
+            excerpt.textContent = blog.description;
+            
+            // Add read more link with SVG
+            const link = document.createElement('a');
+            link.className = 'blog-related-link';
+            link.href = blog.html_page;
+            link.innerHTML = 'Read More <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+            
+            // Assemble the elements
+            contentDiv.appendChild(title);
+            contentDiv.appendChild(excerpt);
+            contentDiv.appendChild(link);
+            
+            blogPost.appendChild(img);
+            blogPost.appendChild(contentDiv);
+            
+            // Add the post to the container
+            relatedBlogsContainer.appendChild(blogPost);
         });
         
     } catch (error) {
         console.error('Error loading related blogs:', error);
-        document.getElementById('related-blogs-container').innerHTML = 
-            `<p>Unable to load related articles. Error: ${error.message}</p>`;
+        showFallbackContent(relatedBlogsContainer, fallbackContent);
     }
 }
 
