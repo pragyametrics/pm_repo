@@ -1887,3 +1887,95 @@
         grid-template-columns: 1fr;
     }
 }
+
+
+* Text-based related articles styling */
+.blog-related-text-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0 0 0;
+}
+
+.blog-related-text-item {
+    margin-bottom: 18px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(15px);
+    border-left: 4px solid #4A90E2;
+}
+
+.blog-related-text-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.blog-related-text-item:hover {
+    background-color: #edf5ff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateX(5px);
+}
+
+.blog-related-text-link {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.blog-related-text-link:hover {
+    color: #4A90E2;
+}
+
+.blog-related-text-id {
+    display: inline-block;
+    font-weight: 600;
+    color: #4A90E2;
+    margin-right: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Animation delays for staggered appearance */
+.blog-related-text-item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.blog-related-text-item:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.blog-related-text-item:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .blog-related-text-item {
+        background-color: #2a2a2a;
+    }
+    
+    .blog-related-text-item:hover {
+        background-color: #333;
+    }
+    
+    .blog-related-text-link {
+        color: #e0e0e0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-related-text-item {
+        padding: 12px 15px;
+        margin-bottom: 12px;
+    }
+    
+    .blog-related-text-link {
+        font-size: 1rem;
+    }
+}
