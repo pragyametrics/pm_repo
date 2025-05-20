@@ -1,4 +1,4 @@
-/ js/ind_blog_script.js
+// js/ind_blog_script.js
 
 // Flag to track if we've already tried loading blogs
 let hasAttemptedLoading = false;
