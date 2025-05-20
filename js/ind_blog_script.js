@@ -1,5 +1,5 @@
-// Enhanced ind_blog_script.js with improved related blog tiles styling
-// This script ensures related articles are displayed properly
+/ Enhanced ind_blog_script.js with text-based related articles
+// This script ensures related articles are displayed as text links
 
 // Flag to track if we've already tried loading blogs
 let hasAttemptedLoading = false;
@@ -42,11 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
 // Extract blog ID from URL if needed
 function getCurrentBlogIdFromUrl() {
     // This is a fallback method to get the blog ID from the URL
-    // Example: if URL is /blogs/metro_design_agentic_ai.html, look for a way to map to P001
     const path = window.location.pathname;
     const filename = path.split('/').pop().replace('.html', '');
     
-    // Map filename to blog ID - you may need to customize this based on your URL structure
+    // Map filename to blog ID
     const filenameToId = {
         'metro_design_agentic_ai': 'P001',
         'building_rag_systems': 'P002',
@@ -134,8 +133,8 @@ async function loadRelatedBlogs(blogId) {
         // Remove loading message and any old content
         relatedBlogsContainer.innerHTML = '';
         
-        // Render the related blogs
-        renderRelatedBlogs(relatedBlogs);
+        // Render the related blogs in text format
+        renderTextRelatedBlogs(relatedBlogs);
         
     } catch (error) {
         console.error('Error loading related blogs:', error);
@@ -143,52 +142,50 @@ async function loadRelatedBlogs(blogId) {
     }
 }
 
-// Function to render related blogs
-function renderRelatedBlogs(blogs) {
+// Function to render related blogs as text links
+function renderTextRelatedBlogs(blogs) {
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
     
+    // Create a list element
+    const listElement = document.createElement('ul');
+    listElement.className = 'blog-related-text-list';
+    
     blogs.forEach((blog, index) => {
-        // Create the blog post element
-        const blogPost = document.createElement('div');
-        blogPost.className = 'blog-related-post';
-        blogPost.setAttribute('data-index', index);
+        // Create list item
+        const listItem = document.createElement('li');
+        listItem.className = 'blog-related-text-item';
+        listItem.setAttribute('data-index', index);
         
-        // Get image path based on category or ID
-        const imagePath = getImagePathForBlog(blog);
+        // Create link
+        const link = document.createElement('a');
+        link.href = blog.html_page || `../blogs/${blog.id.toLowerCase()}.html`;
+        link.className = 'blog-related-text-link';
         
-        // Format date if available
-        const dateString = formatDateForBlog(blog);
+        // Format with ID and Title
+        link.innerHTML = `<span class="blog-related-text-id">${blog.id}</span> - ${blog.title}`;
         
-        // Create HTML structure
-        blogPost.innerHTML = `
-            <img src="${imagePath}" alt="${blog.title}" class="blog-related-image">
-            <div class="blog-related-content">
-                <h4 class="blog-related-post-title">${blog.title}</h4>
-                <div class="blog-related-categories">
-                    <span class="blog-related-category">${blog.category || 'AI Solutions'}</span>
-                </div>
-                <p class="blog-related-excerpt">${blog.description || ''}</p>
-                <a href="${blog.html_page || `../blogs/${blog.id.toLowerCase()}.html`}" class="blog-related-link">
-                    Read More 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-            </div>
-        `;
+        // Add description as title attribute for tooltip
+        if (blog.description) {
+            link.setAttribute('title', blog.description);
+        }
         
-        // Add to container
-        relatedBlogsContainer.appendChild(blogPost);
+        // Add link to list item
+        listItem.appendChild(link);
+        
+        // Add to list
+        listElement.appendChild(listItem);
         
         // Add animation with delay
         setTimeout(() => {
-            blogPost.classList.add('visible');
+            listItem.classList.add('visible');
         }, 100 + index * 150);
     });
+    
+    // Add list to container
+    relatedBlogsContainer.appendChild(listElement);
 }
 
-// Function to show fallback related blogs
+// Function to show fallback related blogs as text
 function showFallbackRelatedBlogs(container) {
     container.innerHTML = '';
     
@@ -214,42 +211,8 @@ function showFallbackRelatedBlogs(container) {
         }
     ];
     
-    // Render the fallback blogs
-    renderRelatedBlogs(fallbackBlogs);
-}
-
-// Helper function to get image path for a blog
-function getImagePathForBlog(blog) {
-    if (blog.image) {
-        return blog.image;
-    }
-    
-    // Try based on category
-    if (blog.category) {
-        const categorySlug = blog.category.toLowerCase().replace(/\s+/g, '_');
-        return `../images/${categorySlug}.jpg`;
-    }
-    
-    // Fallback based on ID
-    return `../images/${blog.id.toLowerCase()}_thumb.jpg`;
-}
-
-// Helper function to format date for a blog
-function formatDateForBlog(blog) {
-    if (!blog.created_date) {
-        return 'May 2025';
-    }
-    
-    try {
-        const date = new Date(blog.created_date);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    } catch (error) {
-        return 'May 2025';
-    }
+    // Render the fallback blogs as text
+    renderTextRelatedBlogs(fallbackBlogs);
 }
 
 // Fallback data for blogs
