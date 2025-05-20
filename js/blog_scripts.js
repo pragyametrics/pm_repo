@@ -492,3 +492,132 @@ document.addEventListener('DOMContentLoaded', function() {
         return re.test(email);
     }
 });
+// Function to fetch related blogs from JSON file
+async function loadRelatedBlogs(blogId) {
+    try {
+        // Set the current blog ID
+        currentBlogId = blogId || document.body.getAttribute('data-blog-id');
+        
+        if (!currentBlogId) {
+            console.error('No blog ID specified');
+            document.getElementById('related-blogs-container').innerHTML = 
+                '<p>Unable to load related articles. Missing blog ID.</p>';
+            return;
+        }
+        
+        // Fetch the blogs data from JSON file
+        const response = await fetch('../data/blogs_list.json');
+        if (!response.ok) {
+            throw new Error('Failed to load blog data');
+        }
+        
+        const data = await response.json();
+        
+        // Find the current blog to get its related blogs
+        const currentBlog = data.blogs.find(blog => blog.id === currentBlogId);
+        
+        if (!currentBlog || !currentBlog.relevant_blogs) {
+            throw new Error('Blog not found or no related blogs defined');
+        }
+        
+        const relatedBlogIds = currentBlog.relevant_blogs;
+        const relatedBlogs = [];
+        
+        // Get the related blog objects based on their IDs
+        relatedBlogIds.forEach(id => {
+            const blog = data.blogs.find(blog => blog.id === id);
+            if (blog) {
+                relatedBlogs.push(blog);
+            }
+        });
+        
+        // Clear loading message and render related blogs
+        const relatedBlogsContainer = document.getElementById('related-blogs-container');
+        relatedBlogsContainer.innerHTML = '';
+        
+        // Render each related blog
+        relatedBlogs.forEach(blog => {
+            // Create a placeholder image URL based on blog category or ID
+            const imageUrl = `images/${blog.category.toLowerCase().replace(/\s+/g, '_')}.jpg`;
+            
+            // Create HTML for the related blog
+            const blogHtml = `
+                <div class="blog-related-post">
+                    <img src="${imageUrl}" alt="${blog.title}" class="blog-related-image" onerror="this.src='images/placeholder.jpg'">
+                    <div class="blog-related-content">
+                        <h4 class="blog-related-post-title">${blog.title}</h4>
+                        <p class="blog-related-excerpt">${blog.description}</p>
+                        <a href="${blog.html_page}" class="blog-related-link">Read More <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                    </div>
+                </div>
+            `;
+            
+            relatedBlogsContainer.innerHTML += blogHtml;
+        });
+        
+        // If no related blogs were found, show a message
+        if (relatedBlogs.length === 0) {
+            relatedBlogsContainer.innerHTML = '<p>No related articles found.</p>';
+        }
+        
+    } catch (error) {
+        console.error('Error loading related blogs:', error);
+        document.getElementById('related-blogs-container').innerHTML = 
+            '<p>Unable to load related articles. Please try again later.</p>';
+    }
+}
+
+// Animate blog elements when they come into view
+function setupBlogAnimations() {
+    const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.blog-content h2, .blog-content img, .highlight-box, .blog-chat-example, .blog-cta');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (elementPosition < windowHeight - 50) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
+    
+    // Set initial styles
+    const elementsToAnimate = document.querySelectorAll('.blog-content h2, .blog-content img, .highlight-box, .blog-chat-example, .blog-cta');
+    elementsToAnimate.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    });
+    
+    // Run once on load
+    animateOnScroll();
+    
+    // Add scroll event listener
+    window.addEventListener('scroll', animateOnScroll);
+}
+
+// Setup share functionality
+function setupShareLinks() {
+    const shareLinks = document.querySelectorAll('.blog-share-link');
+    shareLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Would implement actual sharing functionality here
+            alert('Sharing functionality would be implemented here.');
+        });
+    });
+}
+
+// Initialize all blog functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Load related blogs when the page loads
+    loadRelatedBlogs();
+    
+    // Set up animations
+    setupBlogAnimations();
+    
+    // Set up share links
+    setupShareLinks();
+});
