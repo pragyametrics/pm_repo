@@ -1,32 +1,49 @@
-// Initialize newsletter form submission
+**
+ * Newsletter subscription functionality
+ * Handles form submission to Formspree
+ */
+
+// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
+    // Find the newsletter form
     const newsletterForm = document.querySelector('.blog-newsletter-form');
     
     if (newsletterForm) {
+        console.log('Newsletter form found');
+        
+        // Add submit event listener
         newsletterForm.addEventListener('submit', function(e) {
+            // Prevent default form submission
             e.preventDefault();
             
+            // Get the email input
             const emailInput = this.querySelector('.blog-newsletter-input');
             const email = emailInput.value.trim();
             const submitButton = this.querySelector('.blog-newsletter-button');
             
+            // Simple email validation
+            function validateEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            
             // Validate email
             if (!validateEmail(email)) {
                 alert('Please enter a valid email address.');
-                return;
+                return false;
             }
             
             // Change button state
             submitButton.disabled = true;
             submitButton.textContent = 'Subscribing...';
             
-            // Create FormData object
+            // Create FormData
             const formData = new FormData();
             formData.append('email', email);
             formData.append('_subject', 'New Newsletter Subscription');
             formData.append('subscription_type', 'Newsletter');
             
-            // Send to Formspree - USE THE SAME FORMSPREE ENDPOINT AS YOUR CONTACT FORM
+            // Send to Formspree using the same endpoint as contact form
             fetch("https://formspree.io/f/xeogajkz", {
                 method: "POST",
                 body: formData,
@@ -36,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if (response.ok) {
-                    // Success!
+                    // Success
                     alert('Thank you for subscribing to our newsletter!');
                     
-                    // Clear form field
+                    // Clear email field
                     emailInput.value = '';
                 } else {
                     // Error
@@ -59,51 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitButton.textContent = 'Subscribe';
             });
         });
-    }
-});
-
-// Email validation function (same as the one in contact form)
-function validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the newsletter form
-    const newsletterForm = document.querySelector('.blog-newsletter-form');
-    
-    if (newsletterForm) {
-        console.log('Newsletter form found - initializing');
-        
-        // Add submit event listener
-        newsletterForm.addEventListener('submit', function(e) {
-            // Don't prevent default submission - let the form submit naturally to Formspree
-            
-            // Optional: Add some visual feedback
-            const button = this.querySelector('.blog-newsletter-button');
-            const input = this.querySelector('.blog-newsletter-input');
-            
-            // Validate email (optional since we have the required attribute)
-            if (input.value.trim() === '') {
-                console.log('Empty email - form will handle validation');
-                return; // Let the form's built-in validation handle this
-            }
-            
-            // Change button text to show it's processing
-            if (button) {
-                button.setAttribute('disabled', true);
-                button.textContent = 'Subscribing...';
-                
-                // You could add this to reset button after a timeout if you want
-                // But since we're doing a full form submission, the page will reload anyway
-            }
-            
-            console.log('Form submitted to Formspree');
-            // The form will submit normally to Formspree
-        });
-        
-        console.log('Newsletter form event listener attached');
     } else {
         console.warn('Newsletter form not found on page');
     }
