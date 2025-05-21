@@ -1781,6 +1781,8 @@
 
 .blog-related {
     margin: 70px 0 0;
+    max-width: 100%; /* Ensure it doesn't overflow */
+    padding: 0; /* Remove any padding */
 }
 
 .blog-related-title {
@@ -1805,9 +1807,14 @@
     padding: 0;
     margin: 20px 0 0 0;
     width: 100%;
+    max-width: 900px; /* Match the max-width of .blog-container */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .blog-related-text-item {
+    width: 100%;
+    box-sizing: border-box;
     margin-bottom: 15px;
     padding: 15px 20px;
     border-radius: 12px;
@@ -1856,6 +1863,7 @@
 /* Legacy styles kept for backwards compatibility */
 .blog-related-posts {
     display: grid;
+    width: 100%; /* Full width of the container */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
 }
@@ -1896,6 +1904,10 @@
         font-size: 1.5rem;
     }
     
+    .blog-related-text-list {
+        max-width: 100%; /* Full width on small screens */
+        padding: 0 20px; /* Add some padding on mobile */
+    }
     .blog-related-text-item {
         padding: 12px 15px;
     }
