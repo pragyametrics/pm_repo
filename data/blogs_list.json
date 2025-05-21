@@ -10,13 +10,13 @@
     "relevant_blogs": ["P006", "P003", "P005"]
     },
     {
-      "id": "P002",
-      "title": "Building RAG Systems for Indian Healthcare: PM-JAY Case Study",
-      "category": "Implementation",
-      "created_date": "2025-04-28",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Implementation details and challenges in developing retrieval-augmented generation for the PM-JAY healthcare system.",
-      "relevant_blogs": ["P004", "P007", "P009"]
+  "id": "P002",
+  "title": "AI-Powered Healthcare Assistant for PM-JAY",
+  "category": "AI Solutions, Healthcare",
+  "created_date": "2025-05-21",
+  "html_page": "blogs/healthcare_agentic_ai.html",
+  "description": "How agentic AI is making India's PM-JAY healthcare system transparent, responsive, and patient-centric through intelligent digital assistants.",
+  "relevant_blogs": ["P001", "P004", "P007"]
     },
     {
       "id": "P003",
