@@ -57,14 +57,14 @@
   "relevant_blogs": ["P001", "P005", "P007"]
 },
     {
-      "id": "P007",
-      "title": "LLM Evaluation Metrics for Enterprise Applications",
-      "category": "Technical Papers",
-      "created_date": "2025-03-05",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Comprehensive framework for evaluating large language models in enterprise contexts.",
-      "relevant_blogs": ["P002", "P006", "P010"]
-    },
+  "id": "P007",
+  "title": "Bringing Intelligence to the Edge: AI-Driven Edge Solutions by Pragyametrics",
+  "category": "Implementation",
+  "created_date": "2025-05-21",
+  "html_page": "blogs/edge_ai_solutions.html",
+  "description": "Strategic overview of how Edge AI enables real-time, autonomous, and secure decision-making across sectors like manufacturing, healthcare, retail, and logistics.",
+  "relevant_blogs": ["P001", "P005", "P006"]
+},
     {
       "id": "P008",
       "title": "Generative AI Applications in Indian Financial Services",
