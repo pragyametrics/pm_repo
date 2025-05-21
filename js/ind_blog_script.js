@@ -197,9 +197,16 @@ async function fetchRelatedBlogs(blogId) {
     }
 }
 
-// Function to render related blogs as text links
+
+
 function renderRelatedBlogs(blogs) {
     const relatedBlogsContainer = document.getElementById('related-blogs-container');
+    
+    // Clear the container first
+    relatedBlogsContainer.innerHTML = '';
+    
+    // Make sure the container has the right class and style
+    relatedBlogsContainer.className = 'blog-related-posts';
     
     // Create a list element
     const listElement = document.createElement('ul');
@@ -237,11 +244,18 @@ function renderRelatedBlogs(blogs) {
         
         // Add to list
         listElement.appendChild(listItem);
+        
+        // Add animation with delay
+        setTimeout(() => {
+            listItem.classList.add('visible');
+        }, 100 + index * 150);
     });
     
     // Add list to container
     relatedBlogsContainer.appendChild(listElement);
 }
+
+
 
 // Function to show fallback related blogs
 function showFallbackRelatedBlogs(container) {
