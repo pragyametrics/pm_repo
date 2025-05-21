@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     // Success
-                    alert('Thank you for subscribing to our newsletter!');
-                    
+                    // alert('Thank you for subscribing to our newsletter!');
+                    console.log('Thank you for subscribing to our newsletter!'); 
                     // Clear email field
                     emailInput.value = '';
                 } else {
