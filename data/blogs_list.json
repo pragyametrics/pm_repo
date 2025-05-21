@@ -64,52 +64,7 @@
   "html_page": "blogs/edge_ai_solutions.html",
   "description": "Strategic overview of how Edge AI enables real-time, autonomous, and secure decision-making across sectors like manufacturing, healthcare, retail, and logistics.",
   "relevant_blogs": ["P001", "P005", "P006"]
-},
-    {
-      "id": "P008",
-      "title": "Generative AI Applications in Indian Financial Services",
-      "category": "Industry",
-      "created_date": "2025-02-22",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Overview of use cases and implementation strategies for generative AI in India's financial sector.",
-      "relevant_blogs": ["P003", "P005", "P010"]
-    },
-    {
-      "id": "P009",
-      "title": "Bias Mitigation in AI Systems for the Indian Context",
-      "category": "Case Studies",
-      "created_date": "2025-02-15",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Practical approaches to identifying and mitigating biases in AI systems deployed in India.",
-      "relevant_blogs": ["P004", "P002", "P010"]
-    },
-    {
-      "id": "P010",
-      "title": "AI Governance Framework for Indian Enterprises",
-      "category": "AI Strategy",
-      "created_date": "2025-01-28",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Comprehensive governance structure for managing AI initiatives in compliance with evolving regulations.",
-      "relevant_blogs": ["P003", "P009", "P011"]
-    },
-    {
-      "id": "P011",
-      "title": "AI Readiness Assessment Methodology for Mid-Market Companies",
-      "category": "Implementation",
-      "created_date": "2025-01-15",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Step-by-step approach to evaluating organizational readiness for AI adoption in mid-sized enterprises.",
-      "relevant_blogs": ["P003", "P010", "P001"]
-    },
-    {
-      "id": "P001",
-      "title": "Accelerating AI Adoption in India: Implementation Barriers",
-      "category": "AI Strategy",
-      "created_date": "2025-02-10",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Examining key barriers to AI adoption in Indian enterprises and strategies to overcome them.",
-      "relevant_blogs": ["P003", "P011", "P010"]
-    }
+}
   ],
   "categories": [
     "All",
