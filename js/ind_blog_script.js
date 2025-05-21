@@ -356,3 +356,59 @@ function getFallbackBlogsData() {
         ]
     };
 }
+
+
+// Initialize social sharing functionality
+function initSocialSharing() {
+    document.addEventListener('DOMContentLoaded', function() {
+        const shareButtons = document.querySelectorAll('.blog-share-link');
+        
+        if (shareButtons.length > 0) {
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get current page URL and title
+                    const shareUrl = encodeURIComponent(window.location.href);
+                    const shareTitle = encodeURIComponent(document.title);
+                    
+                    // Determine which platform was clicked
+                    const platform = this.getAttribute('data-platform');
+                    let shareLink = '';
+                    
+                    switch(platform) {
+                        case 'facebook':
+                            shareLink = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+                            break;
+                        case 'twitter':
+                            shareLink = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`;
+                            break;
+                        case 'linkedin':
+                            shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
+                            break;
+                        case 'generic':
+                            // For copy to clipboard
+                            navigator.clipboard.writeText(window.location.href).then(() => {
+                                alert('Link copied to clipboard!');
+                            }).catch(err => {
+                                console.error('Could not copy link: ', err);
+                            });
+                            return;
+                        default:
+                            return;
+                    }
+                    
+                    // Open share dialog in a popup window
+                    window.open(shareLink, 'Share', 'width=600,height=400,resizable=yes,scrollbars=yes');
+                });
+            });
+        }
+    });
+}
+
+// Call this function at the end of your document ready function
+// or add it to your existing initialization code
+document.addEventListener('DOMContentLoaded', function() {
+    initSocialSharing();
+    // Your other initialization code here
+});
