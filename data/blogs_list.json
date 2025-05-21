@@ -47,15 +47,15 @@
   "description": "Case studies and implementation strategies for predictive maintenance in India's manufacturing sector.",
   "relevant_blogs": ["P001", "P006", "P008"]
 },
-    {
-      "id": "P006",
-      "title": "Designing Agentic AI Workflows for Business Process Automation",
-      "category": "Technical Papers",
-      "created_date": "2025-03-12",
-      "html_page": "blogs/work_in_progress.html",
-      "description": "Technical architecture and implementation guidelines for creating autonomous AI workflows.",
-      "relevant_blogs": ["P001", "P005", "P007"]
-    },
+   {
+  "id": "P006",
+  "title": "Rethinking Workflows: The Rise of Agentic AI",
+  "category": "Technical Papers",
+  "created_date": "2025-03-12",
+  "html_page": "blogs/agentic-ai-workflows.html",
+  "description": "Discover how AI systems that act with autonomy and contextual awareness are transforming business operations - from passive automation to intelligent digital colleagues that learn, adapt, and take initiative.",
+  "relevant_blogs": ["P001", "P005", "P007"]
+},
     {
       "id": "P007",
       "title": "LLM Evaluation Metrics for Enterprise Applications",
