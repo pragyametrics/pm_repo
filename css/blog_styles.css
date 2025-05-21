@@ -1779,6 +1779,9 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
+
+
+
 .blog-related {
     margin: 70px 0 0;
     max-width: 100%; /* Ensure it doesn't overflow */
@@ -1862,10 +1865,10 @@
 
 /* Legacy styles kept for backwards compatibility */
 .blog-related-posts {
-    display: grid;
-    width: 100%; /* Full width of the container */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
+    display: block; /* Change from grid to block */
+    width: 100%;
+    max-width: 900px; /* Match blog container max-width */
+    margin: 0 auto; /* Center in page */
 }
 
 /* Responsive styles */
