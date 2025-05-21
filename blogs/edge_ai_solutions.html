@@ -15,7 +15,63 @@
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "rgwjbwq5hz");
+            
+        // Edge devices animation
+        const edgeDevicesContainer = document.querySelector('.edge-devices-container');
+        if (edgeDevicesContainer) {
+            // Create data packets
+            function createDataPackets() {
+                const devices = document.querySelectorAll('.edge-device');
+                
+                devices.forEach((device, index) => {
+                    // Create a data packet
+                    setInterval(() => {
+                        const deviceRect = device.getBoundingClientRect();
+                        const containerRect = edgeDevicesContainer.getBoundingClientRect();
+                        
+                        const packet = document.createElement('div');
+                        packet.classList.add('data-packet');
+                        
+                        // Position packet at device center
+                        const deviceCenterX = deviceRect.left - containerRect.left + deviceRect.width / 2;
+                        const deviceCenterY = deviceRect.top - containerRect.top + deviceRect.height / 2;
+                        
+                        packet.style.left = `${deviceCenterX}px`;
+                        packet.style.top = `${deviceCenterY}px`;
+                        
+                        // Add to container
+                        edgeDevicesContainer.appendChild(packet);
+                        
+                        // Calculate path to network line
+                        const networkY = containerRect.height / 2;
+                        
+                        // Animate packet
+                        const keyframes = [
+                            { top: `${deviceCenterY}px`, left: `${deviceCenterX}px`, opacity: 0, transform: 'scale(0.5)' },
+                            { top: `${networkY}px`, left: `${deviceCenterX}px`, opacity: 1, transform: 'scale(1)' },
+                            { top: `${networkY}px`, left: `${containerRect.width / 2}px`, opacity: 1, transform: 'scale(1)' },
+                            { top: `${networkY}px`, left: `${containerRect.width / 2}px`, opacity: 0, transform: 'scale(0.5)' }
+                        ];
+                        
+                        const timing = {
+                            duration: 3000,
+                            easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+                        };
+                        
+                        packet.animate(keyframes, timing).onfinish = () => {
+                            packet.remove();
+                        };
+                    }, 2000 + (index * 500)); // Stagger packet creation
+                });
+            }
+            
+            // Initialize data packet animation
+            createDataPackets();
+        }
+    });
+    </script>
+</body>
+</html>(window, document, "clarity", "script", "rgwjbwq5hz");
     </script>
     <!-- Custom Clarity User Tracking -->
     <script src="../js/clarity-user-tracking.js" defer></script>
@@ -148,25 +204,6 @@
             background: linear-gradient(135deg, var(--edge-primary), var(--edge-secondary));
             z-index: 3;
             filter: blur(1px);
-        }
-        
-        @keyframes dataFlow {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            10% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            90% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
         }
         
         /* Edge comparison table */
@@ -658,7 +695,253 @@
                         <div class="blog-meta-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                             <span>May 21, 2025</span>
+                        
+                    <h2>Strategic Advantages for Enterprises</h2>
+                    
+                    <div class="advantage-cards">
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="13 17 18 12 13 7"></polyline>
+                                    <polyline points="6 17 11 12 6 7"></polyline>
+                                </svg>
+                            
+                    <div class="final-section">
+                        <h2>Final Word: From Smart to Autonomous</h2>
+                        
+                        <p>AI at the edge is <strong>not a tech trend</strong>—it's a structural shift.</p>
+                        
+                        <p>With Pragyametrics, you're not just running smarter workflows. You're building <strong>self-optimizing ecosystems</strong> where every sensor, device, and endpoint contributes to decision-making.</p>
+                        
+                        <div class="blog-cta">
+                            <h3 class="blog-cta-title">Let's bring intelligence to your edge</h3>
+                            <p class="blog-cta-text">Transform your operational frontlines with edge AI solutions that deliver immediate insights, autonomous actions, and continuous improvement—exactly where it matters most.</p>
+                            <a href="../contact.html" class="blog-cta-button">Contact Us Now</a>
                         </div>
+                    </div>
+                    
+                    <div class="blog-share">
+                        <span class="blog-share-text">Share this article:</span>
+                        <div class="blog-share-links">
+                            <a href="#" class="blog-share-link" data-platform="facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="linkedin">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="generic">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 12l-4 4-4-4M12 8v7"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-related">
+                    <h3 class="blog-related-title">Related Articles</h3>
+                    <div class="blog-related-posts" id="related-blogs-container">
+                        <!-- This container will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h3>Pragyametrics</h3>
+                    <p>8B, Phase-1, Manjri Greens,<br>Hadapsar, Pune, Maharashtra<br>India - 412307</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@pragyametrics.com</p>
+                    <p>📞 +91 77090 50817</p>
+                </div>
+
+                <div class="newsletter-section">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form class="blog-newsletter-form">
+                        <input type="email" class="blog-newsletter-input" placeholder="Your email address">
+                        <button type="submit" class="blog-newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+    // Newsletter form submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterForm = document.querySelector('.blog-newsletter-form');
+        
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                console.log('Form submission detected');
+                e.preventDefault();
+                
+                // Get form elements
+                const emailInput = this.querySelector('.blog-newsletter-input');
+                const email = emailInput.value.trim();
+                const submitButton = this.querySelector('.blog-newsletter-button');
+                
+                console.log('Captured email:', email);
+                
+                // Simple email validation
+                if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    alert('Please enter a valid email address.');
+                    return false;
+                }
+                
+                // Change button state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Subscribing...';
+                
+                console.log('Sending to Formspree...');
+                
+                // Send directly to formspree
+                fetch("https://formspree.io/f/xeogajkz", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        email: email,
+                        _subject: 'New Newsletter Subscription',
+                        subscription_type: 'Newsletter'
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log('Response received:', response.status);
+                    
+                    if (response.ok) {
+                        // Success
+                        alert('Thank you for subscribing to our newsletter!');
+                        emailInput.value = '';
+                    } else {
+                        alert('There was a problem with your submission. Please try again.');
+                    }
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Subscribe';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Network error. Please check your connection and try again.');
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Subscribe';
+                });
+            });
+        }
+                            <div class="advantage-title">Near-zero Latency</div>
+                            <div class="advantage-desc">Instant decisions at the data source</div>
+                        </div>
+                        
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                                    <line x1="12" y1="2" x2="12" y2="12"></line>
+                                </svg>
+                            </div>
+                            <div class="advantage-title">Operational Resilience</div>
+                            <div class="advantage-desc">Functions in disconnected environments</div>
+                        </div>
+                        
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </div>
+                            <div class="advantage-title">Cost Optimization</div>
+                            <div class="advantage-desc">Lower cloud dependency and bandwidth costs</div>
+                        </div>
+                        
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                            </div>
+                            <div class="advantage-title">Data Sovereignty</div>
+                            <div class="advantage-desc">Regulatory compliance through local processing</div>
+                        </div>
+                        
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="12" r="6"></circle>
+                                    <circle cx="12" cy="12" r="2"></circle>
+                                </svg>
+                            </div>
+                            <div class="advantage-title">Autonomous Operations</div>
+                            <div class="advantage-desc">Self-optimizing systems at the edge</div>
+                        </div>
+                    </div>
+                    
+                    <div class="edge-highlight-text">
+                        Edge AI is not just decentralization—it's <strong>distributed cognition</strong> tailored to your operational terrain.
+                    </div>
+                    
+                    <h2>How We Work With You</h2>
+                    
+                    <p>Pragyametrics delivers full-lifecycle edge AI solutions:</p>
+                    
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Edge-readiness Audit</div>
+                                <div class="step-desc">Comprehensive assessment of your infrastructure and edge capabilities.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Use-case Identification & ROI Modeling</div>
+                                <div class="step-desc">Pinpoint high-value opportunities and quantify expected returns.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Custom Model Development + Hardware Mapping</div>
+                                <div class="step-desc">Design and optimize AI models for your specific edge devices.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Pilot Deployments & Edge Inference Benchmarking</div>
+                                <div class="step-desc">Test in controlled environments before scaling across your operations.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Scale-up with Centralized Model Orchestration</div>
+                                <div class="step-desc">Deploy, manage, and continuously improve your edge AI fleet.</div>
+                            </div>
+                        </div>
+                    </div>
                         <div class="blog-meta-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                             <span>Implementation</span>
@@ -733,3 +1016,164 @@
                         <div class="edge-device device-6">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l-4 4L13 3zm4 4l-4 4 4-4zm4 4l-4 4 4-4zm-8 8l-4 4 4-4zm4 4l-4 4 4-4z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <h2>Why Businesses Are Moving to the Edge</h2>
+                    
+                    <table class="edge-comparison-table">
+                        <tr>
+                            <th>Challenge</th>
+                            <th>Traditional AI</th>
+                            <th>Edge AI by Pragyametrics</th>
+                        </tr>
+                        <tr>
+                            <td>Latency</td>
+                            <td class="traditional">200-300 ms round trip</td>
+                            <td class="edge-ai">5-10 ms local inference</td>
+                        </tr>
+                        <tr>
+                            <td>Connectivity</td>
+                            <td class="traditional">Dependent on cloud uptime</td>
+                            <td class="edge-ai">Operates offline</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td class="traditional">Heavy cloud I/O</td>
+                            <td class="edge-ai">Reduced bandwidth usage</td>
+                        </tr>
+                        <tr>
+                            <td>Privacy</td>
+                            <td class="traditional">Centralized sensitive data</td>
+                            <td class="edge-ai">Local processing = data sovereignty</td>
+                        </tr>
+                        <tr>
+                            <td>Autonomy</td>
+                            <td class="traditional">Reactive systems</td>
+                            <td class="edge-ai">Self-correcting, intelligent systems</td>
+                        </tr>
+                    </table>
+                    
+                    <h2>Key Use Cases We've Delivered</h2>
+                    
+                    <div class="use-cases">
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                            </div>
+                            <div class="use-case-content">
+                                <div class="use-case-title">Manufacturing: Predictive Maintenance on Edge</div>
+                                <div class="use-case-desc">Sensors equipped with local anomaly detection models forecast machine failures, reducing costly downtime.</div>
+                                <div class="use-case-metric">Reduced downtime by 43%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 3h18v18H3zM12 8H8v8h4M16 8v8M12 12h4"></path>
+                                </svg>
+                            </div>
+                            <div class="use-case-content">
+                                <div class="use-case-title">Retail: Real-Time Footfall and Shelf Monitoring</div>
+                                <div class="use-case-desc">Edge vision models track customer behavior in-store, enabling dynamic inventory management.</div>
+                                <div class="use-case-metric">Live restocking & personalized promotions</div>
+                            </div>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                            </div>
+                            <div class="use-case-content">
+                                <div class="use-case-title">Healthcare: ICU Patient Monitoring</div>
+                                <div class="use-case-desc">Edge devices analyze vitals in real time, detecting anomalies before they become critical.</div>
+                                <div class="use-case-metric">Zero-latency alerts for patient safety</div>
+                            </div>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="1" y="3" width="15" height="13"></rect>
+                                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                </svg>
+                            </div>
+                            <div class="use-case-content">
+                                <div class="use-case-title">Logistics: Smart Fleet Monitoring</div>
+                                <div class="use-case-desc">Vehicles equipped with edge inference systems detect route anomalies, fuel inefficiencies, and driver behavior patterns.</div>
+                                <div class="use-case-metric">Continuous route optimization</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2>How Pragyametrics Designs Edge AI Solutions</h2>
+                    
+                    <p>We <strong>don't just build AI</strong>. We design <strong>distributed intelligence ecosystems</strong>.</p>
+                    
+                    <div class="architecture-components">
+                        <div class="architecture-component">
+                            <div class="component-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="4 17 10 11 4 5"></polyline>
+                                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                                </svg>
+                            </div>
+                            <div class="component-title">Model Compression & Optimization</div>
+                            <div class="component-desc">Quantization, pruning, and architecture optimization for tiny footprints.</div>
+                        </div>
+                        
+                        <div class="architecture-component">
+                            <div class="component-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+                                    <line x1="12" y1="22" x2="12" y2="15.5"></line>
+                                    <polyline points="22 8.5 12 15.5 2 8.5"></polyline>
+                                </svg>
+                            </div>
+                            <div class="component-title">Platform-agnostic Edge Deployment</div>
+                            <div class="component-desc">Compatible with Raspberry Pi, Jetson Nano, Coral, and ARM-based devices.</div>
+                        </div>
+                        
+                        <div class="architecture-component">
+                            <div class="component-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="18" cy="18" r="3"></circle>
+                                    <circle cx="6" cy="6" r="3"></circle>
+                                    <path d="M13 6h3a2 2 0 0 1 2 2v7"></path>
+                                    <line x1="6" y1="9" x2="6" y2="21"></line>
+                                </svg>
+                            </div>
+                            <div class="component-title">Federated Learning & On-Device Updates</div>
+                            <div class="component-desc">Models that learn locally, improve globally.</div>
+                        </div>
+                        
+                        <div class="architecture-component">
+                            <div class="component-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="component-title">Failover-to-Cloud Mechanism</div>
+                            <div class="component-desc">Seamless fallback for non-critical decisions when needed.</div>
+                        </div>
+                        
+                        <div class="architecture-component">
+                            <div class="component-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <div class="component-title">Security-first Edge Protocols</div>
+                            <div class="component-desc">Role-based model access and secured inference pipelines.</div>
+                        </div>
+                    </div>
