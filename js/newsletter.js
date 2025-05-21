@@ -1,4 +1,3 @@
-
 /**
  * Newsletter subscription functionality
  * Handles form submission to Formspree
