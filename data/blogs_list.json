@@ -18,15 +18,17 @@
   "description": "How agentic AI is making India's PM-JAY healthcare system transparent, responsive, and patient-centric through intelligent digital assistants.",
   "relevant_blogs": ["P001", "P004", "P007"]
     },
+
     {
       "id": "P003",
       "title": "Calculating AI ROI for Indian Enterprises: Beyond Conventional Metrics",
       "category": "AI Strategy",
       "created_date": "2025-04-15",
-      "html_page": "blogs/work_in_progress.html",
+      "html_page": "blogs/ai-roi-Indian-Enterprises.html",
       "description": "Innovative approaches to measuring the return on investment for AI initiatives in the Indian context.",
       "relevant_blogs": ["P010", "P011", "P001"]
     },
+  
     {
       "id": "P004",
       "title": "Multilingual AI: Bridging Language Barriers in India's Digital Transformation",
