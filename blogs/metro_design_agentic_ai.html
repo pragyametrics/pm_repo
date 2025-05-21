@@ -279,7 +279,84 @@
             <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
         </div>
     </footer>
+<!-- Add this at the bottom of your HTML file just before the closing </body> tag -->
+<script>
+// Immediate test script to diagnose and fix issues
+console.log('Emergency fix script loaded');
 
+// Check if the form exists
+const newsletterForm = document.querySelector('.blog-newsletter-form');
+
+if (newsletterForm) {
+    console.log('Form found, adding emergency event listener');
+    
+    // Add direct event listener to the form
+    newsletterForm.addEventListener('submit', function(e) {
+        console.log('Form submission detected');
+        e.preventDefault();
+        
+        // Get form elements
+        const emailInput = this.querySelector('.blog-newsletter-input');
+        const email = emailInput.value.trim();
+        const submitButton = this.querySelector('.blog-newsletter-button');
+        
+        console.log('Captured email:', email);
+        
+        // Simple email validation
+        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            alert('Please enter a valid email address.');
+            return false;
+        }
+        
+        // Change button state
+        submitButton.disabled = true;
+        submitButton.textContent = 'Subscribing...';
+        
+        console.log('Sending to Formspree...');
+        
+        // Send directly to formspree
+        fetch("https://formspree.io/f/xeogajkz", {
+            method: "POST",
+            body: JSON.stringify({
+                email: email,
+                _subject: 'New Newsletter Subscription',
+                subscription_type: 'Newsletter'
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Response received:', response.status);
+            
+            if (response.ok) {
+                // Success
+                alert('Thank you for subscribing to our newsletter!');
+                emailInput.value = '';
+            } else {
+                alert('There was a problem with your submission. Please try again.');
+            }
+            
+            // Reset button
+            submitButton.disabled = false;
+            submitButton.textContent = 'Subscribe';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Network error. Please check your connection and try again.');
+            
+            // Reset button
+            submitButton.disabled = false;
+            submitButton.textContent = 'Subscribe';
+        });
+    });
+    
+    console.log('Emergency listener attached successfully');
+} else {
+    console.error('FORM NOT FOUND - Cannot attach event listener');
+}
+</script>
     
 </body>
 </html>
