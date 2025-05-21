@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Healthcare Assistant for PM-JAY - Pragyametrics</title>
+    <link rel="icon" href="../images/brain128.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/blog_styles.css">
+    <script type="text/javascript">
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "rgwjbwq5hz");
+    </script>
+    <!-- Custom Clarity User Tracking -->
+    <script src="../js/clarity-user-tracking.js" defer></script>
+    <script src="../js/script.js" defer></script>
+    <script src="../js/ind_blog_script.js" defer></script>
+    <script src="../js/share-buttons.js" defer></script>
+    <script src="../js/blog_scripts.js" defer></script>
+    <script src="../js/newsletter.js" defer></script>
+    <!-- Additional CSS -->
+    <style>
+        /* Healthcare-specific custom styles */
+        .chat-interface-pmjay {
+            background: #111111;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .chat-message-pmjay {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        .chat-message-pmjay:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .chat-user-pmjay {
+            color: #4254ff;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-ai-pmjay {
+            color: #50dc64;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-avatar-pmjay {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+        
+        .user-avatar-pmjay {
+            background: linear-gradient(135deg, #4254ff, #6244C5);
+            color: white;
+        }
+        
+        .ai-avatar-pmjay {
+            background: linear-gradient(135deg, #50dc64, #4A90E2);
+            color: white;
+        }
+        
+        .chat-content-pmjay {
+            color: rgba(255, 255, 255, 0.8);
+            padding-left: 42px;
+        }
+        
+        .chat-content-pmjay ul {
+            padding-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        
+        .chat-content-pmjay li {
+            margin-bottom: 5px;
+        }
+        
+        .tech-stack {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tech-stack th, .tech-stack td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .tech-stack th {
+            background: linear-gradient(90deg, #4254ff, #50dc64);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .tech-stack tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .tech-stack td {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .tech-stack tr:hover td {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .benefit-card {
+            background: #111111;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #4254ff, #50dc64);
+            border-radius: 10px 0 0 10px;
+        }
+        
+        .benefit-title {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .benefit-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .pulse-animation {
+            animation: pulse 3s infinite;
+            box-shadow: 0 0 30px rgba(66, 84, 255, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 15px rgba(66, 84, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(66, 84, 255, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(66, 84, 255, 0.3);
+            }
+        }
+    </style>
+</head>
+<body data-blog-id="P002">
+    <header id="header">
+        <div class="logo-container">
+            <img src="../images/brain.png" alt="Pragyametrics Logo" class="logo">
+            <div class="logo-text-container">
+                <span class="logo-text">Pragya<span class="highlight">metrics</span></span>
+                <span class="tagline" id="tagline">Where Knowledge Meets Intelligence</span>
+                <div class="connection-line" id="connection-line"></div>
+                <div class="particles-container" id="particles-container"></div>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="../index.html#about">About</a>
+            <a href="../services.html">Services</a>
+            <a href="../methodology.html">Methodology</a>
+            <a href="../engagement-models.html">Engagement Models</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../contact.html">Contact Us</a>
+        </nav>
+        
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav>
+            <a href="../index.html#about">About</a>
+            <a href="../services.html">Services</a>
+            <a href="../methodology.html">Methodology</a>
+            <a href="../engagement-models.html">Engagement Models</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../contact.html">Contact Us</a>
+        </nav>
+    </div>
+
+    <main id="main-content">
+        <section class="blog-section">
+            <div class="blog-container">
+                <div class="blog-header">
+                    <h1 class="blog-title">AI-Powered Healthcare Assistant for PM-JAY</h1>
+                    <p class="blog-subtitle">Make Public Healthcare Transparent, Responsive, and Patient-Centric</p>
+                    <div class="blog-meta">
+                        <div class="blog-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <span>May 21, 2025</span>
+                        </div>
+                        <div class="blog-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <span>AI Solutions, Healthcare</span>
+                        </div>
+                        <div class="blog-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            <span>8 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-content">
+                    <p>What if every PM-JAY beneficiary could talk to a digital assistant—one that instantly confirms their entitlements, finds nearby hospitals, checks real-time bed availability, and translates complex policy into human language?</p>
+                    
+                    <p>This isn't the future. It's happening now.<br>And Pragyametrics is deploying it to transform public healthcare delivery in India.</p>
+                    
+                    <img src="images/Pmjay.png" alt="Before vs After AI in PM-JAY Service Delivery" class="blog-image">
+                    
+                    <h2>Why Healthcare Access Needs a Rethink</h2>
+                    
+                    <p>India's Ayushman Bharat (PM-JAY) scheme is the world's largest government-funded health insurance program—offering ₹5 lakh annual coverage to over 100 million vulnerable families. But despite its scale, a silent barrier persists:</p>
+                    
+                    <div class="highlight-box">
+                        <h3 class="highlight-title">Common Questions Without Answers</h3>
+                        <p>"Am I eligible?"</p>
+                        <p>"Is cancer treatment covered?"</p>
+                        <p>"Where can I get surgery under this scheme?"</p>
+                        <p>"Are ICU beds available in my city right now?"</p>
+                    </div>
+                    
+                    <p>Without a responsive system, these questions often go unanswered—causing underutilization, misinformation, and frustration at the front lines of care.</p>
+                    
+                    <div class="highlight-box pulse-animation">
+                        <h3 class="highlight-title">The Critical Question</h3>
+                        <p>In a world where AI predicts protein folding, translates speech in real time, and flies drones autonomously—why can't it answer a mother in Satara asking, "Can my son get heart surgery under PM-JAY?"</p>
+                        <p>The answer?<br>Until now, no system connected India's complex policy ecosystem with real, patient-facing intelligence.</p>
+                        <p>We fixed that.</p>
+                    </div>
+                    
+                    <h2>What Is the PM-JAY AI Assistant?</h2>
+                    
+                    <p>It's more than a chatbot.<br>It's not just a helpdesk or a website.</p>
+                    
+                    <p>It's a fully integrated LLM-powered digital assistant that understands user queries, retrieves data from PM-JAY policy packages, hospital databases, and even real-time bed availability—then returns clear, personalized answers instantly.</p>
+                    
+                    <p>Built using:</p>
+                    
+                    <ul>
+                        <li>Large Language Models (LLMs) for natural dialogue</li>
+                        <li>Retrieval-Augmented Generation (RAG) to ground answers in real data</li>
+                        <li>A searchable vector index of 1900+ treatment packages</li>
+                        <li>Real-time hospital and bed status from our API pipeline</li>
+                    </ul>
+                    
+                    <p>This assistant doesn't just give information.<br>It guides beneficiaries through the healthcare maze—in their language, with their needs, using real-world data.</p>
+                    
+                    <h2>From Automation to Patient-Level Intelligence</h2>
+                    
+                    <p>Where basic portals end, AI-guided assistance begins.</p>
+                    
+                    <p>Search engines show thousands of pages.<br>Our system tells you:</p>
+                    
+                    <p>"Yes, chemotherapy is covered under PM-JAY. You are entitled to up to ₹1.5 lakh per year for this treatment. Nearest empaneled centers are: Asha Cancer Institute and Fortis Mulund."</p>
+                    
+                    <h2>Real Prompts. Real Responses. Real Impact.</h2>
+                    
+                    <div class="blog-chat-example chat-interface-pmjay">
+                        <h3 style="color: #ffffff; margin-bottom: 20px;">Example Conversations:</h3>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-user-pmjay">
+                                <div class="chat-avatar-pmjay user-avatar-pmjay">U</div>
+                                Patient:
+                            </div>
+                            <div class="chat-content-pmjay">Is dialysis covered under Ayushman Bharat?</div>
+                        </div>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-ai-pmjay">
+                                <div class="chat-avatar-pmjay ai-avatar-pmjay">AI</div>
+                                PM-JAY Assistant:
+                            </div>
+                            <div class="chat-content-pmjay">Yes. Up to three sessions per week are covered under PM-JAY for chronic kidney disease.</div>
+                        </div>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-user-pmjay">
+                                <div class="chat-avatar-pmjay user-avatar-pmjay">U</div>
+                                Patient:
+                            </div>
+                            <div class="chat-content-pmjay">Which hospitals in Nagpur perform bypass surgery under PM-JAY?</div>
+                        </div>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-ai-pmjay">
+                                <div class="chat-avatar-pmjay ai-avatar-pmjay">AI</div>
+                                PM-JAY Assistant:
+                            </div>
+                            <div class="chat-content-pmjay">
+                                Three empaneled hospitals currently provide this service:
+                                <ul>
+                                    <li>Wockhardt Hospital, Dhantoli</li>
+                                    <li>Government Medical College, Hanuman Nagar</li>
+                                    <li>Alexis Multispeciality, Mankapur</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-user-pmjay">
+                                <div class="chat-avatar-pmjay user-avatar-pmjay">U</div>
+                                Patient:
+                            </div>
+                            <div class="chat-content-pmjay">Are ICU beds available at City Heart Hospital right now?</div>
+                        </div>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-ai-pmjay">
+                                <div class="chat-avatar-pmjay ai-avatar-pmjay">AI</div>
+                                PM-JAY Assistant:
+                            </div>
+                            <div class="chat-content-pmjay">Yes. 12 ICU beds are available, including 6 ventilator-equipped. Last update: 3 minutes ago.</div>
+                        </div>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-user-pmjay">
+                                <div class="chat-avatar-pmjay user-avatar-pmjay">U</div>
+                                Patient:
+                            </div>
+                            <div class="chat-content-pmjay">Is chemotherapy included and what's the financial cap?</div>
+                        </div>
+                        
+                        <div class="chat-message-pmjay">
+                            <div class="chat-ai-pmjay">
+                                <div class="chat-avatar-pmjay ai-avatar-pmjay">AI</div>
+                                PM-JAY Assistant:
+                            </div>
+                            <div class="chat-content-pmjay">Yes. Chemotherapy is covered up to ₹1.5 lakh per annum at empaneled cancer centers under PM-JAY.</div>
+                        </div>
+                    </div>
+                    
+                    <h2>The Technology Behind the System</h2>
+                    
+                    <table class="tech-stack">
+                        <tr>
+                            <th>Layer</th>
+                            <th>Stack</th>
+                        </tr>
+                        <tr>
+                            <td>Frontend</td>
+                            <td>ReactJS (mobile-first, multilingual UI planned)</td>
+                        </tr>
+                        <tr>
+                            <td>Backend Services</td>
+                            <td>Google Cloud Kubernetes Engine (GKE)</td>
+                        </tr>
+                        <tr>
+                            <td>LLM Inference</td>
+                            <td>GCP-hosted OpenAI / LLaMA models</td>
+                        </tr>
+                        <tr>
+                            <td>Semantic Search</td>
+                            <td>Pinecone (vector database)</td>
+                        </tr>
+                        <tr>
+                            <td>Hospital Data</td>
+                            <td>Astra DB (with GraphQL access)</td>
+                        </tr>
+                        <tr>
+                            <td>Real-Time Sync</td>
+                            <td>GCP Cloud Scheduler + cross-cloud batch pipeline</td>
+                        </tr>
+                    </table>
+                    
+                    <p>Our hybrid-cloud architecture ensures speed, resilience, and scale, with secure role-based access and API-first extensibility.</p>
+                    
+                    <h2>Why Pragyametrics Is Leading the Shift</h2>
+                    
+                    <p>While others build standalone dashboards, we're building agentic healthcare intelligence—capable of adapting, explaining, and acting based on live data.</p>
+                    
+                    <p>What sets us apart?</p>
+                    
+                    <ul>
+                        <li>Designed for low-literacy and rural populations</li>
+                        <li>Seamless integration with existing hospital APIs</li>
+                        <li>No vendor lock-in: open-source LLM support</li>
+                        <li>Ready to deploy: tested in sandbox, live across AWS + GCP</li>
+                    </ul>
+                    
+                    <h2>For Hospitals and Health Departments: The Benefits</h2>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-title">Faster Triage</div>
+                        <div class="benefit-description">Patients get answers in seconds—not hours</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-title">Fewer Desks</div>
+                        <div class="benefit-description">Less crowding at PM-JAY facilitation counters</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-title">Smarter Use of Funds</div>
+                        <div class="benefit-description">Benefits utilized correctly, on time</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-title">Live Readiness</div>
+                        <div class="benefit-description">Easily integrated with your existing HIS, EMR, or cloud infra</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-title">Scalable Architecture</div>
+                        <div class="benefit-description">Add new districts, languages, and services at will</div>
+                    </div>
+                    
+                    <h2>The Future of Healthcare Access Is Here</h2>
+                    
+                    <p>This AI system isn't an experiment.<br>It's a proven, production-ready tool that can be live in your network within weeks.</p>
+                    
+                    <p>Whether you're a state health authority, a hospital chain, or a digital health startup—you can plug into this infrastructure now.</p>
+                    
+                    <p>It's time India's most vulnerable citizens got answers as smart as the systems serving them.</p>
+                    
+                    <p>Let's bring clarity, dignity, and intelligence to public healthcare—together.</p>
+                    
+                    <div class="blog-cta">
+                        <h3 class="blog-cta-title">Ready to transform your PM-JAY delivery model?</h3>
+                        <p class="blog-cta-text">Book a technical walkthrough or schedule a pilot integration with Pragyametrics. Let's build a future where healthcare isn't just available—but understandable.</p>
+                        <a href="../contact.html" class="blog-cta-button">Contact Us Now</a>
+                    </div>
+                    
+                    <div class="blog-share">
+                        <span class="blog-share-text">Share this article:</span>
+                        <div class="blog-share-links">
+                            <a href="#" class="blog-share-link" data-platform="facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="linkedin">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="generic">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 12l-4 4-4-4M12 8v7"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-related">
+                    <h3 class="blog-related-title">Related Articles</h3>
+                    <div class="blog-related-posts" id="related-blogs-container">
+                        <!-- This container will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h3>Pragyametrics</h3>
+                    <p>8B, Phase-1, Manjri Greens,<br>Hadapsar, Pune, Maharashtra<br>India - 412307</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@pragyametrics.com</p>
+                    <p>📞 +91 77090 50817</p>
+                </div>
+
+                <div class="newsletter-section">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form class="blog-newsletter-form">
+                        <input type="email" class="blog-newsletter-input" placeholder="Your email address">
+                        <button type="submit" class="blog-newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+    // Newsletter form submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterForm = document.querySelector('.blog-newsletter-form');
+        
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                console.log('Form submission detected');
+                e.preventDefault();
+                
+                // Get form elements
+                const emailInput = this.querySelector('.blog-newsletter-input');
+                const email = emailInput.value.trim();
+                const submitButton = this.querySelector('.blog-newsletter-button');
+                
+                console.log('Captured email:', email);
+                
+                // Simple email validation
+                if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    alert('Please enter a valid email address.');
+                    return false;
+                }
+                
+                // Change button state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Subscribing...';
+                
+                console.log('Sending to Formspree...');
+                
+                // Send directly to formspree
+                fetch("https://formspree.io/f/xeogajkz", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        email: email,
+                        _subject: 'New Newsletter Subscription',
+                        subscription_type: 'Newsletter'
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log('Response received:', response.status);
+                    
+                    if (response.ok) {
+                        // Success
+                        alert('Thank you for subscribing to our newsletter!');
+                        emailInput.value = '';
+                    } else {
+                        alert('There was a problem with your submission. Please try again.');
+                    }
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Subscribe';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Network error. Please check your connection and try again.');
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Subscribe';
+                });
