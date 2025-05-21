@@ -67,3 +67,44 @@ function validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the newsletter form
+    const newsletterForm = document.querySelector('.blog-newsletter-form');
+    
+    if (newsletterForm) {
+        console.log('Newsletter form found - initializing');
+        
+        // Add submit event listener
+        newsletterForm.addEventListener('submit', function(e) {
+            // Don't prevent default submission - let the form submit naturally to Formspree
+            
+            // Optional: Add some visual feedback
+            const button = this.querySelector('.blog-newsletter-button');
+            const input = this.querySelector('.blog-newsletter-input');
+            
+            // Validate email (optional since we have the required attribute)
+            if (input.value.trim() === '') {
+                console.log('Empty email - form will handle validation');
+                return; // Let the form's built-in validation handle this
+            }
+            
+            // Change button text to show it's processing
+            if (button) {
+                button.setAttribute('disabled', true);
+                button.textContent = 'Subscribing...';
+                
+                // You could add this to reset button after a timeout if you want
+                // But since we're doing a full form submission, the page will reload anyway
+            }
+            
+            console.log('Form submitted to Formspree');
+            // The form will submit normally to Formspree
+        });
+        
+        console.log('Newsletter form event listener attached');
+    } else {
+        console.warn('Newsletter form not found on page');
+    }
+});
