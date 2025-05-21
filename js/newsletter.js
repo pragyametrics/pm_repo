@@ -1,6 +1,6 @@
 /**
  * Newsletter subscription functionality
- * Handles form submission to Formspree
+ * Restored to original working version
  */
 
 // Wait for DOM to load
