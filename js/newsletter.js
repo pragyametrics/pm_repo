@@ -1,6 +1,7 @@
-**
+
+/**
  * Newsletter subscription functionality
- * Handles form submission to Formspree
+ * Handles form submission to Formspree without showing thank you popup
  */
 
 // Wait for DOM to load
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Validate email
             if (!validateEmail(email)) {
+                // Only show validation error alert - keep this one
                 alert('Please enter a valid email address.');
                 return false;
             }
@@ -53,22 +55,28 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if (response.ok) {
-                    // Success
-                    alert('Thank you for subscribing to our newsletter!');
+                    // Success - but NO alert popup
+                    console.log('Newsletter subscription successful');
                     
                     // Clear email field
                     emailInput.value = '';
+                    
+                    // Return submit button to normal state after a brief delay
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Subscribe';
+                    }, 1000);
                 } else {
-                    // Error
+                    // Error - still show this alert to notify user of problems
                     alert('Oops! There was a problem submitting your subscription. Please try again.');
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Subscribe';
                 }
-                
-                // Reset button
-                submitButton.disabled = false;
-                submitButton.textContent = 'Subscribe';
             })
             .catch(error => {
-                // Network error
+                // Network error - still show this alert for network issues
                 alert('Network error. Please check your connection and try again.');
                 
                 // Reset button
