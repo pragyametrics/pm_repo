@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Predictive Maintenance: Transforming Indian Manufacturing - Pragyametrics</title>
+    <link rel="icon" href="../images/brain128.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/blog_styles.css">
+    <script type="text/javascript">
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "rgwjbwq5hz");
+    </script>
+    <!-- Custom Clarity User Tracking -->
+    <script src="../js/clarity-user-tracking.js" defer></script>
+    <script src="../js/script.js" defer></script>
+    <script src="../js/ind_blog_script.js" defer></script>
+    <script src="../js/share-buttons.js" defer></script>
+    <script src="../js/blog_scripts.js" defer></script>
+    <script src="../js/newsletter.js" defer></script>
+    <!-- Additional CSS -->
+    <style>
+        /* Predictive Maintenance specific custom styles */
+        .impact-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .impact-metric-card {
+            flex: 1;
+            min-width: 200px;
+            background: #111111;
+            border-radius: 10px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        
+        .impact-metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .impact-metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4254ff, #50dc64);
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .impact-metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #4254ff, #50dc64);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .impact-metric-desc {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .benefit-list {
+            background: #111111;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+        
+        .benefit-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .benefit-check {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #4254ff, #50dc64);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+        
+        .benefit-check svg {
+            width: 14px;
+            height: 14px;
+            color: white;
+        }
+        
+        .benefit-content {
+            flex-grow: 1;
+        }
+        
+        .benefit-title {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .benefit-desc {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .workflow-diagram {
+            background: #111111;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .workflow-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .workflow-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .workflow-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #4254ff, #50dc64);
+            border-radius: 50%;
+        }
+        
+        .workflow-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 17px;
+            width: 2px;
+            height: calc(100% - 17px);
+            background: linear-gradient(180deg, #4254ff, #50dc64);
+        }
+        
+        .workflow-title {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .workflow-desc {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .quote-block {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #ffffff;
+            line-height: 1.6;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            padding: 0 30px;
+        }
+        
+        .quote-block::before,
+        .quote-block::after {
+            content: """;
+            font-size: 4rem;
+            font-family: Georgia, serif;
+            position: absolute;
+            opacity: 0.5;
+            color: #4254ff;
+        }
+        
+        .quote-block::before {
+            top: -20px;
+            left: 0;
+        }
+        
+        .quote-block::after {
+            content: """;
+            bottom: -50px;
+            right: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .impact-metrics {
+                flex-direction: column;
+            }
+            
+            .impact-metric-card {
+                width: 100%;
+            }
+            
+            .quote-block {
+                font-size: 1.2rem;
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body data-blog-id="P005">
+    <header id="header">
+        <div class="logo-container">
+            <img src="../images/brain.png" alt="Pragyametrics Logo" class="logo">
+            <div class="logo-text-container">
+                <span class="logo-text">Pragya<span class="highlight">metrics</span></span>
+                <span class="tagline" id="tagline">Where Knowledge Meets Intelligence</span>
+                <div class="connection-line" id="connection-line"></div>
+                <div class="particles-container" id="particles-container"></div>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="../index.html#about">About</a>
+            <a href="../services.html">Services</a>
+            <a href="../methodology.html">Methodology</a>
+            <a href="../engagement-models.html">Engagement Models</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../contact.html">Contact Us</a>
+        </nav>
+        
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav>
+            <a href="../index.html#about">About</a>
+            <a href="../services.html">Services</a>
+            <a href="../methodology.html">Methodology</a>
+            <a href="../engagement-models.html">Engagement Models</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../contact.html">Contact Us</a>
+        </nav>
+    </div>
+
+    <main id="main-content">
+        <section class="blog-section">
+            <div class="blog-container">
+                <div class="blog-header">
+                    <h1 class="blog-title">AI-Powered Predictive Maintenance: Transforming Indian Manufacturing</h1>
+                    <p class="blog-subtitle">From Breakdown Response to Intelligent Prevention</p>
+                    <div class="blog-meta">
+                        <div class="blog-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <span>March 25, 2025</span>
+                        </div>
+                        <div class="blog-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <span>Industry</span>
+                        </div>
+                        <div class="blog-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            <span>3 min read</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-content">
+                    <h2>The Invisible Cost of Unplanned Failure</h2>
+                    
+                    <p>In Indian manufacturing, a single machine failure can ripple across entire operations—halting production, straining delivery schedules, and eating into margins. Whether it's a small packaging unit in Bhiwadi or a large auto supplier in Pune, downtime is the silent killer of efficiency.</p>
+                    
+                    <div class="quote-block">
+                        Maintenance isn't a support function anymore. It's a profit protector.
+                    </div>
+                    
+                    <p>And yet, many factories still rely on reactive or time-based maintenance—waiting for failure or servicing equipment on fixed schedules, regardless of need. In today's competitive market, that model is obsolete.</p>
+                    
+                    <img src="images/aipredictive.png" alt="AI-Powered Predictive Maintenance in Manufacturing" class="blog-image">
+                    
+                    <h2>What If Your Machines Could Warn You Before They Failed?</h2>
+                    
+                    <p>Imagine knowing a generator will overheat two days before it does. Or that a conveyor's vibration pattern predicts a bearing failure next week. This is the promise of predictive maintenance—and it's no longer a theory.</p>
+                    
+                    <p>At Pragyametrics, we deployed an integrated predictive maintenance solution that combines full-stack maintenance workflows with real-time machine failure prediction. The result? Smarter maintenance. Lower downtime. And a system that learns and adapts.</p>
+                    
+                    <h2>From Workshop Floor to Intelligent Feedback Loop</h2>
+                    
+                    <p>What we built mirrors what every Indian manufacturer needs:</p>
+                    
+                    <div class="workflow-diagram">
+                        <div class="workflow-item">
+                            <div class="workflow-title">Preventive logic meets predictive insights</div>
+                            <div class="workflow-desc">Instead of fixed-schedule servicing, machines are monitored and serviced only when risk indicators spike.</div>
+                        </div>
+                        
+                        <div class="workflow-item">
+                            <div class="workflow-title">Failure trends are logged and analyzed</div>
+                            <div class="workflow-desc">Historical data is no longer paperwork—it's operational gold.</div>
+                        </div>
+                        
+                        <div class="workflow-item">
+                            <div class="workflow-title">Work orders flow intelligently</div>
+                            <div class="workflow-desc">When a fault is detected, the system finds the right strategy, assigns tasks, allocates spares, and updates technicians in real time.</div>
+                        </div>
+                    </div>
+                    
+                    <p>This is how Indian operations evolve—from breakdown-driven chaos to insight-driven control.</p>
+                    
+                    <h2>Field-Tested Impact</h2>
+                    
+                    <p>This system was simulated with real-world datasets and operational flows, and here's what we achieved:</p>
+                    
+                    <div class="impact-metrics">
+                        <div class="impact-metric-card">
+                            <div class="impact-metric-value">48%</div>
+                            <div class="impact-metric-desc">reduction in unplanned equipment failures</div>
+                        </div>
+                        
+                        <div class="impact-metric-card">
+                            <div class="impact-metric-value">30%</div>
+                            <div class="impact-metric-desc">optimization in maintenance resource allocation</div>
+                        </div>
+                        
+                        <div class="impact-metric-card">
+                            <div class="impact-metric-value">2x</div>
+                            <div class="impact-metric-desc">improvement in decision-making speed for maintenance heads</div>
+                        </div>
+                    </div>
+                    
+                    <p>Factories moved from <em>"Why did this fail?"</em> to <em>"When might this fail—and how can we act before it does?"</em></p>
+                    
+                    <h2>Why This Matters for Indian Industry</h2>
+                    
+                    <div class="benefit-list">
+                        <div class="benefit-item">
+                            <div class="benefit-check">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Cost-Sensitive Optimization</div>
+                                <div class="benefit-desc">Predictive models reduce unnecessary service calls and part replacements.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-check">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Skilled-Labor Ready</div>
+                                <div class="benefit-desc">Works even where IoT is minimal—technicians interact via simple dashboards.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-check">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Audit-Ready & Scalable</div>
+                                <div class="benefit-desc">Built with real data integrity, useful for compliance and long-term scaling.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p>Whether you run a small tools plant or manage 10,000 machines across 3 states—this system scales to fit.</p>
+                    
+                    <h2>The Competitive Edge</h2>
+                    
+                    <p>AI isn't just making decisions faster—it's making maintenance <em>strategic</em>.</p>
+                    
+                    <div class="quote-block">
+                        It's no longer about fixing what's broken. It's about ensuring nothing breaks in the first place.
+                    </div>
+                    
+                    <p>And in a manufacturing world where deadlines are tight and margins tighter, that mindset shift can define the winners.</p>
+                    
+                    <div class="blog-cta">
+                        <h3 class="blog-cta-title">Ready to Redefine Maintenance?</h3>
+                        <p class="blog-cta-text">Pragyametrics brings predictive intelligence to your plant floor. Let's move from repair to readiness—together.</p>
+                        <a href="../contact.html" class="blog-cta-button">Schedule a Walkthrough</a>
+                    </div>
+                    
+                    <div class="blog-share">
+                        <span class="blog-share-text">Share this article:</span>
+                        <div class="blog-share-links">
+                            <a href="#" class="blog-share-link" data-platform="facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="linkedin">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                            </a>
+                            <a href="#" class="blog-share-link" data-platform="generic">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 12l-4 4-4-4M12 8v7"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-related">
+                    <h3 class="blog-related-title">Related Articles</h3>
+                    <div class="blog-related-posts" id="related-blogs-container">
+                        <!-- This container will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-info">
+                    <h3>Pragyametrics</h3>
+                    <p>8B, Phase-1, Manjri Greens,<br>Hadapsar, Pune, Maharashtra<br>India - 412307</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@pragyametrics.com</p>
+                    <p>📞 +91 77090 50817</p>
+                </div>
+
+                <div class="newsletter-section">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form class="blog-newsletter-form">
+                        <input type="email" class="blog-newsletter-input" placeholder="Your email address">
+                        <button type="submit" class="blog-newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Pragyametrics (OPC) Private Limited. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+    // Newsletter form submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterForm = document.querySelector('.blog-newsletter-form');
+        
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                console.log('Form submission detected');
+                e.preventDefault();
+                
+                // Get form elements
+                const emailInput = this.querySelector('.blog-newsletter-input');
+                const email = emailInput.value.trim();
+                const submitButton = this.querySelector('.blog-newsletter-button');
+                
+                console.log('Captured email:', email);
+                
+                // Simple email validation
+                if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    alert('Please enter a valid email address.');
+                    return false;
+                }
+                
+                // Change button state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Subscribing...';
+                
+                console.log('Sending to Formspree...');
+                
+                // Send directly to formspree
+                fetch("https://formspree.io/f/xeogajkz", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        email: email,
+                        _subject: 'New Newsletter Subscription',
+                        subscription_type: 'Newsletter'
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log('Response received:', response.status);
+                    
+                    if (response.ok) {
+                        // Success
+                        alert('Thank you for subscribing to our newsletter!');
+                        emailInput.value = '';
+                    } else {
+                        alert('There was a problem with your submission. Please try again.');
+                    }
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Subscribe';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Network error. Please check your connection and try again.');
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Subscribe';
+                });
+            });
+        }
+    });
+    </script>
+</body>
+</html>
