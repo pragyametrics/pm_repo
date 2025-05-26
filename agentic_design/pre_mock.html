@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">P
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Assistant - UI Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f6;
+            color: #262730;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #1f77b4, #2ca02c);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            height: calc(100vh - 80px);
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+            padding: 0.5rem;
+        }
+
+        .sidebar.collapsed .sidebar-content {
+            display: none;
+        }
+
+        .collapse-btn {
+            background: #1f77b4;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .sidebar h3 {
+            color: #1f77b4;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .chat-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-item:hover {
+            background: #e3f2fd;
+            border-color: #1f77b4;
+        }
+
+        .chat-item.active {
+            background: #1f77b4;
+            color: white;
+            border-color: #1f77b4;
+        }
+
+        .new-chat-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-rows: 250px 350px 400px;
+            gap: 1rem;
+        }
+
+        .top-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .image-panel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .panel-content {
+            padding: 0.5rem;
+            height: calc(100% - 50px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .panel-content:hover {
+            background: #e9ecef;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 150px;
+            background: #e9ecef;
+            border: 2px dashed #adb5bd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .placeholder-image:hover {
+            border-color: #6c757d;
+            background: #dee2e6;
+        }
+
+        /* Modal styles for full image view */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            cursor: pointer;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .data-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .tab-container {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: #6c757d;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .tab.active {
+            color: #1f77b4;
+            border-bottom-color: #1f77b4;
+            background: white;
+        }
+
+        .tab-content {
+            padding: 1rem;
+            height: calc(100% - 60px);
+            overflow-y: auto;
+        }
+
+        .table-placeholder {
+            width: 100%;
+            height: 150px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+        }
+
+        .chat-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-rows: auto auto auto;
+            gap: 0;
+        }
+
+        .upload-section {
+            background: #e8f5e8;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            margin: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .upload-section:hover {
+            background: #d4edda;
+        }
+
+        .upload-text {
+            font-size: 0.9rem;
+            color: #155724;
+            font-weight: 500;
+        }
+
+        .upload-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .upload-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .current-file {
+            font-size: 0.8rem;
+            color: #155724;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .data-table td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            color: #212529;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-in-progress {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .chat-messages {
+            padding: 1rem;
+            overflow-y: auto;
+            background: #fafafa;
+            max-height: 280px;
+            height: 280px;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.user .message-content {
+            background: #1f77b4;
+            color: white;
+        }
+
+        .message.assistant .message-content {
+            background: white;
+            border: 1px solid #dee2e6;
+        }
+
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid #dee2e6;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .chat-input button {
+            background: #1f77b4;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-indicator.online {
+            background: #28a745;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <span class="emoji">🔧</span>
+        <h1>Engineering Assistant</h1>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 0.5rem;">
+            <span class="status-indicator online"></span>
+            <span>Session Active</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <button class="collapse-btn">☰</button>
+            <div class="sidebar-content">
+                <h3>📂 Project Sessions</h3>
+                <button class="new-chat-btn">+ New Project</button>
+                
+                <div class="chat-item active">
+                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Project 001</div>
+                    <div style="font-size: 0.8rem; color: #6c757d;">Foundation Design</div>
+                    <div style="font-size: 0.75rem; color: #6c757d; margin-top: 0.25rem;">📎 foundation_plan.pdf</div>
+                    <div style="font-size: 0.75rem; color: #6c757d;">2 hours ago</div>
+                </div>
+                
+                <div class="chat-item">
+                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Project 002</div>
+                    <div style="font-size: 0.8rem; color: #6c757d;">Structural Analysis</div>
+                    <div style="font-size: 0.75rem; color: #6c757d; margin-top: 0.25rem;">📎 beam_layout.pdf</div>
+                    <div style="font-size: 0.75rem; color: #6c757d;">1 day ago</div>
+                </div>
+                
+                <div class="chat-item">
+                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Project 003</div>
+                    <div style="font-size: 0.8rem; color: #6c757d;">Electrical Layout</div>
+                    <div style="font-size: 0.75rem; color: #6c757d; margin-top: 0.25rem;">📎 electrical_plan.pdf</div>
+                    <div style="font-size: 0.75rem; color: #6c757d;">3 days ago</div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h3>📊 Session Stats</h3>
+                    <div style="font-size: 0.9rem; margin-top: 0.5rem;">
+                        <div>• 5 Specifications Updated</div>
+                        <div>• 12 Cost Items Calculated</div>
+                        <div>• 8 Work Plan Tasks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Section: Image Panels -->
+            <div class="top-section">
+                <!-- Input PDF/PNG -->
+                <div class="image-panel">
+                    <div class="panel-header">
+                        <span class="emoji">📄</span>
+                        <span>Input PDF → PNG</span>
+                        <div style="margin-left: auto; font-size: 0.8rem; color: #6c757d;">foundation_plan.pdf</div>
+                    </div>
+                    <div class="panel-content" onclick="openModal('original')">
+                        <div class="placeholder-image">
+                            <div style="text-align: center;">
+                                <div style="margin-bottom: 0.5rem;">📋</div>
+                                <div>Original Engineering Drawing</div>
+                                <div style="font-size: 0.75rem; margin-top: 0.25rem;">(Click to view full size)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Design PNG -->
+                <div class="image-panel">
+                    <div class="panel-header">
+                        <span class="emoji">🎨</span>
+                        <span>Final Design PNG</span>
+                        <div style="margin-left: auto; font-size: 0.8rem; color: #6c757d;">AI-Modified Design</div>
+                    </div>
+                    <div class="panel-content" onclick="openModal('final')">
+                        <div class="placeholder-image">
+                            <div style="text-align: center;">
+                                <div style="margin-bottom: 0.5rem;">🔧</div>
+                                <div>AI-Generated Final Design</div>
+                                <div style="font-size: 0.75rem; margin-top: 0.25rem;">(Click to view full size)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Tables Section -->
+            <div class="data-section">
+                <div class="tab-container">
+                    <button class="tab active" onclick="showTab('specs')">📋 Specifications</button>
+                    <button class="tab" onclick="showTab('costing')">💰 Costing</button>
+                    <button class="tab" onclick="showTab('rate')">📊 Rate Card</button>
+                    <button class="tab" onclick="showTab('work')">🗓 Work Plan</button>
+                </div>
+                
+                <!-- Specifications Tab -->
+                <div id="specs" class="tab-content">
+                    <div class="table-container" onclick="openTableModal('specs')">
+                        <div class="zoom-hint">🔍 Click to zoom</div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Parameter</th>
+                                    <th>Specification</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GENERAL INFORMATION</td>
+                                    <td>Project Type</td>
+                                    <td>Metro Rail Viaduct/Station Foundation</td>
+                                    <td>For elevated metro rail structures</td>
+                                </tr>
+                                <tr>
+                                    <td>GENERAL INFORMATION</td>
+                                    <td>Drawing Number</td>
+                                    <td>MRPILE-1000-01</td>
+                                    <td>Standard drawing for 1000 mm diameter pile</td>
+                                </tr>
+                                <tr>
+                                    <td>GENERAL INFORMATION</td>
+                                    <td>Date</td>
+                                    <td>May 19, 2025</td>
+                                    <td>Date of issue</td>
+                                </tr>
+                                <tr>
+                                    <td>PILE DIMENSIONS</td>
+                                    <td>Diameter</td>
+                                    <td>1000 mm</td>
+                                    <td>Nominal diameter</td>
+                                </tr>
+                                <tr>
+                                    <td>PILE DIMENSIONS</td>
+                                    <td>Length</td>
+                                    <td>20-30 m</td>
+                                    <td>Site specific, dependent on soil conditions</td>
+                                </tr>
+                                <tr>
+                                    <td>PILE DIMENSIONS</td>
+                                    <td>Rock Socket Length</td>
+                                    <td>Minimum 3000 mm (= 3D)</td>
+                                    <td>Into competent rock</td>
+                                </tr>
+                                <tr>
+                                    <td>PILE CAP</td>
+                                    <td>Width</td>
+                                    <td>1800 mm</td>
+                                    <td>Typical, site specific</td>
+                                </tr>
+                                <tr>
+                                    <td>PILE CAP</td>
+                                    <td>Length</td>
+                                    <td>2000 mm</td>
+                                    <td>Typical, site specific</td>
+                                </tr>
+                                <tr>
+                                    <td>PILE CAP</td>
+                                    <td>Depth</td>
+                                    <td>1500 mm</td>
+                                    <td>Typical, site specific</td>
+                                </tr>
+                                <tr>
+                                    <td>PILE DIMENSIONS</td>
+                                    <td>Cut-off Level</td>
+                                    <td>As per drawings</td>
+                                    <td>±25 mm tolerance</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Costing Tab -->
+                <div id="costing" class="tab-content" style="display: none;">
+                    <div class="table-container" onclick="openTableModal('costing')">
+                        <div class="zoom-hint">🔍 Click to zoom</div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Item No.</th>
+                                    <th>Description</th>
+                                    <th>Unit</th>
+                                    <th>Quantity</th>
+                                    <th>Rate (INR)</th>
+                                    <th>Amount (INR)</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: #e3f2fd; font-weight: 600;">
+                                    <td colspan="7">A. SITE PREPARATION & MOBILIZATION</td>
+                                </tr>
+                                <tr>
+                                    <td>A.1</td>
+                                    <td>Site clearance and preparation</td>
+                                    <td>Sq.m</td>
+                                    <td>36</td>
+                                    <td>180</td>
+                                    <td>6,480</td>
+                                    <td>6m × 6m work area</td>
+                                </tr>
+                                <tr>
+                                    <td>A.2</td>
+                                    <td>Mobilization of piling rig and equipment</td>
+                                    <td>Each</td>
+                                    <td>0.03</td>
+                                    <td>2,50,000</td>
+                                    <td>7,500</td>
+                                    <td>Prorated (30-35 piles per mobilization)</td>
+                                </tr>
+                                <tr>
+                                    <td>A.3</td>
+                                    <td>Setting out and marking pile positions</td>
+                                    <td>Each pile</td>
+                                    <td>1</td>
+                                    <td>5,500</td>
+                                    <td>5,500</td>
+                                    <td>Includes survey team & equipment</td>
+                                </tr>
+                                <tr>
+                                    <td>A.4</td>
+                                    <td>Construction of working platform</td>
+                                    <td>Sq.m</td>
+                                    <td>36</td>
+                                    <td>1,200</td>
+                                    <td>43,200</td>
+                                    <td>Increased thickness for heavy equipment</td>
+                                </tr>
+                                <tr>
+                                    <td>A.5</td>
+                                    <td>Barricading and safety arrangements</td>
+                                    <td>Running meter</td>
+                                    <td>24</td>
+                                    <td>850</td>
+                                    <td>20,400</td>
+                                    <td>Perimeter of work area</td>
+                                </tr>
+                                <tr style="background: #fff3cd; font-weight: 600;">
+                                    <td colspan="5">Subtotal A: Site Preparation & Mobilization</td>
+                                    <td>88,480</td>
+                                    <td></td>
+                                </tr>
+                                <tr style="background: #e3f2fd; font-weight: 600;">
+                                    <td colspan="7">B. BORING AND EXCAVATION</td>
+                                </tr>
+                                <tr>
+                                    <td>B.1</td>
+                                    <td>Boring in soil strata up to 10m depth</td>
+                                    <td>Running meter</td>
+                                    <td>10</td>
+                                    <td>6,800</td>
+                                    <td>68,000</td>
+                                    <td>Increased rate for urban area</td>
+                                </tr>
+                                <tr>
+                                    <td>B.2</td>
+                                    <td>Boring in soil strata 10m to 20m depth</td>
+                                    <td>Running meter</td>
+                                    <td>10</td>
+                                    <td>8,500</td>
+                                    <td>85,000</td>
+                                    <td>Increased rate for depth challenges</td>
+                                </tr>
+                                <tr>
+                                    <td>B.5</td>
+                                    <td>Boring in hard rock for socketing</td>
+                                    <td>Running meter</td>
+                                    <td>3</td>
+                                    <td>28,000</td>
+                                    <td>84,000</td>
+                                    <td>Increased rate for hard rock drilling</td>
+                                </tr>
+                                <tr style="background: #fff3cd; font-weight: 600;">
+                                    <td colspan="5">Subtotal B: Boring and Excavation</td>
+                                    <td>3,98,500</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Rate Card Tab -->
+                <div id="rate" class="tab-content" style="display: none;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Item No.</th>
+                                <th>Description</th>
+                                <th>Unit</th>
+                                <th>Rate (INR)</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #e3f2fd; font-weight: 600;">
+                                <td colspan="6">A. SITE PREPARATION & MOBILIZATION</td>
+                            </tr>
+                            <tr>
+                                <td>A. SITE PREPARATION</td>
+                                <td>A.1</td>
+                                <td>Site clearance and preparation</td>
+                                <td>Sq.m</td>
+                                <td>180</td>
+                                <td>Includes removal of vegetation, debris, and leveling</td>
+                            </tr>
+                            <tr>
+                                <td>A. SITE PREPARATION</td>
+                                <td>A.2</td>
+                                <td>Mobilization of piling rig and equipment</td>
+                                <td>Each</td>
+                                <td>2,50,000</td>
+                                <td>Per rig, includes transportation, setup</td>
+                            </tr>
+                            <tr>
+                                <td>A. SITE PREPARATION</td>
+                                <td>A.3</td>
+                                <td>Setting out and marking pile positions</td>
+                                <td>Each pile</td>
+                                <td>5,500</td>
+                                <td>Includes surveying and temporary benchmarks</td>
+                            </tr>
+                            <tr style="background: #e8f5e8; font-weight: 600;">
+                                <td colspan="6">B. BORING AND EXCAVATION</td>
+                            </tr>
+                            <tr>
+                                <td>B. BORING AND EXCAVATION</td>
+                                <td>B.1</td>
+                                <td>Boring in soil strata up to 10m depth</td>
+                                <td>Running meter</td>
+                                <td>6,800</td>
+                                <td>Includes disposal of excavated material</td>
+                            </tr>
+                            <tr>
+                                <td>B. BORING AND EXCAVATION</td>
+                                <td>B.2</td>
+                                <td>Boring in soil strata 10m to 20m depth</td>
+                                <td>Running meter</td>
+                                <td>8,500</td>
+                                <td>Includes disposal of excavated material</td>
+                            </tr>
+                            <tr>
+                                <td>B. BORING AND EXCAVATION</td>
+                                <td>B.5</td>
+                                <td>Boring in hard rock for socketing</td>
+                                <td>Running meter</td>
+                                <td>28,000</td>
+                                <td>Using appropriate drilling tools</td>
+                            </tr>
+                            <tr style="background: #fff3cd; font-weight: 600;">
+                                <td colspan="6">C. MATERIALS</td>
+                            </tr>
+                            <tr>
+                                <td>C. MATERIALS</td>
+                                <td>C.1</td>
+                                <td>Bentonite powder</td>
+                                <td>MT</td>
+                                <td>22,000</td>
+                                <td>Including transportation to site</td>
+                            </tr>
+                            <tr>
+                                <td>C. MATERIALS</td>
+                                <td>C.2</td>
+                                <td>Cement (OPC 53 Grade)</td>
+                                <td>MT</td>
+                                <td>8,200</td>
+                                <td>In good condition, not older than 3 months</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Work Plan Tab -->
+                <div id="work" class="tab-content" style="display: none;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Task Description</th>
+                                <th>Duration</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Predecessor</th>
+                                <th>Resources Required</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #e3f2fd; font-weight: 600;">
+                                <td>1</td>
+                                <td>PRE-CONSTRUCTION ACTIVITIES</td>
+                                <td>7 days</td>
+                                <td>01-Jun-25</td>
+                                <td>07-Jun-25</td>
+                                <td>-</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>1.1</td>
+                                <td>Site survey and pile location marking</td>
+                                <td>1 day</td>
+                                <td>01-Jun-25</td>
+                                <td>01-Jun-25</td>
+                                <td>-</td>
+                                <td>Survey team, Total station, Markers</td>
+                                <td>Sunday work to prepare for Monday start</td>
+                            </tr>
+                            <tr>
+                                <td>1.2</td>
+                                <td>Method statement preparation and approval</td>
+                                <td>3 days</td>
+                                <td>01-Jun-25</td>
+                                <td>03-Jun-25</td>
+                                <td>-</td>
+                                <td>Engineer, Technical documents</td>
+                                <td>Can run parallel with site survey</td>
+                            </tr>
+                            <tr>
+                                <td>1.3</td>
+                                <td>Traffic management plan and approvals</td>
+                                <td>5 days</td>
+                                <td>01-Jun-25</td>
+                                <td>05-Jun-25</td>
+                                <td>-</td>
+                                <td>Traffic consultant, Local authorities</td>
+                                <td>Urban area requires detailed planning</td>
+                            </tr>
+                            <tr>
+                                <td>1.4</td>
+                                <td>Utility scanning and clearance</td>
+                                <td>2 days</td>
+                                <td>02-Jun-25</td>
+                                <td>03-Jun-25</td>
+                                <td>1.1</td>
+                                <td>GPR scanner, Utility locator team</td>
+                                <td>Critical to avoid underground utilities</td>
+                            </tr>
+                            <tr style="background: #e8f5e8; font-weight: 600;">
+                                <td>2</td>
+                                <td>EQUIPMENT MOBILIZATION</td>
+                                <td>2 days</td>
+                                <td>08-Jun-25</td>
+                                <td>09-Jun-25</td>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>2.1</td>
+                                <td>Transport of piling rig to site</td>
+                                <td>1 day</td>
+                                <td>08-Jun-25</td>
+                                <td>08-Jun-25</td>
+                                <td>1.7</td>
+                                <td>Trailer, Traffic escort</td>
+                                <td>Sunday transport to avoid traffic</td>
+                            </tr>
+                            <tr>
+                                <td>2.2</td>
+                                <td>Setup of piling rig</td>
+                                <td>0.5 day</td>
+                                <td>09-Jun-25</td>
+                                <td>09-Jun-25</td>
+                                <td>2.1</td>
+                                <td>Crane, Rig technicians</td>
+                                <td>Morning setup</td>
+                            </tr>
+                            <tr style="background: #fff3cd; font-weight: 600;">
+                                <td>3</td>
+                                <td>REINFORCEMENT CAGE FABRICATION</td>
+                                <td>4 days</td>
+                                <td>08-Jun-25</td>
+                                <td>11-Jun-25</td>
+                                <td>1.2</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>3.1</td>
+                                <td>Material procurement and delivery</td>
+                                <td>1 day</td>
+                                <td>08-Jun-25</td>
+                                <td>08-Jun-25</td>
+                                <td>1.2</td>
+                                <td>Reinforcement steel, Transport trucks</td>
+                                <td>Sunday delivery to prepare for Monday work</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <script>
+                function showTab(tabName) {
+                    // Hide all tab contents
+                    const tabs = ['specs', 'costing', 'rate', 'work'];
+                    tabs.forEach(tab => {
+                        document.getElementById(tab).style.display = 'none';
+                    });
+                    
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    
+                    // Show selected tab and mark as active
+                    document.getElementById(tabName).style.display = 'block';
+                    event.target.classList.add('active');
+                }
+
+                function openModal(imageType) {
+                    const modal = document.getElementById('imageModal');
+                    const modalImg = document.getElementById('modalImage');
+                    const modalTitle = document.getElementById('modalTitle');
+                    
+                    if (imageType === 'original') {
+                        modalTitle.textContent = 'Original Engineering Drawing (foundation_plan.pdf)';
+                        modalImg.style.background = 'white';
+                        modalImg.innerHTML = `
+                            <div style="width: 100%; height: 100%; padding: 20px; overflow: auto; text-align: center;">
+                                <div style="border: 2px solid #333; background: white; padding: 20px; display: inline-block; max-width: 100%;">
+                                    <!-- Engineering Drawing Content -->
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                                        <div style="text-align: left;">
+                                            <div style="border: 2px solid #000; padding: 10px; width: 200px;">
+                                                <div style="font-weight: bold; text-align: center; border-bottom: 1px solid #000; padding-bottom: 5px;">LONGITUDINAL SECTION</div>
+                                                <div style="border: 1px solid #000; margin: 10px 0; padding: 5px; text-align: center;">PIER</div>
+                                                <div style="border: 1px solid #000; padding: 15px; text-align: center;">
+                                                    <div style="font-weight: bold;">PILE CAP</div>
+                                                    <div style="font-size: 0.8em;">(1800 x 2000 x 1500 TYPICAL)</div>
+                                                    <div style="font-size: 0.8em;">PILE DIAMETER 1000 MM</div>
+                                                </div>
+                                                <div style="margin-top: 20px; text-align: center;">
+                                                    <div style="border-left: 2px dashed #666; height: 100px; margin: 0 auto; width: 2px; position: relative;">
+                                                        <div style="position: absolute; bottom: 0; left: -25px; width: 50px; text-align: center; font-size: 0.7em;">GL</div>
+                                                    </div>
+                                                    <div style="margin-top: 20px; font-size: 0.8em;">WL</div>
+                                                    <div style="margin-top: 40px; font-size: 0.8em;">TV CLAY</div>
+                                                    <div style="margin-top: 60px;">
+                                                        <div style="border-bottom: 3px wavy #333; width: 100%; height: 20px;"></div>
+                                                        <div style="font-weight: bold; font-size: 0.8em;">ROCK SOCKET</div>
+                                                        <div style="font-size: 0.7em;">(MIN 3D = 3000 MM)</div>
+                                                    </div>
+                                                    <div style="margin-top: 20px; font-weight: bold; font-size: 0.8em;">PILE TOE</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="text-align: center; flex: 1; margin: 0 20px;">
+                                            <div style="font-weight: bold; margin-bottom: 20px;">CROSS SECTION A-A</div>
+                                            <div style="width: 150px; height: 150px; border: 3px solid #000; border-radius: 50%; margin: 0 auto; position: relative;">
+                                                <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 1px dashed #666; border-radius: 50%;"></div>
+                                                <!-- Reinforcement dots -->
+                                                <div style="position: absolute; top: 20px; left: 50%; width: 4px; height: 4px; background: #000; border-radius: 50%; transform: translateX(-50%);"></div>
+                                                <div style="position: absolute; top: 35px; right: 25px; width: 4px; height: 4px; background: #000; border-radius: 50%;"></div>
+                                                <div style="position: absolute; right: 20px; top: 50%; width: 4px; height: 4px; background: #000; border-radius: 50%; transform: translateY(-50%);"></div>
+                                                <div style="position: absolute; bottom: 35px; right: 25px; width: 4px; height: 4px; background: #000; border-radius: 50%;"></div>
+                                                <div style="position: absolute; bottom: 20px; left: 50%; width: 4px; height: 4px; background: #000; border-radius: 50%; transform: translateX(-50%);"></div>
+                                                <div style="position: absolute; bottom: 35px; left: 25px; width: 4px; height: 4px; background: #000; border-radius: 50%;"></div>
+                                                <div style="position: absolute; left: 20px; top: 50%; width: 4px; height: 4px; background: #000; border-radius: 50%; transform: translateY(-50%);"></div>
+                                                <div style="position: absolute; top: 35px; left: 25px; width: 4px; height: 4px; background: #000; border-radius: 50%;"></div>
+                                                <div style="position: absolute; right: -50px; top: 50%; font-size: 0.7em; transform: translateY(-50%);">75 MM MIN COVER</div>
+                                            </div>
+                                            <div style="margin-top: 10px; font-size: 0.8em;">SECTION A-A (AT PILE SHAFT)</div>
+                                        </div>
+                                        
+                                        <div style="text-align: left; width: 300px;">
+                                            <div style="font-weight: bold; margin-bottom: 10px;">CONSTRUCTION SPECIFICATIONS:</div>
+                                            <div style="font-size: 0.7em; line-height: 1.3;">
+                                                • BORING METHOD: ROTARY DRILLING RIG WITH MIN. TORQUE OF 20 TON-METER<br>
+                                                • BENTONITE SLURRY: DENSITY 1.04-1.15 g/cc, VISCOSITY 30-45 sec.<br>
+                                                • pH 9.0-11.5, SAND CONTENT < 4%<br>
+                                                • PILE VERTICALITY TOLERANCE: 1:80 (MAX. DEVIATION FROM PLUMB)<br>
+                                                • POSITION TOLERANCE: ±75mm IN PLAN POSITION<br>
+                                                • CONCRETE PLACEMENT: TREMIE METHOD<br>
+                                                • MANDATORY LOAD TESTING: INITIAL TEST TO 2.5 TIMES DESIGN LOAD<br>
+                                                • ROUTINE TESTS TO 1.5 TIMES DESIGN LOAD<br>
+                                                • INTEGRITY TESTING: LOW STRAIN PIT AND CROSS-HOLE SONIC LOGGING
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                                        <div style="text-align: left; width: 200px;">
+                                            <div style="font-weight: bold; margin-bottom: 10px;">PILE END ZONE DETAIL</div>
+                                            <div style="border: 1px solid #000; padding: 10px; width: 120px;">
+                                                <div style="border-bottom: 3px solid #000; margin-bottom: 2px;"></div>
+                                                <div style="border-bottom: 3px solid #000; margin-bottom: 2px;"></div>
+                                                <div style="border-bottom: 3px solid #000; margin-bottom: 2px;"></div>
+                                                <div style="border-bottom: 1px solid #000; margin-bottom: 8px;"></div>
+                                                <div style="border-bottom: 1px solid #000; margin-bottom: 8px;"></div>
+                                                <div style="border-bottom: 1px solid #000; margin-bottom: 8px;"></div>
+                                                <div style="border-bottom: 3px solid #000; margin-bottom: 2px;"></div>
+                                                <div style="border-bottom: 3px solid #000; margin-bottom: 2px;"></div>
+                                            </div>
+                                            <div style="font-size: 0.7em; margin-top: 5px;">
+                                                END ZONE:<br>12mm SPIRAL @ 100mm PITCH<br>
+                                                TRANSITION ZONE<br>NORMAL ZONE:<br>12mm SPIRAL @ 150mm PITCH<br><br>
+                                                END ZONE LENGTH: 3000mm<br>(= 3 x PILE DIAMETER)
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="text-align: left; width: 300px;">
+                                            <div style="font-weight: bold; margin-bottom: 10px;">MATERIAL SPECIFICATIONS</div>
+                                            <div style="font-weight: bold;">CONCRETE:</div>
+                                            <div style="font-size: 0.7em; line-height: 1.3;">
+                                                • GRADE: M35 (CHARACTERISTIC STRENGTH 35 MPa AT 28 DAYS)<br>
+                                                • CEMENT CONTENT: 450 kg/m³ (MINIMUM)<br>
+                                                • WATER-CEMENT RATIO: 0.40 (MAXIMUM)<br>
+                                                • MINIMUM SLUMP: 150-200 mm<br>
+                                                • CEMENT TYPE: OPC 53 GRADE OR PSC CONFORMING TO IS:12269/IS:455<br>
+                                                • AGGREGATES: AS PER IS:383, MAX SIZE 20mm<br>
+                                                • ADMIXTURES: HIGH RANGE WATER REDUCER (SUPERPLASTICIZER)<br>
+                                                • 28-DAY AVERAGE COMPRESSIVE STRENGTH ≥ 43 MPa<br>
+                                                • DURABILITY: WATER PENETRATION AS PER DIN 1048 < 25mm
+                                            </div>
+                                            
+                                            <div style="font-weight: bold; margin-top: 15px;">DESIGN PARAMETERS:</div>
+                                            <div style="font-size: 0.7em; line-height: 1.3;">
+                                                • DESIGN VERTICAL LOAD: 900-1200 TONS (SITE SPECIFIC)<br>
+                                                • LATERAL LOAD: 40-60 TONS (SITE SPECIFIC)<br>
+                                                • FACTOR OF SAFETY: 2.5 (STATIC), 1.5 (SEISMIC)
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="text-align: left; width: 200px;">
+                                            <div style="border: 2px solid #000; padding: 10px; margin-bottom: 20px;">
+                                                <div style="font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 5px;">REVISIONS</div>
+                                                <div style="font-size: 0.8em; margin-top: 5px;">REV.0 - INITIAL ISSUE</div>
+                                            </div>
+                                            
+                                            <div style="border: 2px solid #000; padding: 10px;">
+                                                <div style="font-weight: bold; font-size: 0.8em;">TITLE: 1000 MM DIAMETER REINFORCED CONCRETE</div>
+                                                <div style="font-weight: bold; font-size: 0.8em;">PILE FOUNDATION - METRO RAIL APPLICATION</div>
+                                                <div style="font-size: 0.7em; margin-top: 5px;">
+                                                    PROJECT: METRO RAIL VIADUCT/STATION FOUNDATION<br>
+                                                    DRAWING NO: MRPILE-1000-01 DATE: MAY 19, 2025<br>
+                                                    SCALE: NOT TO SCALE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SHEET: 1 OF 1
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="margin-top: 20px;">
+                                        <div style="font-weight: bold; margin-bottom: 10px;">PILE REINFORCEMENT DETAILS</div>
+                                        <table style="border-collapse: collapse; border: 1px solid #000; font-size: 0.8em;">
+                                            <tr style="background: #f0f0f0;">
+                                                <th style="border: 1px solid #000; padding: 5px;">COMPONENT</th>
+                                                <th style="border: 1px solid #000; padding: 5px;">SPECIFICATION</th>
+                                                <th style="border: 1px solid #000; padding: 5px;">REMARK</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid #000; padding: 5px;">MAIN BARS OUTER</td>
+                                                <td style="border: 1px solid #000; padding: 5px;">16-32mm Fe 500</td>
+                                                <td style="border: 1px solid #000; padding: 5px;">EPOXY COATED</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid #000; padding: 5px;">MAIN BARS INNER</td>
+                                                <td style="border: 1px solid #000; padding: 5px;">10-25mm Fe 500</td>
+                                                <td style="border: 1px solid #000; padding: 5px;">EPOXY COATED</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: 1px solid #000; padding: 5px;">SPIRAL REINFORCEMENT</td>
+                                                <td style="border: 1px solid #000; padding: 5px;">12mm Fe 500</td>
+                                                <td style="border: 1px solid #000; padding: 5px;">100/150mm PITCH</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
+                                    Original Foundation Plan Drawing - Metro Rail Pile Foundation Design
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        modalTitle.textContent = 'AI-Generated Final Design (Optimized)';
+                        modalImg.style.background = 'white';
+                        modalImg.innerHTML = `
+                            <div style="width: 100%; height: 100%; padding: 20px; overflow: auto; text-align: center;">
+                                <div style="border: 2px solid #1f77b4; background: white; padding: 20px; display: inline-block; max-width: 100%;">
+                                    <!-- Same drawing structure but with optimization highlights -->
+                                    <div style="background: #e8f5e8; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: left;">
+                                        <strong>🤖 AI OPTIMIZATION APPLIED:</strong> This design has been optimized based on your chat requests.<br>
+                                        <strong>Key Changes:</strong> Pile length 25m→22m, Reinforcement optimized, Timeline reduced by 2 days, Cost savings: ₹45,000
+                                    </div>
+                                    
+                                    <!-- Modified engineering drawing with optimization highlights -->
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                                        <div style="text-align: left;">
+                                            <div style="border: 2px solid #1f77b4; padding: 10px; width: 200px; background: #f0f8ff;">
+                                                <div style="font-weight: bold; text-align: center; border-bottom: 1px solid #1f77b4; padding-bottom: 5px;">LONGITUDINAL SECTION</div>
+                                                <div style="border: 1px solid #1f77b4; margin: 10px 0; padding: 5px; text-align: center;">PIER</div>
+                                                <div style="border: 1px solid #1f77b4; padding: 15px; text-align: center; background: #fff3cd;">
+                                                    <div style="font-weight: bold;">PILE CAP</div>
+                                                    <div style="font-size: 0.8em;">(1800 x 2000 x 1500 TYPICAL)</div>
+                                                    <div style="font-size: 0.8em; color: #d63384;">PILE DIAMETER 1000 MM</div>
+                                                    <div style="font-size: 0.7em; color: #28a745; font-weight: bold;">✓ OPTIMIZED</div>
+                                                </div>
+                                                <div style="margin-top: 20px; text-align: center;">
+                                                    <div style="border-left: 2px dashed #1f77b4; height: 80px; margin: 0 auto; width: 2px; position: relative; background: #fff3cd;">
+                                                        <div style="position: absolute; bottom: 0; left: -40px; width: 80px; text-align: center; font-size: 0.7em; color: #d63384; font-weight: bold;">22m (REDUCED)</div>
+                                                    </div>
+                                                    <div style="margin-top: 20px; font-size: 0.8em;">WL</div>
+                                                    <div style="margin-top: 40px; font-size: 0.8em;">TV CLAY</div>
+                                                    <div style="margin-top: 40px; background: #fff3cd; padding: 5px; border-radius: 3px;">
+                                                        <div style="border-bottom: 3px wavy #1f77b4; width: 100%; height: 20px;"></div>
+                                                        <div style="font-weight: bold; font-size: 0.8em; color: #d63384;">ROCK SOCKET</div>
+                                                        <div style="font-size: 0.7em;">(OPTIMIZED = 2800 MM)</div>
+                                                        <div style="font-size: 0.6em; color: #28a745;">✓ ADJUSTED FOR GEOLOGY</div>
+                                                    </div>
+                                                    <div style="margin-top: 20px; font-weight: bold; font-size: 0.8em;">PILE TOE</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="text-align: center; flex: 1; margin: 0 20px;">
+                                            <div style="font-weight: bold; margin-bottom: 20px; color: #1f77b4;">CROSS SECTION A-A (OPTIMIZED)</div>
+                                            <div style="width: 150px; height: 150px; border: 3px solid #1f77b4; border-radius: 50%; margin: 0 auto; position: relative; background: #f0f8ff;">
+                                                <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 1px dashed #28a745; border-radius: 50%;"></div>
+                                                <!-- Optimized reinforcement pattern -->
+                                                <div style="position: absolute; top: 20px; left: 50%; width: 5px; height: 5px; background: #28a745; border-radius: 50%; transform: translateX(-50%);"></div>
+                                                <div style="position: absolute; top: 35px; right: 25px; width: 5px; height: 5px; background: #28a745; border-radius: 50%;"></div>
+                                                <div style="position: absolute; right: 20px; top: 50%; width: 5px; height: 5px; background: #28a745; border-radius: 50%; transform: translateY(-50%);"></div>
+                                                <div style="position: absolute; bottom: 35px; right: 25px; width: 5px; height: 5px; background: #28a745; border-radius: 50%;"></div>
+                                                <div style="position: absolute; bottom: 20px; left: 50%; width: 5px; height: 5px; background: #28a745; border-radius: 50%; transform: translateX(-50%);"></div>
+                                                <div style="position: absolute; bottom: 35px; left: 25px; width: 5px; height: 5px; background: #28a745; border-radius: 50%;"></div>
+                                                <div style="position: absolute; left: 20px; top: 50%; width: 5px; height: 5px; background: #28a745; border-radius: 50%; transform: translateY(-50%);"></div>
+                                                <div style="position: absolute; top: 35px; left: 25px; width: 5px; height: 5px; background: #28a745; border-radius: 50%;"></div>
+                                                <div style="position: absolute; right: -60px; top: 50%; font-size: 0.7em; transform: translateY(-50%); color: #28a745; font-weight: bold;">OPTIMIZED SPACING</div>
+                                            </div>
+                                            <div style="margin-top: 10px; font-size: 0.8em; color: #1f77b4;">SECTION A-A (OPTIMIZED REINFORCEMENT)</div>
+                                        </div>
+                                        
+                                        <div style="text-align: left; width: 300px; background: #f0f8ff; padding: 10px; border-radius: 4px;">
+                                            <div style="font-weight: bold; margin-bottom: 10px; color: #1f77b4;">OPTIMIZED SPECIFICATIONS:</div>
+                                            <div style="font-size: 0.7em; line-height: 1.3;">
+                                                • BORING METHOD: SAME (ROTARY DRILLING)<br>
+                                                • <span style="color: #28a745; font-weight: bold;">✓ REDUCED CONCRETE VOLUME: 18.1 m³ (vs 19.6 m³)</span><br>
+                                                • <span style="color: #28a745; font-weight: bold;">✓ OPTIMIZED CEMENT CONTENT: 415 kg/m³ (vs 450 kg/m³)</span><br>
+                                                • <span style="color: #28a745; font-weight: bold;">✓ PILE LENGTH REDUCED: 22m (vs 25m)</span><br>
+                                                • <span style="color: #28a745; font-weight: bold;">✓ CONSTRUCTION TIME: 10 days (vs 12 days)</span><br>
+                                                • SAME SAFETY STANDARDS MAINTAINED<br>
+                                                • <span style="color: #d63384; font-weight: bold;">COST SAVINGS: ₹45,000 (7.7%)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 4px; font-size: 0.85rem;">
+                                    <strong>🎯 AI OPTIMIZATION SUMMARY:</strong> This design maintains all structural integrity while achieving significant cost and time savings through intelligent analysis of soil conditions, material optimization, and construction sequence improvements.
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    modal.style.display = 'block';
+                }
+
+                function openTableModal(tableType) {
+                    event.stopPropagation();
+                    const modal = document.getElementById('tableModal');
+                    const modalContent = document.getElementById('modalTableContent');
+                    const modalTitle = document.getElementById('modalTableTitle');
+                    
+                    // Get the source table
+                    const sourceTable = document.querySelector(`#${tableType} .data-table`).cloneNode(true);
+                    sourceTable.className = 'data-table modal-table';
+                    
+                    // Set title based on table type
+                    const titles = {
+                        'specs': '📋 Specifications - Full View',
+                        'costing': '💰 Costing Breakdown - Full View',
+                        'rate': '📊 Rate Card - Full View',
+                        'work': '🗓 Work Plan - Full View'
+                    };
+                    
+                    modalTitle.textContent = titles[tableType] || 'Table - Full View';
+                    
+                    // Clear and add the table
+                    modalContent.innerHTML = '';
+                    modalContent.appendChild(sourceTable);
+                    
+                    modal.style.display = 'block';
+                }
+
+                function closeModal() {
+                    document.getElementById('imageModal').style.display = 'none';
+                    document.getElementById('tableModal').style.display = 'none';
+                }
+
+                // Close modal when clicking outside of it
+                window.onclick = function(event) {
+                    const imageModal = document.getElementById('imageModal');
+                    const tableModal = document.getElementById('tableModal');
+                    if (event.target === imageModal || event.target === tableModal) {
+                        closeModal();
+                    }
+                }
+            </script>
+
+            <!-- Image Modal -->
+            <div id="imageModal" class="modal">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <div class="modal-content" style="width: 95%; height: 90%;">
+                    <h3 id="modalTitle" style="margin-bottom: 1rem; color: #1f77b4;"></h3>
+                    <div id="modalImage" style="width: 100%; height: calc(100% - 60px); border: 1px solid #dee2e6; border-radius: 4px; background: #f8f9fa; overflow: auto;"></div>
+                </div>
+            </div>
+
+            <!-- Table Modal -->
+            <div id="tableModal" class="modal">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <div class="modal-content table-modal">
+                    <h3 id="modalTableTitle" style="margin-bottom: 1rem; color: #1f77b4;"></h3>
+                    <div id="modalTableContent" style="overflow: auto; max-height: calc(100% - 60px);"></div>
+                </div>
+            </div>
+
+            <!-- Chat Section -->
+            <div class="chat-section">
+                <!-- File Upload Section - Position 2 (Compact Single Row) -->
+                <div class="upload-section">
+                    <div class="upload-text">📤 Upload Engineering Drawing</div>
+                    <div class="upload-controls">
+                        <div class="current-file">
+                            <span>✅</span>
+                            <span>foundation_plan.pdf</span>
+                        </div>
+                        <button class="upload-button">Choose PDF File</button>
+                    </div>
+                </div>
+
+                <div class="chat-messages">
+                    <div class="message user">
+                        <div class="message-content">
+                            Please analyze the foundation design and extract specifications
+                        </div>
+                    </div>
+                    
+                    <div class="message assistant">
+                        <div class="message-content">
+                            I've analyzed your foundation plan. I found 4 main components: concrete footings (15 m³), steel reinforcement (2.5 tons), waterproofing membrane (120 m²), and backfill material (8 m³). The specifications have been updated in the table above. Would you like me to calculate the costing based on current rates?
+                        </div>
+                    </div>
+                    
+                    <div class="message user">
+                        <div class="message-content">
+                            Yes, please calculate costs and also optimize the design for cost efficiency
+                        </div>
+                    </div>
+                    
+                    <div class="message assistant">
+                        <div class="message-content">
+                            I've calculated the costs and updated the costing table. The total estimated cost is ₹5,87,230 for this pile foundation. I've also identified several optimization opportunities:<br><br>
+                            
+                            1. <strong>Pile Length Optimization:</strong> Reduced from 25m to 22m based on soil analysis<br>
+                            2. <strong>Material Efficiency:</strong> Optimized concrete mix design to reduce cement content by 8%<br>
+                            3. <strong>Construction Sequence:</strong> Updated work plan to reduce mobilization costs<br><br>
+                            
+                            These optimizations could save approximately ₹45,000 (7.7% reduction). Would you like me to update the final design and work plan with these optimizations?
+                        </div>
+                    </div>
+                    
+                    <div class="message user">
+                        <div class="message-content">
+                            That's excellent! Please implement the optimizations and update all the tables. Also generate a summary report.
+                        </div>
+                    </div>
+                    
+                    <div class="message assistant">
+                        <div class="message-content">
+                            Perfect! I've implemented all the optimizations and updated the tables:
+                            <br><br>
+                            ✅ <strong>Specifications updated</strong> - Optimized pile length and concrete grade<br>
+                            ✅ <strong>Costing recalculated</strong> - New total: ₹5,42,230 (₹45,000 saved)<br>
+                            ✅ <strong>Work plan updated</strong> - Optimized construction sequence<br>
+                            ✅ <strong>Rate card adjusted</strong> - Updated rates for bulk procurement<br><br>
+                            
+                            The optimized design maintains structural integrity while achieving significant cost savings. The work plan now shows a 2-day reduction in overall timeline. Would you like me to generate a detailed PDF report with all these optimizations?
+                        </div>
+                    </div>
+                    
+                    <div class="message user">
+                        <div class="message-content">
+                            Yes, please generate the PDF report and also show me a comparison between original and optimized design
+                        </div>
+                    </div>
+                    
+                    <div class="message assistant">
+                        <div class="message-content">
+                            I'm generating the comprehensive PDF report now. Here's a quick comparison:<br><br>
+                            
+                            <strong>📊 ORIGINAL vs OPTIMIZED COMPARISON:</strong><br><br>
+                            
+                            <strong>Cost:</strong> ₹5,87,230 → ₹5,42,230 (-7.7%)<br>
+                            <strong>Timeline:</strong> 14 days → 12 days (-14%)<br>
+                            <strong>Pile Length:</strong> 25m → 22m (-12%)<br>
+                            <strong>Concrete Volume:</strong> 19.6 m³ → 18.1 m³ (-7.6%)<br>
+                            <strong>Steel Quantity:</strong> 2.5 tons → 2.3 tons (-8%)<br><br>
+                            
+                            The PDF report includes detailed drawings, specifications, cost breakdown, work schedule, and quality control procedures. It's ready for client presentation and regulatory approval.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <textarea 
+                        placeholder="Type your message... (e.g., 'optimize the foundation design', 'update costing', 'generate work plan')" 
+                        style="flex: 1; padding: 1.5rem; border: 1px solid #dee2e6; border-radius: 4px; font-size: 0.9rem; line-height: 1.4; min-height: 60px; resize: vertical; font-family: inherit;">
+                    </textarea>
+                    <button style="background: #1f77b4; color: white; border: none; padding: 1.5rem 2rem; border-radius: 4px; cursor: pointer; font-weight: 500; height: 60px;">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
